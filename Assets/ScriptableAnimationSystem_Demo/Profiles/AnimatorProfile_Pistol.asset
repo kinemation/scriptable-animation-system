@@ -372,7 +372,7 @@ MonoBehaviour:
     name: WeaponBone
     index: 84
     isVirtual: 0
-  elementChainName: 
+  elementChainName: LeftHand
   handPoseOffset:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 1}

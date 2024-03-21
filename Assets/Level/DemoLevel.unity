@@ -836,6 +836,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 368298603298883400, guid: 66aed31a38993c041af9cfd94e2f8767,
+        type: 3}
+      propertyPath: fovSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 368298603298883400, guid: 66aed31a38993c041af9cfd94e2f8767,
+        type: 3}
+      propertyPath: fovEaseMode.easeFunc
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 710755589917636674, guid: 66aed31a38993c041af9cfd94e2f8767,
         type: 3}
       propertyPath: m_Name
