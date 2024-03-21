@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb1fb12a7d6f45ad9de02232442a17ff, type: 3}
+  m_Name: C_Knife_Pose
+  m_EditorClassIdentifier: 
+  clip: {fileID: 7400000, guid: 1a8956160afb70d4282c4fe6e6efe215, type: 2}
+  mask: {fileID: 31900000, guid: 572701504aa6c17498da75bfc9ecc1ea, type: 2}
+  spineRotation: {x: 0, y: 0, z: 0, w: 1}
+  overrideMask: {fileID: 0}
+  isAdditive: 0
+  blendTime:
+    blendInTime: 0.2
+    blendOutTime: 0
+    rateScale: 1
+  curves: []

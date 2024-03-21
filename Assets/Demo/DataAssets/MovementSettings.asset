@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4866b03a6252448db13225ec0b949cc9, type: 3}
+  m_Name: MovementSettings
+  m_EditorClassIdentifier: 
+  proneKey: 306
+  crouchKey: 99
+  sprintKey: 304
+  jumpKey: 32
+  slideKey: 120
+  idle:
+    velocity: 0
+    velocitySmoothing: 6.5
+  prone:
+    velocity: 0.5
+    velocitySmoothing: 2
+  crouching:
+    velocity: 1.1
+    velocitySmoothing: 4
+  walking:
+    velocity: 3
+    velocitySmoothing: 5
+  sprinting:
+    velocity: 6.5
+    velocitySmoothing: 3
+  crouchRatio: 0.65
+  jumpHeight: 4
+  airFriction: 0.3
+  airVelocity: 0.4
+  maxFallVelocity: 25
+  gravity: 10
+  slideCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.06801499
+      outSlope: -0.06801499
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.09470755
+      value: 1.0159665
+      inSlope: -0.14884387
+      outSlope: -0.14884387
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8216158
+      outWeight: 0.94548225
+    - serializedVersion: 3
+      time: 0.18171304
+      value: 0.9998123
+      inSlope: -0.13672924
+      outSlope: -0.13672924
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.82066864
+      outWeight: 0.20231141
+    - serializedVersion: 3
+      time: 0.86584693
+      value: 0.7566505
+      inSlope: -1.3981682
+      outSlope: -1.3981682
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.109684035
+      outWeight: 0.45155165
+    - serializedVersion: 3
+      time: 0.994751
+      value: 0
+      inSlope: -0.9734631
+      outSlope: -0.9734631
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.24875973
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  slideDirectionSmoothing: 15
+  slideSpeed: 0.9
