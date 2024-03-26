@@ -144,6 +144,7 @@ MonoBehaviour:
   freeAimInterpSpeed: 3
   freeAimInputScale: 0
   freeAimSpace: 2
+  useFreeAimProperty: UseFreeAim
   moveSwayPositionSpring:
     damping: {x: 0.35, y: 0.3, z: 0.4}
     stiffness: {x: 0.7, y: 0.8, z: 0.7}
@@ -156,6 +157,7 @@ MonoBehaviour:
     scale: {x: 1, y: 1, z: -3}
   moveSwayTargetDamping: 15
   moveSwaySpace: 2
+  moveInputProperty: MoveInput
   aimSwayPositionSpring:
     damping: {x: 0.5, y: 0.5, z: 0.5}
     stiffness: {x: 0.6, y: 0.6, z: 0.6}
@@ -168,6 +170,7 @@ MonoBehaviour:
     scale: {x: 5, y: 5, z: -5}
   aimSwayTargetDamping: 9
   aimSwaySpace: 2
+  mouseDeltaInputProperty: MouseDeltaInput
 --- !u!114 &-7139563932899588606
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -243,8 +246,9 @@ MonoBehaviour:
     name: WeaponBoneAdditive
     index: 85
     isVirtual: 0
-  adsScalar: 0.3
   interpSpeed: 0
+  aimingInputProperty: AimingWeight
+  adsScalar: 0.3
 --- !u!114 &-4213245232887500793
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -259,8 +263,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   alpha: 1
-  curveBlending: []
+  curveBlending:
+  - name: FullBodyWeight
+    mode: 1
+    source: 0
   linkDynamically: 0
+  mouseInputProperty: MouseInput
+  leanInputProperty: LeanInput
   pitchOffsetElements:
   - rigElement:
       name: Hips
@@ -352,10 +361,7 @@ MonoBehaviour:
   - name: FullBodyWeight
     mode: 1
     source: 0
-  - name: MaskAttachHand
-    mode: 1
-    source: 1
-  linkDynamically: 1
+  linkDynamically: 0
   handBone:
     name: Left_Hand
     index: 18
@@ -477,6 +483,8 @@ MonoBehaviour:
     name: Spine
     index: 12
     isVirtual: 0
+  stabilizationWeight: StabilizationWeight
+  weaponBoneWeight: WeaponBoneWeight
 --- !u!114 &5420389157322750660
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -527,6 +535,7 @@ MonoBehaviour:
     y: 0.242
     z: 0.208
   aimingSpeed: 1.9
+  isAimingProperty: IsAiming
 --- !u!114 &6564893101832071540
 MonoBehaviour:
   m_ObjectHideFlags: 3

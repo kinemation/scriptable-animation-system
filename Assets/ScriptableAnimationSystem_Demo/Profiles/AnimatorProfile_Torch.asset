@@ -103,6 +103,8 @@ MonoBehaviour:
     name: Spine
     index: 12
     isVirtual: 0
+  stabilizationWeight: StabilizationWeight
+  weaponBoneWeight: WeaponBoneWeight
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +186,8 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  mouseInputProperty: MouseInput
+  leanInputProperty: LeanInput
   pitchOffsetElements:
   - rigElement:
       name: Hips

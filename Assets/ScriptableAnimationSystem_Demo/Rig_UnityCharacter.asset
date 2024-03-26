@@ -295,6 +295,70 @@ MonoBehaviour:
       name: Left_ThumbDistal
       index: 37
       isVirtual: 0
+    elementChain:
+    - name: Left_Hand
+      index: 18
+      isVirtual: 0
+    - name: Left_IndexProximal
+      index: 19
+      isVirtual: 0
+    - name: Left_IndexIntermediate
+      index: 20
+      isVirtual: 0
+    - name: Left_IndexDistal
+      index: 21
+      isVirtual: 0
+    - name: Left_IndexDistalEnd
+      index: 22
+      isVirtual: 0
+    - name: Left_MiddleProximal
+      index: 23
+      isVirtual: 0
+    - name: Left_MiddleIntermediate
+      index: 24
+      isVirtual: 0
+    - name: Left_MiddleDistal
+      index: 25
+      isVirtual: 0
+    - name: Left_MiddleDistalEnd
+      index: 26
+      isVirtual: 0
+    - name: Left_PinkyProximal
+      index: 27
+      isVirtual: 0
+    - name: Left_PinkyIntermediate
+      index: 28
+      isVirtual: 0
+    - name: Left_PinkyDistal
+      index: 29
+      isVirtual: 0
+    - name: Left_PinkyDistalEnd
+      index: 30
+      isVirtual: 0
+    - name: Left_RingProximal
+      index: 31
+      isVirtual: 0
+    - name: Left_RingIntermediate
+      index: 32
+      isVirtual: 0
+    - name: Left_RingDistal
+      index: 33
+      isVirtual: 0
+    - name: Left_RingDistalEnd
+      index: 34
+      isVirtual: 0
+    - name: Left_ThumbProximal
+      index: 35
+      isVirtual: 0
+    - name: Left_ThumbIntermediate
+      index: 36
+      isVirtual: 0
+    - name: Left_ThumbDistal
+      index: 37
+      isVirtual: 0
+    - name: Left_ThumbDistalEnd
+      index: 38
+      isVirtual: 0
   rigCurves:
   - MaskAttachHand
   - WeaponBoneWeight

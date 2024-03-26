@@ -87,7 +87,7 @@ namespace Demo.Scripts.Runtime
         private float _sprintAnimatorInterp = 8f;
         private bool _wasMoving = false;
 
-        private IUserInputController _inputController;
+        private UserInputController _inputController;
 
         public bool IsInAir()
         {
@@ -462,7 +462,7 @@ namespace Demo.Scripts.Runtime
         {
             _controller = GetComponent<CharacterController>();
             _animator = GetComponentInChildren<Animator>();
-            _inputController = GetComponent<IUserInputController>();
+            _inputController = GetComponent<UserInputController>();
             
             _originalHeight = _controller.height;
             _originalCenter = _controller.center;

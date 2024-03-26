@@ -97,8 +97,8 @@ namespace Demo.Scripts.Runtime
         
         // ~Scriptable Animation System Integration
         private FPSAnimator _fpsAnimator;
-        private IUserInputController _userInput;
-        private IFPSCameraController _fpsCamera;
+        private UserInputController _userInput;
+        private FPSCameraController _fpsCamera;
         private IPlayablesController _playablesController;
         private RecoilAnimation _recoilAnimation;
         // ~Scriptable Animation System Integration
@@ -168,8 +168,8 @@ namespace Demo.Scripts.Runtime
             Cursor.lockState = CursorLockMode.Locked;
             
             _fpsAnimator = GetComponent<FPSAnimator>();
-            _userInput = GetComponent<IUserInputController>();
-            _fpsCamera = GetComponentInChildren<IFPSCameraController>();
+            _userInput = GetComponent<UserInputController>();
+            _fpsCamera = GetComponentInChildren<FPSCameraController>();
             _playablesController = GetComponent<IPlayablesController>();
             _recoilAnimation = GetComponent<RecoilAnimation>();
             _animator = GetComponent<Animator>();
@@ -458,7 +458,7 @@ namespace Demo.Scripts.Runtime
                     GetGun().gameObject.SetActive(false);
                     
                     _animator.SetFloat(OverlayType, 0);
-                    _userInput.SetValue(FPSAConstants.PlayablesWeightProperty, 0f);
+                    _userInput.SetValue(FPSANames.PlayablesWeight, 0f);
                     _userInput.SetValue("StabilizationWeight", 0f);
                     _fpsAnimator.LinkAnimatorProfile(unarmedProfile);
                 }

@@ -55,8 +55,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   alpha: 1
-  curveBlending: []
+  curveBlending:
+  - name: LookLayerWeight
+    mode: 0
+    source: 2
   linkDynamically: 0
+  mouseInputProperty: MouseInput
+  leanInputProperty: LeanInput
   pitchOffsetElements:
   - rigElement:
       name: Hips
@@ -274,6 +279,7 @@ MonoBehaviour:
   freeAimInterpSpeed: 3
   freeAimInputScale: 0
   freeAimSpace: 2
+  useFreeAimProperty: UseFreeAim
   moveSwayPositionSpring:
     damping: {x: 0.35, y: 0.3, z: 0.4}
     stiffness: {x: 0.7, y: 0.8, z: 0.7}
@@ -286,6 +292,7 @@ MonoBehaviour:
     scale: {x: 1, y: 1, z: -3}
   moveSwayTargetDamping: 15
   moveSwaySpace: 2
+  moveInputProperty: MoveInput
   aimSwayPositionSpring:
     damping: {x: 0.5, y: 0.5, z: 0.5}
     stiffness: {x: 0.6, y: 0.6, z: 0.6}
@@ -298,6 +305,7 @@ MonoBehaviour:
     scale: {x: 5, y: 5, z: -5}
   aimSwayTargetDamping: 9
   aimSwaySpace: 2
+  mouseDeltaInputProperty: MouseDeltaInput
 --- !u!114 &317458384766536076
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -348,6 +356,7 @@ MonoBehaviour:
     y: 0.399
     z: 0.404
   aimingSpeed: 1.8
+  isAimingProperty: IsAiming
 --- !u!114 &624730328850456579
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -384,8 +393,9 @@ MonoBehaviour:
     name: WeaponBoneAdditive
     index: 85
     isVirtual: 0
-  adsScalar: 0.3
   interpSpeed: 0
+  aimingInputProperty: AimingWeight
+  adsScalar: 0.3
 --- !u!114 &2097171418267287971
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -451,6 +461,8 @@ MonoBehaviour:
     name: Spine
     index: 12
     isVirtual: 0
+  stabilizationWeight: StabilizationWeight
+  weaponBoneWeight: WeaponBoneWeight
 --- !u!114 &5080528287839197063
 MonoBehaviour:
   m_ObjectHideFlags: 3
