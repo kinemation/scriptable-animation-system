@@ -25,8 +25,8 @@ MonoBehaviour:
       index: 48
       isVirtual: 0
     pose:
-      position: {x: 0, y: 0.03, z: 0.11}
-      rotation: {x: 0, y: 0, z: 0.1373583, w: -0.99052143}
+      position: {x: 0.02, y: 0.06, z: 0}
+      rotation: {x: 0, y: 0, z: 0.06601266, w: -0.99781877}
       scale: {x: 0, y: 0, z: 0}
     space: 2
     modifyMode: 0
@@ -361,6 +361,9 @@ MonoBehaviour:
   - name: FullBodyWeight
     mode: 1
     source: 0
+  - name: MaskAttachHand
+    mode: 1
+    source: 1
   linkDynamically: 0
   handBone:
     name: Left_Hand

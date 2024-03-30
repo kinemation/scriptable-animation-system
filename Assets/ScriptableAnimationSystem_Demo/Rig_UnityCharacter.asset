@@ -287,14 +287,6 @@ MonoBehaviour:
     isVirtual: 0
   rigElementChains:
   - chainName: LeftHand
-    from:
-      name: Left_Hand
-      index: 18
-      isVirtual: 0
-    to:
-      name: Left_ThumbDistal
-      index: 37
-      isVirtual: 0
     elementChain:
     - name: Left_Hand
       index: 18
