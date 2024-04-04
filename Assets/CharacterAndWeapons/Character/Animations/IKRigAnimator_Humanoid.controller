@@ -1256,12 +1256,12 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: IK
     m_StateMachine: {fileID: -860014591523789047}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: 8df33789bd775e6449b1d715a745b3b0, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
+    m_DefaultWeight: 1
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
