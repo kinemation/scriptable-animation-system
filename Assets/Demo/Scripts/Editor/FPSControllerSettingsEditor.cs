@@ -9,17 +9,18 @@ namespace Demo.Scripts.Editor
     [CustomEditor(typeof(FPSControllerSettings), true)]
     public class FPSControllerSettingsEditor : UnityEditor.Editor
     {
-        private TabInspectorWidget _tabInspectorWidget;
+        //private TabInspectorWidget _tabInspectorWidget;
         
         private void OnEnable()
         {
-            _tabInspectorWidget = new TabInspectorWidget(serializedObject);
-            _tabInspectorWidget.Init();
+            //_tabInspectorWidget = new TabInspectorWidget(serializedObject);
+            //_tabInspectorWidget.Init();
         }
         
         public override void OnInspectorGUI()
         {
-            _tabInspectorWidget.Render();
+            base.OnInspectorGUI();
+            //_tabInspectorWidget.Render();
         }
     }
 }
