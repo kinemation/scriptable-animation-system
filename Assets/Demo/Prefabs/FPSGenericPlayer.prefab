@@ -2508,7 +2508,6 @@ GameObject:
   - component: {fileID: 7621312306802223834}
   - component: {fileID: 7948552439935663105}
   - component: {fileID: 7948552439935663111}
-  - component: {fileID: 7948552439935663110}
   - component: {fileID: 7948552439935663167}
   - component: {fileID: 7948552439935663166}
   - component: {fileID: 7948552439935663107}
@@ -2516,6 +2515,7 @@ GameObject:
   - component: {fileID: 7948552439935663108}
   - component: {fileID: 7948552439935663113}
   - component: {fileID: 7733414983735900236}
+  - component: {fileID: 652359171}
   m_Layer: 0
   m_Name: FPSGenericPlayer
   m_TagString: Untagged
@@ -2580,19 +2580,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7948552439935663110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7102044144766431328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deb80aa9551eed74fbfdbd2713c9f7ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 7948552439935663167}
 --- !u!114 &7948552439935663167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2605,42 +2592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d0c9cae953fca4ab9737e1caf87cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unarmedProfile: {fileID: 11400000, guid: efef821363862f34fa7d317ea008cb11, type: 2}
-  turnInPlaceAngle: 85
-  turnCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2.021981
-      outSlope: 2.021981
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.06816644
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1.8089235
-      outSlope: 1.8089235
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.058966875
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  turnSpeed: 1.2
-  timeScale: 1
-  equipDelay: 0.8
-  sensitivity: 1
-  movementComponent: {fileID: 7948552439935663166}
-  weaponBone: {fileID: 2352358269746806569}
-  weaponPrefabs:
-  - {fileID: 2208818845419045761, guid: 930933797e08b5041bacaa2dd6b2ff69, type: 3}
-  - {fileID: 4910695102810075455, guid: 3f8355a8e4e41214892d595cdcdc527d, type: 3}
-  - {fileID: 4910695102810075455, guid: 4d0fe9de4668a374bb263a3c3dd41f13, type: 3}
+  settings: {fileID: 11400000, guid: 0c5416fd02cdf824988cdb6a02d47482, type: 2}
 --- !u!114 &7948552439935663166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2761,6 +2713,41 @@ MonoBehaviour:
   defaultPose: {fileID: -203655887218126122, guid: 83ba7afddb13a844d89df29eced45681,
     type: 3}
   loopPreview: 0
+--- !u!114 &652359171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102044144766431328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 5f52975c2aaf85746a129504f58e8e5e,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a7145557-7d88-42dc-bd8f-6e4eb520848e
+    m_ActionName: Gameplay/Fire[/Mouse/leftButton]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &7151070337432973102
 GameObject:
   m_ObjectHideFlags: 0

@@ -161,3 +161,5 @@ AvatarMask:
     m_Weight: 1
   - m_Path: Skeleton/IK_Hand_Right
     m_Weight: 1
+  - m_Path: Skeleton/WeaponBoneAdditive
+    m_Weight: 0

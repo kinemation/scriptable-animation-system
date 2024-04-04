@@ -2742,13 +2742,13 @@ GameObject:
   - component: {fileID: 298181842139659145}
   - component: {fileID: 6145671210753562977}
   - component: {fileID: 6145671210753562978}
-  - component: {fileID: 6145671210753562979}
   - component: {fileID: 6145671210753562980}
   - component: {fileID: 6145671210753562981}
   - component: {fileID: 6145671210753562982}
   - component: {fileID: 6145671210753562983}
   - component: {fileID: 6145671210753562984}
   - component: {fileID: 6145671210753562985}
+  - component: {fileID: 2643123026691404016}
   m_Layer: 0
   m_Name: FPSHumanoidPlayer
   m_TagString: Untagged
@@ -2826,19 +2826,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAiming: 0
   fireMode: 0
---- !u!114 &6145671210753562979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6451589767442807625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deb80aa9551eed74fbfdbd2713c9f7ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 6145671210753562981}
 --- !u!114 &6145671210753562980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2901,41 +2888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d0c9cae953fca4ab9737e1caf87cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unarmedProfile: {fileID: 11400000, guid: efef821363862f34fa7d317ea008cb11, type: 2}
-  turnInPlaceAngle: 89
-  turnCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2.021981
-      outSlope: 2.021981
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.06816644
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1.8089235
-      outSlope: 1.8089235
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.058966875
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  turnSpeed: 1.2
-  timeScale: 1
-  equipDelay: 0.8
-  sensitivity: 1
-  movementComponent: {fileID: 6145671210753562980}
-  weaponBone: {fileID: 6145671210972589904}
-  weaponPrefabs:
-  - {fileID: 3274254057187883935, guid: a5669a8ce1f8bbc4c9e1ab352c89531a, type: 3}
-  - {fileID: 4910695102810075455, guid: 56e9a6d969b28f54a927f17ed02fd987, type: 3}
+  settings: {fileID: 11400000, guid: e495a32834f196b42a491584ae5df2eb, type: 2}
 --- !u!114 &6145671210753562982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2992,6 +2945,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c335f42787b4884b37e45a476864de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2643123026691404016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6451589767442807625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 5f52975c2aaf85746a129504f58e8e5e,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &6493750368511058701
 GameObject:
   m_ObjectHideFlags: 0

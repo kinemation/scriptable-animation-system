@@ -334,6 +334,7 @@ MonoBehaviour:
     name: IK LeftElbow
     index: 52
     isVirtual: 0
+  animatedPivotOffset: {x: 0, y: 0, z: 0}
   hintTargetWeight: 0.5
   aimTargetBone:
     name: CameraSocket
@@ -388,6 +389,7 @@ MonoBehaviour:
     name: IK LeftElbow
     index: 52
     isVirtual: 0
+  animatedPivotOffset: {x: 0, y: 0, z: 0}
   hintTargetWeight: 0.8
   additiveBone:
     name: WeaponBoneAdditive

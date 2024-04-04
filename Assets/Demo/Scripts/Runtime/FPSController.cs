@@ -1,29 +1,16 @@
 // Designed by KINEMATION, 2024.
 
-using KINEMATION.FPSAnimationFramework.Runtime.Camera;
 using KINEMATION.FPSAnimationFramework.Runtime.Core;
-using KINEMATION.FPSAnimationFramework.Runtime.Playables;
-using KINEMATION.FPSAnimationFramework.Runtime.Recoil;
 using KINEMATION.KAnimationCore.Runtime.Input;
+using KINEMATION.KAnimationCore.Runtime.Core;
+using KINEMATION.KAnimationCore.Runtime.Rig;
 
-using System;
 using UnityEngine;
 using System.Collections.Generic;
-using KINEMATION.KAnimationCore.Runtime.Core;
+using UnityEngine.InputSystem;
 
 namespace Demo.Scripts.Runtime
 {
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
-    public class TabAttribute : PropertyAttribute
-    {
-        public readonly string tabName;
-
-        public TabAttribute(string tabName)
-        {
-            this.tabName = tabName;
-        }
-    }
-    
     public enum FPSAimState
     {
         None,
@@ -35,75 +22,54 @@ namespace Demo.Scripts.Runtime
     public enum FPSActionState
     {
         None,
-        Reloading,
+        PlayingAnimation,
         WeaponChange
     }
 
-    // An example-controller class
+    [RequireComponent(typeof(CharacterController), typeof(FPSMovement))]
     public class FPSController : MonoBehaviour
     {
         //~ Legacy Controller Interface
 
-        [Tab("Animation")] [Header("Unarmed State")] [SerializeField]
-        private FPSAnimatorProfile unarmedProfile;
-        
-        [Header("Turn In Place")]
-        [SerializeField] private float turnInPlaceAngle;
-        [SerializeField] private AnimationCurve turnCurve = new AnimationCurve(new Keyframe(0f, 0f));
-        [SerializeField] private float turnSpeed = 1f;
-        
-        [Header("General")] 
-        [Tab("Controller")]
-        [SerializeField] private float timeScale = 1f;
-        [SerializeField, Min(0f)] private float equipDelay = 0f;
+        [SerializeField] private FPSControllerSettings settings;
 
-        [Header("Camera")]
-        [SerializeField] [Min(0f)] private float sensitivity;
+        private FPSMovement _movementComponent;
 
-        [Header("Movement")] 
-        [SerializeField] private FPSMovement movementComponent;
-
-        [Tab("Weapon")] 
-        [SerializeField] private Transform weaponBone;
-        [SerializeField] private List<GameObject> weaponPrefabs;
+        private Transform _weaponBone;
         private Vector2 _playerInput;
-
-        // Used for free-look
-        private Vector2 _freeLookInput;
 
         private int _activeWeaponIndex;
         private int _previousWeaponIndex;
-        
-        private int _bursts;
-        
+
         private FPSAimState _aimState;
         private FPSActionState _actionState;
-        
+
         private static readonly int Crouching = Animator.StringToHash("Crouching");
-        private static readonly int OverlayType = Animator.StringToHash("OverlayType");
         private static readonly int TurnRight = Animator.StringToHash("TurnRight");
         private static readonly int TurnLeft = Animator.StringToHash("TurnLeft");
-        private static readonly int UnEquip = Animator.StringToHash("UnEquip");
-        
+
         private Quaternion _moveRotation;
         private float _turnProgress = 1f;
-        private bool _isTurning = false;
-        
+        private bool _isTurning;
+
         private bool _isUnarmed;
-        private float _lastRecoilTime;
         private Animator _animator;
-        
+
         //~ Legacy Controller Interface
-        
+
         // ~Scriptable Animation System Integration
         private FPSAnimator _fpsAnimator;
         private UserInputController _userInput;
-        private FPSCameraController _fpsCamera;
-        private IPlayablesController _playablesController;
-        private RecoilAnimation _recoilAnimation;
         // ~Scriptable Animation System Integration
-        
-        private List<Weapon> _instantiatedWeapons;
+
+        private List<FPSItem> _instantiatedWeapons;
+        private Vector2 _lookDeltaInput;
+        private bool _cursorLocked;
+
+        private bool IsSprinting()
+        {
+            return _movementComponent.MovementState == FPSMovementState.Sprinting;
+        }
         
         private bool HasActiveAction()
         {
@@ -118,47 +84,37 @@ namespace Demo.Scripts.Runtime
         private void InitializeMovement()
         {
             _moveRotation = transform.rotation;
-            movementComponent = GetComponent<FPSMovement>();
+            _movementComponent = GetComponent<FPSMovement>();
 
-            movementComponent.onStartMoving.AddListener(OnMoveStarted);
-            movementComponent.onStopMoving.AddListener(OnMoveEnded);
+            _movementComponent.onCrouch.AddListener(OnCrouch);
+            _movementComponent.onUncrouch.AddListener(OnUncrouch);
 
-            movementComponent.onCrouch.AddListener(OnCrouch);
-            movementComponent.onUncrouch.AddListener(OnUncrouch);
+            _movementComponent.onSprintStarted.AddListener(OnSprintStarted);
+            _movementComponent.onSprintEnded.AddListener(OnSprintEnded);
 
-            movementComponent.onJump.AddListener(OnJump);
-            movementComponent.onLanded.AddListener(OnLand);
+            _movementComponent.onSlideStarted.AddListener(OnSlideStarted);
 
-            movementComponent.onSprintStarted.AddListener(OnSprintStarted);
-            movementComponent.onSprintEnded.AddListener(OnSprintEnded);
-
-            movementComponent.onSlideStarted.AddListener(OnSlideStarted);
-            movementComponent.onSlideEnded.AddListener(OnSlideEnded);
-
-            movementComponent.slideCondition += () => !HasActiveAction();
-            movementComponent.sprintCondition += () => !HasActiveAction();
-            movementComponent.proneCondition += () => !HasActiveAction();
-
-            //movementComponent.onProneStarted.AddListener(() => collisionLayer.SetLayerAlpha(0f));
-            //movementComponent.onProneEnded.AddListener(() => collisionLayer.SetLayerAlpha(1f));
+            _movementComponent.slideCondition += () => !HasActiveAction();
+            _movementComponent.sprintCondition += () => !HasActiveAction();
+            _movementComponent.proneCondition += () => !HasActiveAction();
         }
 
         private void InitializeWeapons()
         {
-            _instantiatedWeapons = new List<Weapon>();
+            _instantiatedWeapons = new List<FPSItem>();
 
-            foreach (var prefab in weaponPrefabs)
+            foreach (var prefab in settings.weaponPrefabs)
             {
-                GameObject weapon = Instantiate(prefab, transform.position, Quaternion.identity);
+                var weapon = Instantiate(prefab, transform.position, Quaternion.identity);
 
                 var weaponTransform = weapon.transform;
-                
-                weaponTransform.parent = weaponBone;
+
+                weaponTransform.parent = _weaponBone;
                 weaponTransform.localPosition = Vector3.zero;
                 weaponTransform.localRotation = Quaternion.identity;
 
-                weapon.SetActive(false);
-                _instantiatedWeapons.Add(weapon.GetComponent<Weapon>());
+                _instantiatedWeapons.Add(weapon.GetComponent<FPSItem>());
+                weapon.gameObject.SetActive(false);
             }
         }
 
@@ -166,17 +122,15 @@ namespace Demo.Scripts.Runtime
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-            
+
+            _weaponBone = GetComponentInChildren<KRigComponent>().GetRigTransform(settings.weaponBone);
             _fpsAnimator = GetComponent<FPSAnimator>();
             _userInput = GetComponent<UserInputController>();
-            _fpsCamera = GetComponentInChildren<FPSCameraController>();
-            _playablesController = GetComponent<IPlayablesController>();
-            _recoilAnimation = GetComponent<RecoilAnimation>();
             _animator = GetComponent<Animator>();
 
             InitializeMovement();
             InitializeWeapons();
-            
+
             _actionState = FPSActionState.None;
             EquipWeapon();
         }
@@ -185,7 +139,7 @@ namespace Demo.Scripts.Runtime
         {
             DisableAim();
             _actionState = FPSActionState.WeaponChange;
-            _animator.CrossFade("CurveUnequip", 0.15f);
+            GetActiveItem().OnUnEquip();
         }
 
         public void ResetActionState()
@@ -193,159 +147,59 @@ namespace Demo.Scripts.Runtime
             _actionState = FPSActionState.None;
         }
 
-        public void RefreshStagedState()
-        {
-        }
-        
-        public void ResetStagedState()
-        {
-        }
-
         private void EquipWeapon()
         {
             if (_instantiatedWeapons.Count == 0) return;
 
             _instantiatedWeapons[_previousWeaponIndex].gameObject.SetActive(false);
-            var gun = _instantiatedWeapons[_activeWeaponIndex];
-            
-            gun.gameObject.SetActive(true);
-
-            _animator.SetFloat(OverlayType, (float) gun.overlayType);
-            _actionState = FPSActionState.None;
-            
-            _fpsAnimator.LinkAnimatorProfile(gun.gameObject);
-            _recoilAnimation.Init(gun.recoilData, gun.fireRate, gun.isAuto ? FireMode.Auto : FireMode.Semi);
-            
-            _animator.CrossFade("CurveEquip", 0.15f);
+            GetActiveItem().gameObject.SetActive(true);
+            GetActiveItem().OnEquip();
         }
-        
+
         private void DisableAim()
         {
-            if (!GetGun().canAim) return;
-            
-            _aimState = FPSAimState.None;
-            _userInput.SetValue("IsAiming", false);
-        }
-
-        private void ToggleAim()
-        {
-            if (!GetGun().canAim)
-            {
-                return;
-            }
-            
-            if (!IsAiming())
-            {
-                _aimState = FPSAimState.Aiming;
-                _userInput.SetValue("IsAiming", true);
-                _fpsCamera.UpdateTargetFOV(60f);
-            }
-            else
-            {
-                DisableAim();
-                _fpsCamera.UpdateTargetFOV(90f);
-            }
-
-            _recoilAnimation.isAiming = IsAiming();
+            if (GetActiveItem().OnAimReleased()) _aimState = FPSAimState.None;
         }
         
-        private void Fire()
-        {
-            if (HasActiveAction()) return;
-
-            GetGun().OnFire();
-            _fpsCamera.PlayCameraShake(GetGun().cameraShake);
-
-            if (_recoilAnimation != null && GetGun().recoilData != null)
-            {
-                _recoilAnimation.Play();
-            }
-
-            if (_recoilAnimation.fireMode == FireMode.Semi)
-            {
-                return;
-            }
-            
-            if (_recoilAnimation.fireMode == FireMode.Burst)
-            {
-                if (_bursts == 0)
-                {
-                    OnFireReleased();
-                    return;
-                }
-
-                _bursts--;
-            }
-            
-            Invoke(nameof(Fire), 60f / GetGun().fireRate);
-        }
-
         private void OnFirePressed()
         {
             if (_instantiatedWeapons.Count == 0 || HasActiveAction()) return;
-
-            // Do not allow firing faster than the allowed fire rate.
-            if (Time.unscaledTime - _lastRecoilTime < 60f / GetGun().fireRate)
-            {
-                return;
-            }
-            
-            _lastRecoilTime = Time.unscaledTime;
-            Fire();
-        }
-
-        private Weapon GetGun()
-        {
-            if (_instantiatedWeapons.Count == 0) return null;
-            
-            return _instantiatedWeapons[_activeWeaponIndex];
+            GetActiveItem().OnFirePressed();
         }
 
         private void OnFireReleased()
         {
             if (_instantiatedWeapons.Count == 0) return;
-            
-            if (_recoilAnimation != null)
-            {
-                _recoilAnimation.Stop();
-            }
-            
-            CancelInvoke(nameof(Fire));
+            GetActiveItem().OnFireReleased();
         }
 
-        private void OnMoveStarted()
+        private FPSItem GetActiveItem()
         {
+            if (_instantiatedWeapons.Count == 0) return null;
+            return _instantiatedWeapons[_activeWeaponIndex];
         }
-
-        private void OnMoveEnded()
-        {
-        }
-
+        
         private void OnSlideStarted()
         {
             _animator.CrossFade("Sliding", 0.1f);
-        }
-
-        private void OnSlideEnded()
-        {
         }
 
         private void OnSprintStarted()
         {
             OnFireReleased();
             DisableAim();
-            
+
             _aimState = FPSAimState.None;
-            
-            _userInput.SetValue("StabilizationWeight", 0f);
-            _userInput.SetValue("PlayablesWeight", 0f);
+
+            _userInput.SetValue(FPSANames.StabilizationWeight, 0f);
+            _userInput.SetValue(FPSANames.PlayablesWeight, 0f);
             _userInput.SetValue("LookLayerWeight", 0.3f);
         }
 
         private void OnSprintEnded()
         {
-            _userInput.SetValue("StabilizationWeight", 1f);
-            _userInput.SetValue("PlayablesWeight", 1f);
+            _userInput.SetValue(FPSANames.StabilizationWeight, 1f);
+            _userInput.SetValue(FPSANames.PlayablesWeight, 1f);
             _userInput.SetValue("LookLayerWeight", 1f);
         }
 
@@ -358,130 +212,23 @@ namespace Demo.Scripts.Runtime
         {
             _animator.SetBool(Crouching, false);
         }
-
-        private void OnJump()
-        {
-        }
-
-        private void OnLand()
-        {
-        }
-
-        private void TryReload()
-        {
-            if (HasActiveAction()) return;
-
-            var reloadClip = GetGun().reloadClip;
-
-            if (reloadClip == null) return;
-            
-            OnFireReleased();
-
-            _playablesController.PlayAnimation(reloadClip, 0f);
-            GetGun().Reload();
-            _actionState = FPSActionState.Reloading;
-        }
-
-        private void TryGrenadeThrow()
-        {
-            if (HasActiveAction()) return;
-            if (GetGun().grenadeClip == null) return;
-            
-            OnFireReleased();
-            DisableAim();
-            _actionState = FPSActionState.Reloading;
-        }
-
-        private bool _isLeaning;
         
-        private void ChangeWeapon_Internal(int newIndex)
+        private bool _isLeaning;
+
+        private void StartWeaponChange(int newIndex)
         {
             if (newIndex == _activeWeaponIndex || newIndex > _instantiatedWeapons.Count - 1)
             {
                 return;
             }
-            
-            _previousWeaponIndex = _activeWeaponIndex;
-            _activeWeaponIndex = newIndex;
-            
-            OnFireReleased();
 
             UnequipWeapon();
-            Invoke(nameof(EquipWeapon), equipDelay);
-        }
 
-        private void HandleWeaponChangeInput()
-        {
-            if (movementComponent.PoseState == FPSPoseState.Prone) return;
-            if (HasActiveAction() || _instantiatedWeapons.Count == 0) return;
+            OnFireReleased();
+            Invoke(nameof(EquipWeapon), settings.equipDelay);
 
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                ChangeWeapon_Internal(_activeWeaponIndex + 1 > _instantiatedWeapons.Count - 1
-                    ? 0
-                    : _activeWeaponIndex + 1);
-                return;
-            }
-            
-            for (int i = (int) KeyCode.Alpha1; i <= (int) KeyCode.Alpha9; i++)
-            {
-                if (Input.GetKeyDown((KeyCode) i))
-                {
-                    ChangeWeapon_Internal(i - (int) KeyCode.Alpha1);
-                }
-            }
-        }
-
-        private void UpdateActionInput()
-        {
-            if (movementComponent.MovementState == FPSMovementState.Sprinting)
-            {
-                return;
-            }
-            
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                TryReload();
-            }
-
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                TryGrenadeThrow();
-            }
-            
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                _isUnarmed = !_isUnarmed;
-
-                if (_isUnarmed)
-                {
-                    GetGun().gameObject.SetActive(false);
-                    
-                    _animator.SetFloat(OverlayType, 0);
-                    _userInput.SetValue(FPSANames.PlayablesWeight, 0f);
-                    _userInput.SetValue("StabilizationWeight", 0f);
-                    _fpsAnimator.LinkAnimatorProfile(unarmedProfile);
-                }
-                else
-                {
-                    GetGun().gameObject.SetActive(true);
-                    
-                    _animator.SetFloat(OverlayType, (int) GetGun().overlayType);
-                    _userInput.SetValue("PlayablesWeight", 1f);
-                    _userInput.SetValue("StabilizationWeight", 1f);
-                    _fpsAnimator.LinkAnimatorProfile(GetGun().gameObject);
-                }
-            }
-
-            HandleWeaponChangeInput();
-
-            if (_aimState == FPSAimState.Ready) return;
-            
-            if (Input.GetKeyDown(KeyCode.Mouse0)) OnFirePressed();
-            if (Input.GetKeyUp(KeyCode.Mouse0)) OnFireReleased();
-            if (Input.GetKeyDown(KeyCode.Mouse1)) ToggleAim();
-            if (Input.GetKeyDown(KeyCode.B) && IsAiming())
-                _aimState = _aimState == FPSAimState.PointAiming ? FPSAimState.Aiming : FPSAimState.PointAiming;
+            _previousWeaponIndex = _activeWeaponIndex;
+            _activeWeaponIndex = newIndex;
         }
         
         private void TurnInPlace()
@@ -491,34 +238,34 @@ namespace Demo.Scripts.Runtime
             turnInput -= _playerInput.x;
 
             float sign = Mathf.Sign(_playerInput.x);
-            if (Mathf.Abs(_playerInput.x) > turnInPlaceAngle)
+            if (Mathf.Abs(_playerInput.x) > settings.turnInPlaceAngle)
             {
                 if (!_isTurning)
                 {
                     _turnProgress = 0f;
-                    
+
                     _animator.ResetTrigger(TurnRight);
                     _animator.ResetTrigger(TurnLeft);
-                    
+
                     _animator.SetTrigger(sign > 0f ? TurnRight : TurnLeft);
                 }
-                
+
                 _isTurning = true;
             }
 
             transform.rotation *= Quaternion.Euler(0f, turnInput, 0f);
-            
-            float lastProgress = turnCurve.Evaluate(_turnProgress);
-            _turnProgress += Time.deltaTime * turnSpeed;
-            _turnProgress = Mathf.Min(_turnProgress, 1f);
-            
-            float deltaProgress = turnCurve.Evaluate(_turnProgress) - lastProgress;
 
-            _playerInput.x -= sign * turnInPlaceAngle * deltaProgress;
-            
+            float lastProgress = settings.turnCurve.Evaluate(_turnProgress);
+            _turnProgress += Time.deltaTime * settings.turnSpeed;
+            _turnProgress = Mathf.Min(_turnProgress, 1f);
+
+            float deltaProgress = settings.turnCurve.Evaluate(_turnProgress) - lastProgress;
+
+            _playerInput.x -= sign * settings.turnInPlaceAngle * deltaProgress;
+
             transform.rotation *= Quaternion.Slerp(Quaternion.identity,
-                Quaternion.Euler(0f, sign * turnInPlaceAngle, 0f), deltaProgress);
-            
+                Quaternion.Euler(0f, sign * settings.turnInPlaceAngle, 0f), deltaProgress);
+
             if (Mathf.Approximately(_turnProgress, 1f) && _isTurning)
             {
                 _isTurning = false;
@@ -529,47 +276,123 @@ namespace Demo.Scripts.Runtime
 
         private void UpdateLookInput()
         {
-            float deltaMouseX = Input.GetAxis("Mouse X") * sensitivity;
-            float deltaMouseY = -Input.GetAxis("Mouse Y") * sensitivity;
-            
-            _freeLookInput = Vector2.Lerp(_freeLookInput, Vector2.zero, 
-                KMath.ExpDecayAlpha(15f, Time.deltaTime));
-            
+            float deltaMouseX = _lookDeltaInput.x * settings.sensitivity;
+            float deltaMouseY = -_lookDeltaInput.y * settings.sensitivity;
+
             _playerInput.x += deltaMouseX;
             _playerInput.y += deltaMouseY;
-            
+
             float proneWeight = _animator.GetFloat("ProneWeight");
             Vector2 pitchClamp = Vector2.Lerp(new Vector2(-90f, 90f), new Vector2(-30, 0f), proneWeight);
-            
+
             _playerInput.y = Mathf.Clamp(_playerInput.y, pitchClamp.x, pitchClamp.y);
             _moveRotation *= Quaternion.Euler(0f, deltaMouseX, 0f);
             TurnInPlace();
 
-            _jumpState = Mathf.Lerp(_jumpState, movementComponent.IsInAir() ? 1f : 0f,
+            _jumpState = Mathf.Lerp(_jumpState, _movementComponent.IsInAir() ? 1f : 0f,
                 KMath.ExpDecayAlpha(10f, Time.deltaTime));
 
-            float moveWeight = Mathf.Clamp01(movementComponent.AnimatorVelocity.magnitude);
+            float moveWeight = Mathf.Clamp01(_movementComponent.AnimatorVelocity.magnitude);
             transform.rotation = Quaternion.Slerp(transform.rotation, _moveRotation, moveWeight);
             _playerInput.x *= 1f - moveWeight;
             _playerInput.x *= 1f - _jumpState;
             
-            float leanAmount = 25f * (Input.GetKey(KeyCode.Q) ? 1f : Input.GetKey(KeyCode.E) ? -1f : 0f);
-            
-            _userInput.SetValue("MouseDeltaInput", new Vector4(deltaMouseX, deltaMouseY));
-            _userInput.SetValue("MouseInput", new Vector4(_playerInput.x, _playerInput.y));
-            _userInput.SetValue("LeanInput", leanAmount);
+            _userInput.SetValue(FPSANames.MouseDeltaInput, new Vector4(deltaMouseX, deltaMouseY));
+            _userInput.SetValue(FPSANames.MouseInput, new Vector4(_playerInput.x, _playerInput.y));
         }
-        
+
         private void Update()
         {
-            Time.timeScale = timeScale;
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Application.Quit(0);
-            }
-            
-            UpdateActionInput();
+            Time.timeScale = settings.timeScale;
             UpdateLookInput();
         }
+
+        public void SetActionActive(int isActive)
+        {
+            if (isActive == 0) ResetActionState();
+        }
+        
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            _cursorLocked = hasFocus;
+            Cursor.lockState = hasFocus ? CursorLockMode.Locked : CursorLockMode.None;
+        }
+
+#if ENABLE_INPUT_SYSTEM
+        public void OnReload()
+        {
+            if (IsSprinting() || HasActiveAction() || !GetActiveItem().OnReload()) return;
+            _actionState = FPSActionState.PlayingAnimation;
+        }
+
+        public void OnThrowGrenade()
+        {
+            if (IsSprinting()|| HasActiveAction() || !GetActiveItem().OnGrenadeThrow()) return;
+            _actionState = FPSActionState.PlayingAnimation;
+        }
+
+        public void OnToggleUnarmed()
+        {
+            _isUnarmed = !_isUnarmed;
+
+            if (_isUnarmed)
+            {
+                GetActiveItem().gameObject.SetActive(false);
+                GetActiveItem().OnUnarmedEnabled();
+                _fpsAnimator.LinkAnimatorProfile(settings.unarmedProfile);
+            }
+            else
+            {
+                GetActiveItem().gameObject.SetActive(true);
+                GetActiveItem().OnUnarmedDisabled();
+            }
+        }
+
+        public void OnFire(InputValue value)
+        {
+            if (IsSprinting()) return;
+            
+            if (value.isPressed)
+            {
+                OnFirePressed();
+                return;
+            }
+            
+            OnFireReleased();
+        }
+
+        public void OnAim()
+        {
+            if (IsSprinting()) return;
+            
+            if (!IsAiming())
+            {
+                if (GetActiveItem().OnAimPressed()) _aimState = FPSAimState.Aiming;
+                return;
+            }
+
+            DisableAim();
+        }
+
+        public void OnChangeWeapon()
+        {
+            if (_movementComponent.PoseState == FPSPoseState.Prone) return;
+            if (HasActiveAction() || _instantiatedWeapons.Count == 0) return;
+            
+            StartWeaponChange(_activeWeaponIndex + 1 > _instantiatedWeapons.Count - 1 ? 0 : _activeWeaponIndex + 1);
+        }
+
+        public void OnLook(InputValue value)
+        {
+            if (!_cursorLocked) return;
+            
+            _lookDeltaInput = value.Get<Vector2>();
+        }
+
+        public void OnLean(InputValue value)
+        {
+            _userInput.SetValue(FPSANames.LeanInput, value.Get<float>() * settings.leanAngle);
+        }
+#endif
     }
 }

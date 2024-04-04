@@ -1,8 +1,11 @@
-// Designed by Kinemation, 2023
+// Designed by KINEMATION, 2024.
 
 using KINEMATION.FPSAnimationFramework.Runtime.Camera;
+using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using KINEMATION.FPSAnimationFramework.Runtime.Playables;
 using KINEMATION.FPSAnimationFramework.Runtime.Recoil;
+using KINEMATION.KAnimationCore.Runtime.Input;
+
 using UnityEngine;
 
 namespace Demo.Scripts.Runtime
@@ -14,50 +17,187 @@ namespace Demo.Scripts.Runtime
         Rifle
     }
     
-    public class Weapon : MonoBehaviour
+    public class Weapon : FPSItem
     {
         [Header("Animations")]
-        public FPSAnimationAsset reloadClip;
-        public FPSAnimationAsset grenadeClip;
-        public FPSAnimationAsset fireClip;
-        public OverlayType overlayType;
+        [SerializeField] private FPSAnimationAsset reloadClip;
+        [SerializeField] private FPSAnimationAsset grenadeClip;
+        [SerializeField] private OverlayType overlayType;
         
-        [Header("Aiming")]
-        public bool canAim = true;
-
         [Header("Recoil")] 
-        public FPSCameraShake cameraShake;
-        public RecoilAnimData recoilData;
-        [Min(0f)] public float fireRate;
-        public bool isAuto;
+        [SerializeField] private FPSCameraShake cameraShake;
+        [SerializeField] private RecoilAnimData recoilData;
+        [Min(0f)] [SerializeField] private float fireRate;
+        [SerializeField] private bool isAuto;
         
-        private Animator _animator;
+        //~ Controller references
+
+        private Animator _controllerAnimator;
+        private UserInputController _userInputController;
+        private IPlayablesController _playablesController;
+        private FPSCameraController _fpsCameraController;
+        private RecoilAnimation _recoilAnimation;
+        private FPSAnimator _fpsAnimator;
+        
+        //~ Controller references
+        
+        private Animator _weaponAnimator;
         private int _scopeIndex;
-
-        protected void Start()
+        
+        private float _lastRecoilTime;
+        private int _bursts;
+        
+        private static readonly int OverlayType = Animator.StringToHash("OverlayType");
+        private static readonly int CurveEquip = Animator.StringToHash("CurveEquip");
+        private static readonly int CurveUnequip = Animator.StringToHash("CurveUnequip");
+        
+        public override void OnEquip()
         {
-            _animator = GetComponentInChildren<Animator>();
+            _weaponAnimator = GetComponentInChildren<Animator>();
+            FPSController controller = transform.parent.root.GetComponentInChildren<FPSController>();
+            if (controller == null)
+            {
+                return;
+            }
+
+            _controllerAnimator = controller.GetComponent<Animator>();
+            _userInputController = controller.GetComponent<UserInputController>();
+            _playablesController = controller.GetComponent<IPlayablesController>();
+            _fpsCameraController = controller.GetComponentInChildren<FPSCameraController>();
+            _fpsAnimator = controller.GetComponent<FPSAnimator>();
+            _recoilAnimation = controller.GetComponent<RecoilAnimation>();
+            
+            _controllerAnimator.SetFloat(OverlayType, (float) overlayType);
+            _fpsAnimator.LinkAnimatorProfile(gameObject);
+            _recoilAnimation.Init(recoilData, fireRate, isAuto ? FireMode.Auto : FireMode.Semi);
+            
+            _controllerAnimator.CrossFade(CurveEquip, 0.15f);
+        }
+
+        public override void OnUnEquip()
+        {
+            _controllerAnimator.CrossFade(CurveUnequip, 0.15f);
+        }
+
+        public override void OnUnarmedEnabled()
+        {
+            _controllerAnimator.SetFloat(OverlayType, 0);
+            _userInputController.SetValue(FPSANames.PlayablesWeight, 0f);
+            _userInputController.SetValue(FPSANames.StabilizationWeight, 0f);
+        }
+
+        public override void OnUnarmedDisabled()
+        {
+            _controllerAnimator.SetFloat(OverlayType, (int) overlayType);
+            _userInputController.SetValue(FPSANames.PlayablesWeight, 1f);
+            _userInputController.SetValue(FPSANames.StabilizationWeight, 1f);
+            _fpsAnimator.LinkAnimatorProfile(gameObject);
+        }
+
+        public override bool OnAimPressed()
+        {
+            _userInputController.SetValue(FPSANames.IsAiming, true);
+            _fpsCameraController.UpdateTargetFOV(60f);
+            _recoilAnimation.isAiming = true;
+            
+            return true;
+        }
+
+        public override bool OnAimReleased()
+        {
+            _userInputController.SetValue(FPSANames.IsAiming, false);
+            _fpsCameraController.UpdateTargetFOV(90f);
+            _recoilAnimation.isAiming = false;
+            
+            return true;
+        }
+
+        public override bool OnFirePressed()
+        {
+            // Do not allow firing faster than the allowed fire rate.
+            if (Time.unscaledTime - _lastRecoilTime < 60f / fireRate)
+            {
+                return false;
+            }
+            
+            _lastRecoilTime = Time.unscaledTime;
+            OnFire();
+            
+            return true;
+        }
+
+        public override bool OnFireReleased()
+        {
+            if (_recoilAnimation != null)
+            {
+                _recoilAnimation.Stop();
+            }
+            
+            CancelInvoke(nameof(OnFire));
+            
+            return true;
+        }
+
+        public override bool OnReload()
+        {
+            if (reloadClip == null)
+            {
+                return false;
+            }
+            
+            _playablesController.PlayAnimation(reloadClip, 0f);
+            
+            if (_weaponAnimator != null)
+            {
+                _weaponAnimator.Rebind();
+                _weaponAnimator.Play("Reload", 0);
+            }
+            
+            return true;
+        }
+
+        public override bool OnGrenadeThrow()
+        {
+            if (grenadeClip == null)
+            {
+                return false;
+            }
+
+            _playablesController.PlayAnimation(grenadeClip, 0f);
+            return true;
         }
         
-        public void OnFire()
+        private void OnFire()
         {
-            if (_animator == null)
+            if (_weaponAnimator != null)
             {
-                return;
+                _weaponAnimator.Play("Fire", 0, 0f);
             }
             
-            _animator.Play("Fire", 0, 0f);
-        }
+            _fpsCameraController.PlayCameraShake(cameraShake);
 
-        public void Reload()
-        {
-            if (_animator == null)
+            if (_recoilAnimation != null && recoilData != null)
+            {
+                _recoilAnimation.Play();
+            }
+
+            if (_recoilAnimation.fireMode == FireMode.Semi)
             {
                 return;
             }
             
-            _animator.Rebind();
-            _animator.Play("Reload", 0);
+            if (_recoilAnimation.fireMode == FireMode.Burst)
+            {
+                if (_bursts == 0)
+                {
+                    OnFireReleased();
+                    return;
+                }
+
+                _bursts--;
+            }
+            
+            Invoke(nameof(OnFire), 60f / fireRate);
         }
     }
 }
