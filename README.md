@@ -6,5 +6,4 @@ To get the project working:
 2. Import Unity New Input System package.
 3. Rebuild the lighting.
 
-The demo project uses URP by default, so make sure to upgrade to HDRP or BIRP if required manually.
-Make sure to rebuild the lighting and import the FPS Animation Framework to your project.
+The demo project uses URP by default, so make sure to upgrade to HDRP or BIRP if required.
