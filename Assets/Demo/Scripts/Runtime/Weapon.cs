@@ -6,6 +6,7 @@ using KINEMATION.FPSAnimationFramework.Runtime.Playables;
 using KINEMATION.FPSAnimationFramework.Runtime.Recoil;
 using KINEMATION.KAnimationCore.Runtime.Input;
 
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Demo.Scripts.Runtime
@@ -28,7 +29,13 @@ namespace Demo.Scripts.Runtime
         [SerializeField] private FPSCameraShake cameraShake;
         [SerializeField] private RecoilAnimData recoilData;
         [Min(0f)] [SerializeField] private float fireRate;
-        [SerializeField] private bool isAuto;
+
+        [SerializeField] private bool supportsAuto;
+        [SerializeField] private bool supportsBurst;
+        [SerializeField] private int burstLength;
+        
+        [Header("AimPoints")]
+        [SerializeField] private List<Transform> aimPoints;
         
         //~ Controller references
 
@@ -38,6 +45,7 @@ namespace Demo.Scripts.Runtime
         private FPSCameraController _fpsCameraController;
         private RecoilAnimation _recoilAnimation;
         private FPSAnimator _fpsAnimator;
+        private FPSAnimatorEntity _fpsAnimatorEntity;
         
         //~ Controller references
         
@@ -46,6 +54,7 @@ namespace Demo.Scripts.Runtime
         
         private float _lastRecoilTime;
         private int _bursts;
+        private FireMode _fireMode = FireMode.Semi;
         
         private static readonly int OverlayType = Animator.StringToHash("OverlayType");
         private static readonly int CurveEquip = Animator.StringToHash("CurveEquip");
@@ -60,6 +69,8 @@ namespace Demo.Scripts.Runtime
                 return;
             }
 
+            _fpsAnimatorEntity = GetComponent<FPSAnimatorEntity>();
+            
             _controllerAnimator = controller.GetComponent<Animator>();
             _userInputController = controller.GetComponent<UserInputController>();
             _playablesController = controller.GetComponent<IPlayablesController>();
@@ -69,7 +80,8 @@ namespace Demo.Scripts.Runtime
             
             _controllerAnimator.SetFloat(OverlayType, (float) overlayType);
             _fpsAnimator.LinkAnimatorProfile(gameObject);
-            _recoilAnimation.Init(recoilData, fireRate, isAuto ? FireMode.Auto : FireMode.Semi);
+            
+            _recoilAnimation.Init(recoilData, fireRate, _fireMode);
             
             _controllerAnimator.CrossFade(CurveEquip, 0.15f);
         }
@@ -121,6 +133,7 @@ namespace Demo.Scripts.Runtime
             }
             
             _lastRecoilTime = Time.unscaledTime;
+            _bursts = burstLength;
             OnFire();
             
             return true;
@@ -188,16 +201,47 @@ namespace Demo.Scripts.Runtime
             
             if (_recoilAnimation.fireMode == FireMode.Burst)
             {
+                _bursts--;
+                
                 if (_bursts == 0)
                 {
                     OnFireReleased();
                     return;
                 }
-
-                _bursts--;
             }
             
             Invoke(nameof(OnFire), 60f / fireRate);
+        }
+
+        public override void OnCycleScope()
+        {
+            _scopeIndex++;
+            _scopeIndex = _scopeIndex > aimPoints.Count - 1 ? 0 : _scopeIndex;
+            _fpsAnimatorEntity.defaultAimPoint = aimPoints[_scopeIndex];
+        }
+
+        private void CycleFireMode()
+        {
+            if (_fireMode == FireMode.Semi && supportsBurst)
+            {
+                _fireMode = FireMode.Burst;
+                _bursts = burstLength;
+                return;
+            }
+
+            if (_fireMode != FireMode.Auto && supportsAuto)
+            {
+                _fireMode = FireMode.Auto;
+                return;
+            }
+
+            _fireMode = FireMode.Semi;
+        }
+        
+        public override void OnChangeFireMode()
+        {
+            CycleFireMode();
+            _recoilAnimation.fireMode = _fireMode;
         }
     }
 }

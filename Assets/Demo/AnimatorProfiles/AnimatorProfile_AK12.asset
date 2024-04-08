@@ -19,6 +19,7 @@ MonoBehaviour:
     mode: 1
     source: 1
   linkDynamically: 0
+  customHandPose: {fileID: 0}
   handBone:
     name: Left_Hand
     index: 18
@@ -167,7 +168,7 @@ MonoBehaviour:
       isVirtual: 0
     pose:
       position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 0, y: 0, z: 0}
     space: 0
     modifyMode: 0
@@ -178,7 +179,7 @@ MonoBehaviour:
       isVirtual: 0
     pose:
       position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 0, y: 0, z: 0}
     space: 0
     modifyMode: 0
@@ -217,6 +218,66 @@ MonoBehaviour:
       name: CrouchWeight
       mode: 0
       source: 0
+--- !u!114 &-2767156448427965238
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9861c1a9af9b4f6c9fe07e8768acf6ad, type: 3}
+  m_Name: BlendingLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
+  alpha: 1
+  curveBlending:
+  - name: FullBodyWeight
+    mode: 1
+    source: 0
+  - name: ProneWeight
+    mode: 1
+    source: 0
+  linkDynamically: 0
+  desiredPose: {fileID: 7400000, guid: a9571dabdf500e941abdbe0aa44b6a08, type: 2}
+  blendingElements:
+  - elementToBlend:
+      name: Spine
+      index: 12
+      isVirtual: 0
+    weight: 1
+  - elementToBlend:
+      name: Chest
+      index: 13
+      isVirtual: 0
+    weight: 1
+  - elementToBlend:
+      name: UpperChest
+      index: 14
+      isVirtual: 0
+    weight: 0.7
+  - elementToBlend:
+      name: Neck
+      index: 40
+      isVirtual: 0
+    weight: 0.509
+  - elementToBlend:
+      name: Head
+      index: 41
+      isVirtual: 0
+    weight: 0
+  - elementToBlend:
+      name: Left_Shoulder
+      index: 15
+      isVirtual: 0
+    weight: 0.7
+  - elementToBlend:
+      name: Right_Shoulder
+      index: 54
+      isVirtual: 0
+    weight: 0.5
+  blendPosition: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +304,8 @@ MonoBehaviour:
   settings:
   - {fileID: 2097171418267287971}
   - {fileID: -8017070690771127837}
+  - {fileID: -2767156448427965238}
+  - {fileID: 2879879106747244202}
   - {fileID: -5290396991009541559}
   - {fileID: -5926500349329534600}
   - {fileID: 317458384766536076}
@@ -357,6 +420,15 @@ MonoBehaviour:
     y: 0.399
     z: 0.404
   aimingSpeed: 1.8
+  aimPointEaseMode:
+    easeFunc: 1
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  aimPointSpeed: 3
   isAimingProperty: IsAiming
 --- !u!114 &624730328850456579
 MonoBehaviour:
@@ -412,7 +484,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   alpha: 1
-  curveBlending: []
+  curveBlending:
+  - name: FullBodyWeight
+    mode: 1
+    source: 0
   linkDynamically: 0
   poseToSample: {fileID: 11400000, guid: a704d26885bc7d547bb761fa183f1fb2, type: 2}
   defaultWeaponPose:
@@ -465,6 +540,67 @@ MonoBehaviour:
     isVirtual: 0
   stabilizationWeight: StabilizationWeight
   weaponBoneWeight: WeaponBoneWeight
+--- !u!114 &2879879106747244202
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9861c1a9af9b4f6c9fe07e8768acf6ad, type: 3}
+  m_Name: BlendingLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
+  alpha: 1
+  curveBlending:
+  - name: ProneWeight
+    mode: 0
+    source: 0
+  - name: FullBodyWeight
+    mode: 1
+    source: 0
+  linkDynamically: 0
+  desiredPose: {fileID: -203655887218126122, guid: ab52827a2b7d1cb45b782d25e9a4007f,
+    type: 3}
+  blendingElements:
+  - elementToBlend:
+      name: Spine
+      index: 12
+      isVirtual: 0
+    weight: 0.9
+  - elementToBlend:
+      name: Chest
+      index: 13
+      isVirtual: 0
+    weight: 0.9
+  - elementToBlend:
+      name: UpperChest
+      index: 14
+      isVirtual: 0
+    weight: 0.762
+  - elementToBlend:
+      name: Neck
+      index: 40
+      isVirtual: 0
+    weight: 0.3
+  - elementToBlend:
+      name: Head
+      index: 41
+      isVirtual: 0
+    weight: 0
+  - elementToBlend:
+      name: Left_Shoulder
+      index: 15
+      isVirtual: 0
+    weight: 0.559
+  - elementToBlend:
+      name: Right_Shoulder
+      index: 54
+      isVirtual: 0
+    weight: 0.9
+  blendPosition: 0
 --- !u!114 &5080528287839197063
 MonoBehaviour:
   m_ObjectHideFlags: 3

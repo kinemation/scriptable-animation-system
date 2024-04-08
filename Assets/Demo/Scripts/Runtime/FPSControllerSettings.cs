@@ -1,7 +1,7 @@
 ﻿// Designed by KINEMATION, 2024.
 
 using KINEMATION.FPSAnimationFramework.Runtime.Core;
-//using KINEMATION.KAnimationCore.Runtime.Attributes;
+using KINEMATION.KAnimationCore.Runtime.Attributes;
 using KINEMATION.KAnimationCore.Runtime.Rig;
 
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Demo.Scripts.Runtime
         
         public KRig rigAsset;
         
-        //[Tab("Animation")] 
+        [Tab("Animation")] 
         
         [Header("Unarmed State")]
         [SerializeField] public FPSAnimatorProfile unarmedProfile;
@@ -26,7 +26,7 @@ namespace Demo.Scripts.Runtime
         public AnimationCurve turnCurve = new AnimationCurve(new Keyframe(0f, 0f));
         [Min(0f)] public float turnSpeed = 1f;
         
-        //[Tab("Controller")] 
+        [Tab("Controller")] 
         
         [Header("General")] 
         [Min(0f)] public float timeScale = 1f;
@@ -36,7 +36,7 @@ namespace Demo.Scripts.Runtime
         [Header("Camera")]
         [Min(0f)] public float sensitivity;
         
-        //[Tab("Weapon")] 
+        [Tab("Weapon")] 
         public KRigElement weaponBone = new KRigElement(-1, FPSANames.IkWeaponBone);
         public List<GameObject> weaponPrefabs;
         

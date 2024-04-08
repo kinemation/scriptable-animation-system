@@ -1,0 +1,477 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8607104750607931191
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80ecb68a9ad4fccb78b8c9a53183567, type: 3}
+  m_Name: LookLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 26b0fdcec670dc243a52514cc8ec6972, type: 2}
+  alpha: 1
+  curveBlending: []
+  linkDynamically: 0
+  mouseInputProperty: MouseInput
+  leanInputProperty: LeanInput
+  pitchOffsetElements:
+  - rigElement:
+      name: Hips
+      index: 1
+      isVirtual: 0
+    clampedAngle: {x: 15, y: 15}
+  - rigElement:
+      name: Spine
+      index: 12
+      isVirtual: 0
+    clampedAngle: {x: 18.75, y: 18.75}
+  - rigElement:
+      name: Chest
+      index: 13
+      isVirtual: 0
+    clampedAngle: {x: 18.75, y: 18.75}
+  - rigElement:
+      name: UpperChest
+      index: 14
+      isVirtual: 0
+    clampedAngle: {x: 18.75, y: 18.75}
+  - rigElement:
+      name: Neck
+      index: 40
+      isVirtual: 0
+    clampedAngle: {x: 18.75, y: 18.75}
+  yawOffsetElements:
+  - rigElement:
+      name: Hips
+      index: 1
+      isVirtual: 0
+    clampedAngle: {x: 15, y: 15}
+  - rigElement:
+      name: Spine
+      index: 12
+      isVirtual: 0
+    clampedAngle: {x: 25, y: 25}
+  - rigElement:
+      name: Chest
+      index: 13
+      isVirtual: 0
+    clampedAngle: {x: 25, y: 25}
+  - rigElement:
+      name: UpperChest
+      index: 14
+      isVirtual: 0
+    clampedAngle: {x: 25, y: 25}
+  rollOffsetElements:
+  - rigElement:
+      name: Spine
+      index: 12
+      isVirtual: 0
+    clampedAngle: {x: 25, y: 25}
+  - rigElement:
+      name: Chest
+      index: 13
+      isVirtual: 0
+    clampedAngle: {x: 32.5, y: 32.5}
+  - rigElement:
+      name: UpperChest
+      index: 14
+      isVirtual: 0
+    clampedAngle: {x: 32.5, y: 32.5}
+--- !u!114 &-4746706491162692129
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bf197d16fb145cabe548d0a318942ea, type: 3}
+  m_Name: AdsLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 26b0fdcec670dc243a52514cc8ec6972, type: 2}
+  alpha: 1
+  curveBlending: []
+  linkDynamically: 0
+  weaponIkBone:
+    name: IK WeaponBone
+    index: 48
+    isVirtual: 0
+  rightHandElbow:
+    name: IK RightElbow
+    index: 50
+    isVirtual: 0
+  leftHandElbow:
+    name: IK LeftElbow
+    index: 52
+    isVirtual: 0
+  animatedPivotOffset: {x: 0, y: 0, z: 0}
+  hintTargetWeight: 1
+  aimTargetBone:
+    name: CameraSocket
+    index: 46
+    isVirtual: 0
+  aimingEaseMode:
+    easeFunc: 1
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  positionBlend:
+    x: 0
+    y: 0
+    z: 0
+  rotationBlend:
+    x: 0
+    y: 0
+    z: 0
+  aimingSpeed: 3
+  isAimingProperty: IsAiming
+--- !u!114 &-1797747383420733560
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4db65cb7efe44af90b80a2d905feee5, type: 3}
+  m_Name: SwayLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
+  alpha: 1
+  curveBlending: []
+  linkDynamically: 0
+  boneToModify:
+    name: IK WeaponBone
+    index: 48
+    isVirtual: 0
+  headBone:
+    name: Head
+    index: 41
+    isVirtual: 0
+  freeAimClamp: 0
+  freeAimInterpSpeed: 3
+  freeAimInputScale: 0
+  freeAimSpace: 2
+  useFreeAimProperty: UseFreeAim
+  moveSwayPositionSpring:
+    damping: {x: 0.35, y: 0.3, z: 0.4}
+    stiffness: {x: 0.7, y: 0.8, z: 0.7}
+    speed: {x: 10, y: 12, z: 11}
+    scale: {x: 1, y: -0.5, z: 0.5}
+  moveSwayRotationSpring:
+    damping: {x: 0.3, y: 0.3, z: 0.2}
+    stiffness: {x: 0.8, y: 0.8, z: 0.8}
+    speed: {x: 10, y: 15, z: 11}
+    scale: {x: 1, y: 1, z: -3}
+  moveSwayTargetDamping: 15
+  moveSwaySpace: 2
+  moveInputProperty: MoveInput
+  aimSwayPositionSpring:
+    damping: {x: 0.5, y: 0.5, z: 0.5}
+    stiffness: {x: 0.6, y: 0.6, z: 0.6}
+    speed: {x: 7, y: 8, z: 15}
+    scale: {x: 2, y: -3, z: 0}
+  aimSwayRotationSpring:
+    damping: {x: 0.3, y: 0.3, z: 0.4}
+    stiffness: {x: 0.7, y: 0.7, z: 0.8}
+    speed: {x: 15, y: 15, z: 12}
+    scale: {x: 5, y: 5, z: -5}
+  aimSwayTargetDamping: 9
+  aimSwaySpace: 2
+  mouseDeltaInputProperty: MouseDeltaInput
+--- !u!114 &-1288469925514423859
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d2bcb1afe44927beb4c76a1f1a2d76, type: 3}
+  m_Name: ViewLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 26b0fdcec670dc243a52514cc8ec6972, type: 2}
+  alpha: 1
+  curveBlending: []
+  linkDynamically: 0
+  ikHandGun:
+    element:
+      name: IK WeaponBone
+      index: 48
+      isVirtual: 0
+    pose:
+      position: {x: 0.02, y: -0.01, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    space: 2
+    modifyMode: 0
+  ikHandRight:
+    element:
+      name: IK RightHand
+      index: 49
+      isVirtual: 0
+    pose:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    space: 0
+    modifyMode: 0
+  ikHandLeft:
+    element:
+      name: IK LeftHand
+      index: 51
+      isVirtual: 0
+    pose:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    space: 0
+    modifyMode: 0
+--- !u!114 &-997206439950979377
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 423666032fed41d5935519fc922acb88, type: 3}
+  m_Name: PoseSamplerLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 26b0fdcec670dc243a52514cc8ec6972, type: 2}
+  alpha: 1
+  curveBlending: []
+  linkDynamically: 0
+  poseToSample: {fileID: 11400000, guid: 903037ef286a3534d941c537dce2b959, type: 2}
+  defaultWeaponPose:
+    position: {x: 0.151, y: 1.414, z: 0.455}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  weaponBoneOffset:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+    scale: {x: 1, y: 1, z: 1}
+  ikWeaponBone:
+    name: IK WeaponBone
+    index: 48
+    isVirtual: 0
+  ikHandRight:
+    name: IK RightHand
+    index: 49
+    isVirtual: 0
+  ikHandLeft:
+    name: IK LeftHand
+    index: 51
+    isVirtual: 0
+  ikHandRightHint:
+    name: IK RightElbow
+    index: 50
+    isVirtual: 0
+  ikHandLeftHint:
+    name: IK LeftElbow
+    index: 52
+    isVirtual: 0
+  weaponBoneRight:
+    name: IK WeaponBoneRight
+    index: 78
+    isVirtual: 0
+  weaponBoneLeft:
+    name: IK WeaponBoneLeft
+    index: 39
+    isVirtual: 0
+  weaponBone:
+    name: WeaponBone
+    index: 84
+    isVirtual: 0
+  pelvis:
+    name: Hips
+    index: 1
+    isVirtual: 0
+  spineRoot:
+    name: Spine
+    index: 12
+    isVirtual: 0
+  stabilizationWeight: StabilizationWeight
+  weaponBoneWeight: WeaponBoneWeight
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d53fe4b640f941ee8b893e5d6620b994, type: 3}
+  m_Name: AnimatorProfile_Rifle_Tutorial
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 26b0fdcec670dc243a52514cc8ec6972, type: 2}
+  blendInTime: 0.15
+  blendOutTime: 0.15
+  easeMode:
+    easeFunc: 1
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  settings:
+  - {fileID: -997206439950979377}
+  - {fileID: 661425413035629214}
+  - {fileID: -1288469925514423859}
+  - {fileID: -4746706491162692129}
+  - {fileID: 6597383234306007103}
+  - {fileID: -1797747383420733560}
+  - {fileID: -8607104750607931191}
+  - {fileID: 5752768566732323444}
+--- !u!114 &661425413035629214
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d86e81f2bb604158ac3e2406f16030f1, type: 3}
+  m_Name: AttachHandLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 26b0fdcec670dc243a52514cc8ec6972, type: 2}
+  alpha: 1
+  curveBlending: []
+  linkDynamically: 0
+  handBone:
+    name: Left_Hand
+    index: 18
+    isVirtual: 0
+  ikHandBone:
+    name: IK LeftHand
+    index: 51
+    isVirtual: 0
+  ikWeaponBone:
+    name: IK WeaponBone
+    index: 48
+    isVirtual: 0
+  weaponBone:
+    name: WeaponBone
+    index: 84
+    isVirtual: 0
+  elementChainName: LeftHand
+  handPoseOffset:
+    position: {x: 0.02, y: 0.01, z: -0.03}
+    rotation: {x: 0.13673936, y: -0.21332818, z: -0.0938803, w: 0.96279794}
+    scale: {x: 1, y: 1, z: 1}
+  overridePoseWeight: 0
+--- !u!114 &5752768566732323444
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6c8dc558de4772963ae8c720fb2300, type: 3}
+  m_Name: IkLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 26b0fdcec670dc243a52514cc8ec6972, type: 2}
+  alpha: 1
+  curveBlending: []
+  linkDynamically: 0
+  rightHand:
+    name: Right_Hand
+    index: 57
+    isVirtual: 0
+  leftHand:
+    name: Left_Hand
+    index: 18
+    isVirtual: 0
+  rightHandIk:
+    name: IK RightHand
+    index: 49
+    isVirtual: 0
+  leftHandIk:
+    name: IK LeftHand
+    index: 51
+    isVirtual: 0
+  rightHandHint:
+    name: IK RightElbow
+    index: 50
+    isVirtual: 0
+  leftHandHint:
+    name: IK LeftElbow
+    index: 52
+    isVirtual: 0
+  rightFoot:
+    name: Right_Foot
+    index: 9
+    isVirtual: 0
+  leftFoot:
+    name: Left_Foot
+    index: 4
+    isVirtual: 0
+  rightFootIk:
+    name: IK RightFoot
+    index: 86
+    isVirtual: 0
+  leftFootIk:
+    name: IK LeftFoot
+    index: 88
+    isVirtual: 0
+  rightFootHint:
+    name: IK RightKnee
+    index: 87
+    isVirtual: 0
+  leftFootHint:
+    name: IK LeftKnee
+    index: 89
+    isVirtual: 0
+--- !u!114 &6597383234306007103
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3ccac29af4438596c596412bc1d424, type: 3}
+  m_Name: AdditiveLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 26b0fdcec670dc243a52514cc8ec6972, type: 2}
+  alpha: 1
+  curveBlending: []
+  linkDynamically: 0
+  weaponIkBone:
+    name: IK WeaponBone
+    index: 48
+    isVirtual: 0
+  rightHandElbow:
+    name: IK RightElbow
+    index: 50
+    isVirtual: 0
+  leftHandElbow:
+    name: IK LeftElbow
+    index: 52
+    isVirtual: 0
+  animatedPivotOffset: {x: 0, y: 0, z: 0}
+  hintTargetWeight: 1
+  additiveBone:
+    name: WeaponBoneAdditive
+    index: 85
+    isVirtual: 0
+  interpSpeed: 0
+  aimingInputProperty: AimingWeight
+  adsScalar: 1

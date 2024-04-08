@@ -2,8 +2,10 @@
 
 using KINEMATION.KAnimationCore.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Input;
+
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace Demo.Scripts.Runtime
 {
@@ -61,6 +63,8 @@ namespace Demo.Scripts.Runtime
         private Animator _animator;
         private Vector2 _inputDirection;
 
+        private FPSMovementState _cachedMovementState;
+
         public Vector3 MoveVector { get; private set; }
         
         private Vector3 _velocity;
@@ -106,62 +110,26 @@ namespace Demo.Scripts.Runtime
 
         private bool CanSlide()
         {
-            return slideCondition == null || slideCondition.Invoke();
+            return MovementState == FPSMovementState.Sprinting && PoseState == FPSPoseState.Standing
+                                                               && (slideCondition == null || slideCondition.Invoke());
         }
 
         private bool CanSprint()
         {
-            return sprintCondition == null || sprintCondition.Invoke();
+            bool conditionCheck = false;
+            if (sprintCondition != null)
+            {
+                conditionCheck = sprintCondition.Invoke();
+            }
+            
+            return PoseState == FPSPoseState.Standing && conditionCheck;
         }
 
         private bool CanProne()
         {
             return proneCondition == null || proneCondition.Invoke(); 
         }
-
-        private bool TryJump()
-        {
-            if (!Input.GetKeyDown(movementSettings.jumpKey) || PoseState == FPSPoseState.Crouching)
-            {
-                return false;
-            }
-
-            if (PoseState == FPSPoseState.Prone)
-            {
-                CancelProne();
-                return false;
-            }
-            
-            MovementState = FPSMovementState.InAir;
-            return true;
-        }
-
-        private bool TrySprint()
-        {
-            if (PoseState is FPSPoseState.Crouching or FPSPoseState.Prone)
-            {
-                return false;
-            }
-
-            if (_inputDirection.y <= 0f || _inputDirection.x != 0f || !Input.GetKey(movementSettings.sprintKey))
-            {
-                return false;
-            }
-
-            if (Input.GetKey(movementSettings.slideKey) && GetSpeedRatio() > 0.5f)
-            {
-                if (!CanSlide()) return false;
-                
-                MovementState = FPSMovementState.Sliding;
-                return true;
-            }
-            
-            if (!CanSprint()) return false;
-            
-            MovementState = FPSMovementState.Sprinting;
-            return true;
-        }
-
+        
         private bool CanUnCrouch()
         {
             float height = _originalHeight - _controller.radius * 2f;
@@ -219,80 +187,23 @@ namespace Demo.Scripts.Runtime
             _animator.SetBool(Crouching, false);
             onUncrouch.Invoke();
         }
-
-        private void UpdatePoseState()
-        {
-            if (MovementState is FPSMovementState.Sprinting or FPSMovementState.InAir)
-            {
-                return;
-            }
-
-            if (Input.GetKeyDown(movementSettings.proneKey))
-            {
-                if (!CanProne())
-                {
-                    return;
-                }
-                
-                if (PoseState == FPSPoseState.Prone)
-                {
-                    CancelProne();
-                }
-                else
-                {
-                    EnableProne();
-                }
-                
-                return;
-            }
-
-            if (!Input.GetKeyDown(movementSettings.crouchKey))
-            {
-                return;
-            }
-
-            if (PoseState == FPSPoseState.Standing)
-            {
-                Crouch();
-
-                _desiredGait = movementSettings.crouching;
-                return;
-            }
-
-            if (!CanUnCrouch()) return;
-
-            UnCrouch();
-            _desiredGait = movementSettings.walking;
-        }
-
+        
         private void UpdateMovementState()
         {
-            if (MovementState == FPSMovementState.InAir && IsInAir())
-            {
-                // Do not update player movement while jumping or falling
-                return;
-            }
-            
-            // Get the current player input
-            float moveX = Input.GetAxisRaw("Horizontal");
-            float moveY = Input.GetAxisRaw("Vertical");
-
-            _inputDirection.x = moveX;
-            _inputDirection.y = moveY;
-
             if (MovementState == FPSMovementState.Sliding && !Mathf.Approximately(_slideProgress, 1f))
             {
                 // Consume input, but do not allow cancelling sliding.
                 return;
             }
 
-            // Jump action overrides any other input
-            if (TryJump())
+            if (MovementState == FPSMovementState.InAir)
             {
                 return;
             }
-            
-            if (TrySprint())
+
+            // If still can sprint, keep the sprinting state.
+            if (MovementState == FPSMovementState.Sprinting 
+                && _inputDirection.y > 0f && Mathf.Approximately(_inputDirection.x, 0f))
             {
                 return;
             }
@@ -306,20 +217,20 @@ namespace Demo.Scripts.Runtime
             MovementState = FPSMovementState.Walking;
         }
 
-        private void OnMovementStateChanged(FPSMovementState prevState)
+        private void OnMovementStateChanged()
         {
-            if (prevState == FPSMovementState.InAir)
+            if (_cachedMovementState == FPSMovementState.InAir)
             {
                 onLanded.Invoke();
             }
 
-            if (prevState == FPSMovementState.Sprinting)
+            if (_cachedMovementState == FPSMovementState.Sprinting)
             {
+                onSprintEnded?.Invoke();
                 _sprintAnimatorInterp = 7f;
-                onSprintEnded.Invoke();
             }
 
-            if (prevState == FPSMovementState.Sliding)
+            if (_cachedMovementState == FPSMovementState.Sliding)
             {
                 _sprintAnimatorInterp = 15f;
                 onSlideEnded.Invoke();
@@ -347,8 +258,8 @@ namespace Demo.Scripts.Runtime
 
             if (MovementState == FPSMovementState.Sprinting)
             {
+                onSprintStarted?.Invoke();
                 _desiredGait = movementSettings.sprinting;
-                onSprintStarted.Invoke();
                 return;
             }
 
@@ -475,13 +386,11 @@ namespace Demo.Scripts.Runtime
         
         private void Update()
         {
-            var prevState = MovementState;
             UpdateMovementState();
-            UpdatePoseState();
             
-            if (prevState != MovementState)
+            if (_cachedMovementState != MovementState)
             {
-                OnMovementStateChanged(prevState);
+                OnMovementStateChanged();
             }
 
             bool isMoving = IsMoving();
@@ -515,6 +424,108 @@ namespace Demo.Scripts.Runtime
 
             UpdateMovement();
             UpdateAnimatorParams();
+
+            _cachedMovementState = MovementState;
+            if (MovementState == FPSMovementState.InAir && !IsInAir())
+            {
+                MovementState = FPSMovementState.Idle;
+            }
         }
+        
+#if ENABLE_INPUT_SYSTEM
+        public void OnMove(InputValue value)
+        {
+            _inputDirection = value.Get<Vector2>();
+        }
+
+        public void OnCrouch()
+        {
+            if (MovementState != FPSMovementState.Idle && MovementState != FPSMovementState.Walking)
+            {
+                return;
+            }
+            
+            if (PoseState == FPSPoseState.Standing)
+            {
+                Crouch();
+                _desiredGait = movementSettings.crouching;
+                return;
+            }
+
+            if (!CanUnCrouch())
+            {
+                return;
+            }
+            
+            UnCrouch();
+            _desiredGait = movementSettings.walking;
+        }
+
+        public void OnProne()
+        {
+            if (MovementState is FPSMovementState.Sprinting or FPSMovementState.InAir)
+            {
+                return;
+            }
+
+            if (!CanProne())
+            {
+                return;
+            }
+            
+            if (PoseState == FPSPoseState.Prone)
+            {
+                CancelProne();
+                return;
+            }
+            
+            EnableProne();
+        }
+
+        public void OnJump()
+        {
+            if (IsInAir() || PoseState == FPSPoseState.Crouching)
+            {
+                return;
+            }
+
+            if (PoseState == FPSPoseState.Prone)
+            {
+                CancelProne();
+                return;
+            }
+            
+            MovementState = FPSMovementState.InAir;
+        }
+
+        public void OnSprint(InputValue value)
+        {
+            if (MovementState is FPSMovementState.InAir or FPSMovementState.Sliding)
+            {
+                return;
+            }
+            
+            bool enableSprint = value.isPressed && CanSprint();
+
+            if (enableSprint)
+            {
+                MovementState = FPSMovementState.Sprinting;
+                return;
+            }
+            
+            MovementState = FPSMovementState.Walking;
+        }
+
+        public void OnSlide()
+        {
+            if (!CanSlide())
+            {
+                return;
+            }
+
+            _slideProgress = 0f;
+            MovementState = FPSMovementState.Sliding;
+        }
+#endif
     }
 }

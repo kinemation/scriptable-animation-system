@@ -25,5 +25,9 @@ namespace Demo.Scripts.Runtime
         public virtual bool OnReload() { return false; }
 
         public virtual bool OnGrenadeThrow() { return false; }
+
+        public virtual void OnCycleScope() { }
+
+        public virtual void OnChangeFireMode() { }
     }
 }

@@ -19,6 +19,7 @@ MonoBehaviour:
     mode: 1
     source: 1
   linkDynamically: 0
+  customHandPose: {fileID: 0}
   handBone:
     name: Left_Hand
     index: 18
@@ -243,6 +244,7 @@ MonoBehaviour:
   settings:
   - {fileID: 2097171418267287971}
   - {fileID: -8017070690771127837}
+  - {fileID: 3320383934504450572}
   - {fileID: -5290396991009541559}
   - {fileID: -5926500349329534600}
   - {fileID: 317458384766536076}
@@ -334,6 +336,7 @@ MonoBehaviour:
     name: IK LeftElbow
     index: 52
     isVirtual: 0
+  animatedPivotOffset: {x: 0, y: 0, z: 0}
   hintTargetWeight: 0.5
   aimTargetBone:
     name: CameraSocket
@@ -356,6 +359,15 @@ MonoBehaviour:
     y: 0.399
     z: 0.404
   aimingSpeed: 1.8
+  aimPointEaseMode:
+    easeFunc: 0
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  aimPointSpeed: 1
   isAimingProperty: IsAiming
 --- !u!114 &624730328850456579
 MonoBehaviour:
@@ -388,6 +400,7 @@ MonoBehaviour:
     name: IK LeftElbow
     index: 52
     isVirtual: 0
+  animatedPivotOffset: {x: 0, y: 0, z: 0}
   hintTargetWeight: 0.8
   additiveBone:
     name: WeaponBoneAdditive
@@ -463,6 +476,67 @@ MonoBehaviour:
     isVirtual: 0
   stabilizationWeight: StabilizationWeight
   weaponBoneWeight: WeaponBoneWeight
+--- !u!114 &3320383934504450572
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9861c1a9af9b4f6c9fe07e8768acf6ad, type: 3}
+  m_Name: BlendingLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
+  alpha: 1
+  curveBlending:
+  - name: ProneWeight
+    mode: 0
+    source: 0
+  - name: FullBodyWeight
+    mode: 1
+    source: 0
+  linkDynamically: 0
+  desiredPose: {fileID: -203655887218126122, guid: ab52827a2b7d1cb45b782d25e9a4007f,
+    type: 3}
+  blendingElements:
+  - elementToBlend:
+      name: Spine
+      index: 12
+      isVirtual: 0
+    weight: 0.9
+  - elementToBlend:
+      name: Chest
+      index: 13
+      isVirtual: 0
+    weight: 0.9
+  - elementToBlend:
+      name: UpperChest
+      index: 14
+      isVirtual: 0
+    weight: 0.762
+  - elementToBlend:
+      name: Neck
+      index: 40
+      isVirtual: 0
+    weight: 0.3
+  - elementToBlend:
+      name: Head
+      index: 41
+      isVirtual: 0
+    weight: 0
+  - elementToBlend:
+      name: Left_Shoulder
+      index: 15
+      isVirtual: 0
+    weight: 0.559
+  - elementToBlend:
+      name: Right_Shoulder
+      index: 54
+      isVirtual: 0
+    weight: 0.9
+  blendPosition: 0
 --- !u!114 &5080528287839197063
 MonoBehaviour:
   m_ObjectHideFlags: 3

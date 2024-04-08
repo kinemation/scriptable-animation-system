@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9bd91fa31d045f79762a272fd5f0e61, type: 3}
-  m_Name: FPSControllerSettings_Generic
+  m_Name: FPSControllerSettings_Tutorial
   m_EditorClassIdentifier: 
-  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
+  rigAsset: {fileID: 11400000, guid: 26b0fdcec670dc243a52514cc8ec6972, type: 2}
   unarmedProfile: {fileID: 11400000, guid: efef821363862f34fa7d317ea008cb11, type: 2}
   turnInPlaceAngle: 89
   turnCurve:
@@ -42,14 +42,11 @@ MonoBehaviour:
   turnSpeed: 1.2
   timeScale: 1
   equipDelay: 0.8
-  leanAngle: 25
+  leanAngle: 35
   sensitivity: 1
   weaponBone:
     name: IK WeaponBone
-    index: -1
+    index: 48
     isVirtual: 0
   weaponPrefabs:
-  - {fileID: 2208818845419045761, guid: 930933797e08b5041bacaa2dd6b2ff69, type: 3}
-  - {fileID: 4910695102810075455, guid: 3f8355a8e4e41214892d595cdcdc527d, type: 3}
-  - {fileID: 8542894136583626980, guid: 4eb869b283956354d8ae03f13c2650ab, type: 3}
-  - {fileID: 6279796977330283349, guid: aacdb77dce8391f4f943a3049dd9e090, type: 3}
+  - {fileID: 1589292146418892403, guid: c3bc90cf73ab5694285c3b1fed561720, type: 3}

@@ -208,6 +208,20 @@ AnimatorStateMachine:
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -1411917708823465207}
+--- !u!114 &-6925165587231421827
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4437088df934c1a9375bf492c23d011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paramName: CrouchWeight
+  paramTargetValue: 1
 --- !u!114 &-6313176893230357823
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -253,6 +267,20 @@ BlendTree:
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
+--- !u!114 &-6214764254611381324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4437088df934c1a9375bf492c23d011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paramName: CrouchWeight
+  paramTargetValue: 1
 --- !u!1107 &-6172528911472495959
 AnimatorStateMachine:
   serializedVersion: 6
@@ -614,6 +642,20 @@ BlendTree:
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
+--- !u!114 &-4093078241152798023
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4437088df934c1a9375bf492c23d011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paramName: ProneWeight
+  paramTargetValue: 0
 --- !u!1107 &-4048195129620217320
 AnimatorStateMachine:
   serializedVersion: 6
@@ -679,7 +721,9 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5266791619868318701}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -4093078241152798023}
+  - {fileID: -6925165587231421827}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1290,7 +1334,7 @@ AnimatorController:
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 1
+    m_DefaultWeight: 0
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
@@ -1828,7 +1872,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: FullBodyWeight
     m_Mirror: 0
-  m_BlendParameter: Velocity
+  m_BlendParameter: CrouchWeight
   m_BlendParameterY: FullBodyWeight
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -1872,7 +1916,9 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2028200232308864711}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 6231372008911323129}
+  - {fileID: 6434855375125329870}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -2073,7 +2119,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5736256168395854356}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -6214764254611381324}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -2089,6 +2136,20 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &6231372008911323129
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4437088df934c1a9375bf492c23d011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paramName: CrouchWeight
+  paramTargetValue: 0
 --- !u!1102 &6317929490175717346
 AnimatorState:
   serializedVersion: 6
@@ -2178,6 +2239,20 @@ BlendTree:
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
+--- !u!114 &6434855375125329870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4437088df934c1a9375bf492c23d011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paramName: ProneWeight
+  paramTargetValue: 1
 --- !u!114 &6595686834640199610
 MonoBehaviour:
   m_ObjectHideFlags: 1

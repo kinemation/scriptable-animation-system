@@ -17,13 +17,6 @@ namespace Demo.Scripts.Runtime
     [CreateAssetMenu(fileName = "NewMovementSettings", menuName = "FPS Animator Demo/FPS Movement Settings", order = 0)]
     public class FPSMovementSettings : ScriptableObject
     {
-        [Header("Input")]
-        public KeyCode proneKey;
-        public KeyCode crouchKey;
-        public KeyCode sprintKey;
-        public KeyCode jumpKey;
-        public KeyCode slideKey;
-        
         [Header("Settings")]
         public GaitSettings idle;
         public GaitSettings prone;

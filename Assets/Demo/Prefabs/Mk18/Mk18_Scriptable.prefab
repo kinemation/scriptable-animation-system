@@ -351,13 +351,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reloadClip: {fileID: 11400000, guid: 93c514e68bc083d45b016a3d5f10d7bc, type: 2}
   grenadeClip: {fileID: 0}
-  fireClip: {fileID: 0}
   overlayType: 2
-  canAim: 1
   cameraShake: {fileID: 11400000, guid: 5563e5a81879bf3488e215990ceb8724, type: 2}
   recoilData: {fileID: 11400000, guid: 242b4114f86718f41a72a9bb8ebd19d0, type: 2}
   fireRate: 750
-  isAuto: 1
+  supportsAuto: 1
+  supportsBurst: 1
+  burstLength: 3
+  aimPoints: []
 --- !u!95 &2151158701131182720
 Animator:
   serializedVersion: 5

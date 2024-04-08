@@ -2709,7 +2709,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upperBodyMask: {fileID: 31900000, guid: 63d3cad30ec294f47a09e8663bc62589, type: 2}
   playablesWeightProperty: PlayablesWeight
-  animationToPreview: {fileID: 0}
+  animationToPreview: {fileID: -203655887218126122, guid: ab52827a2b7d1cb45b782d25e9a4007f,
+    type: 3}
   defaultPose: {fileID: -203655887218126122, guid: 83ba7afddb13a844d89df29eced45681,
     type: 3}
   loopPreview: 0

@@ -241,6 +241,7 @@ MonoBehaviour:
     name: IK LeftElbow
     index: 52
     isVirtual: 0
+  animatedPivotOffset: {x: 0, y: 0, z: 0}
   hintTargetWeight: 0.3
   additiveBone:
     name: WeaponBoneAdditive
@@ -343,6 +344,67 @@ MonoBehaviour:
       index: 0
       isVirtual: 0
     clampedAngle: {x: 21.25, y: 21.25}
+--- !u!114 &-2929358066986053362
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9861c1a9af9b4f6c9fe07e8768acf6ad, type: 3}
+  m_Name: BlendingLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
+  alpha: 1
+  curveBlending:
+  - name: ProneWeight
+    mode: 0
+    source: 0
+  - name: FullBodyWeight
+    mode: 1
+    source: 0
+  linkDynamically: 0
+  desiredPose: {fileID: -203655887218126122, guid: ab52827a2b7d1cb45b782d25e9a4007f,
+    type: 3}
+  blendingElements:
+  - elementToBlend:
+      name: Spine
+      index: 12
+      isVirtual: 0
+    weight: 0.9
+  - elementToBlend:
+      name: Chest
+      index: 13
+      isVirtual: 0
+    weight: 0.9
+  - elementToBlend:
+      name: UpperChest
+      index: 14
+      isVirtual: 0
+    weight: 0.762
+  - elementToBlend:
+      name: Neck
+      index: 40
+      isVirtual: 0
+    weight: 0.3
+  - elementToBlend:
+      name: Head
+      index: 41
+      isVirtual: 0
+    weight: 0
+  - elementToBlend:
+      name: Left_Shoulder
+      index: 15
+      isVirtual: 0
+    weight: 0.559
+  - elementToBlend:
+      name: Right_Shoulder
+      index: 54
+      isVirtual: 0
+    weight: 0.9
+  blendPosition: 0
 --- !u!114 &-1770046306956897463
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -365,6 +427,7 @@ MonoBehaviour:
     mode: 1
     source: 1
   linkDynamically: 0
+  customHandPose: {fileID: 0}
   handBone:
     name: Left_Hand
     index: 18
@@ -413,7 +476,7 @@ MonoBehaviour:
   settings:
   - {fileID: 4797716187722070175}
   - {fileID: -1770046306956897463}
-  - {fileID: 6564893101832071540}
+  - {fileID: -2929358066986053362}
   - {fileID: -9160313012916100075}
   - {fileID: 5420389157322750660}
   - {fileID: -7896337868018883974}
@@ -435,7 +498,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   alpha: 1
-  curveBlending: []
+  curveBlending:
+  - name: FullBodyWeight
+    mode: 1
+    source: 0
   linkDynamically: 0
   poseToSample: {fileID: 11400000, guid: acf094629de28374eab104a738369792, type: 2}
   defaultWeaponPose:
@@ -516,6 +582,7 @@ MonoBehaviour:
     name: IK LeftElbow
     index: 52
     isVirtual: 0
+  animatedPivotOffset: {x: 0, y: 0, z: 0}
   hintTargetWeight: 1
   aimTargetBone:
     name: CameraSocket
@@ -538,36 +605,13 @@ MonoBehaviour:
     y: 0.242
     z: 0.208
   aimingSpeed: 1.9
+  aimPointEaseMode:
+    easeFunc: 0
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  aimPointSpeed: 1
   isAimingProperty: IsAiming
---- !u!114 &6564893101832071540
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dee9c1da9424d8498badb5370764946, type: 3}
-  m_Name: PoseOffsetLayerSettings
-  m_EditorClassIdentifier: 
-  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 1
-  curveBlending: []
-  linkDynamically: 0
-  poseOffsets:
-  - pose:
-      element:
-        name: IK WeaponBone
-        index: 48
-        isVirtual: 0
-      pose:
-        position: {x: 0, y: 0, z: 0}
-        rotation: {x: 0, y: 0, z: 0, w: 0}
-        scale: {x: 0, y: 0, z: 0}
-      space: 2
-      modifyMode: 0
-    blend:
-      name: FullBodyWeight
-      mode: 0
-      source: 0

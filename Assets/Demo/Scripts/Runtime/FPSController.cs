@@ -64,7 +64,6 @@ namespace Demo.Scripts.Runtime
 
         private List<FPSItem> _instantiatedWeapons;
         private Vector2 _lookDeltaInput;
-        private bool _cursorLocked;
 
         private bool IsSprinting()
         {
@@ -97,6 +96,18 @@ namespace Demo.Scripts.Runtime
             _movementComponent.slideCondition += () => !HasActiveAction();
             _movementComponent.sprintCondition += () => !HasActiveAction();
             _movementComponent.proneCondition += () => !HasActiveAction();
+            
+            _movementComponent.onStartMoving.AddListener(() =>
+            {
+                if (_movementComponent.PoseState != FPSPoseState.Prone) return;
+                _userInput.SetValue(FPSANames.PlayablesWeight, 0f);
+            });
+            
+            _movementComponent.onStopMoving.AddListener(() =>
+            {
+                if (_movementComponent.PoseState != FPSPoseState.Prone) return;
+                _userInput.SetValue(FPSANames.PlayablesWeight, 1f);
+            });
         }
 
         private void InitializeWeapons()
@@ -312,12 +323,6 @@ namespace Demo.Scripts.Runtime
             if (isActive == 0) ResetActionState();
         }
         
-        private void OnApplicationFocus(bool hasFocus)
-        {
-            _cursorLocked = hasFocus;
-            Cursor.lockState = hasFocus ? CursorLockMode.Locked : CursorLockMode.None;
-        }
-
 #if ENABLE_INPUT_SYSTEM
         public void OnReload()
         {
@@ -364,13 +369,13 @@ namespace Demo.Scripts.Runtime
         public void OnAim()
         {
             if (IsSprinting()) return;
-            
+
             if (!IsAiming())
             {
                 if (GetActiveItem().OnAimPressed()) _aimState = FPSAimState.Aiming;
                 return;
             }
-
+            
             DisableAim();
         }
 
@@ -384,14 +389,22 @@ namespace Demo.Scripts.Runtime
 
         public void OnLook(InputValue value)
         {
-            if (!_cursorLocked) return;
-            
             _lookDeltaInput = value.Get<Vector2>();
         }
 
         public void OnLean(InputValue value)
         {
             _userInput.SetValue(FPSANames.LeanInput, value.Get<float>() * settings.leanAngle);
+        }
+
+        public void OnCycleScope()
+        {
+            GetActiveItem().OnCycleScope();
+        }
+
+        public void OnChangeFireMode()
+        {
+            GetActiveItem().OnChangeFireMode();
         }
 #endif
     }
