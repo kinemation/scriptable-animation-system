@@ -65,6 +65,16 @@ namespace Demo.Scripts.Runtime
         private List<FPSItem> _instantiatedWeapons;
         private Vector2 _lookDeltaInput;
 
+        private void PlayTransitionMotion(FPSAnimatorProfile profile)
+        {
+            if (profile == null || profile.settings.Count == 0)
+            {
+                return;
+            }
+            
+            _fpsAnimator.LinkAnimatorLayer(profile.settings[0]);
+        }
+
         private bool IsSprinting()
         {
             return _movementComponent.MovementState == FPSMovementState.Sprinting;
@@ -84,6 +94,10 @@ namespace Demo.Scripts.Runtime
         {
             _moveRotation = transform.rotation;
             _movementComponent = GetComponent<FPSMovement>();
+            
+            _movementComponent.onJump.AddListener(() => { PlayTransitionMotion(settings.jumpingMotion); });
+            
+            _movementComponent.onLanded.AddListener(() => { PlayTransitionMotion(settings.landingMotion); });
 
             _movementComponent.onCrouch.AddListener(OnCrouch);
             _movementComponent.onUncrouch.AddListener(OnUncrouch);
@@ -105,6 +119,7 @@ namespace Demo.Scripts.Runtime
             
             _movementComponent.onStopMoving.AddListener(() =>
             {
+                PlayTransitionMotion(settings.stopMotion);
                 if (_movementComponent.PoseState != FPSPoseState.Prone) return;
                 _userInput.SetValue(FPSANames.PlayablesWeight, 1f);
             });
@@ -217,11 +232,13 @@ namespace Demo.Scripts.Runtime
         private void OnCrouch()
         {
             _animator.SetBool(Crouching, true);
+            PlayTransitionMotion(settings.crouchingMotion);
         }
 
         private void OnUncrouch()
         {
             _animator.SetBool(Crouching, false);
+            PlayTransitionMotion(settings.crouchingMotion);
         }
         
         private bool _isLeaning;
@@ -369,6 +386,8 @@ namespace Demo.Scripts.Runtime
         public void OnAim()
         {
             if (IsSprinting()) return;
+            
+            PlayTransitionMotion(settings.aimingMotion);
 
             if (!IsAiming())
             {
@@ -395,11 +414,13 @@ namespace Demo.Scripts.Runtime
         public void OnLean(InputValue value)
         {
             _userInput.SetValue(FPSANames.LeanInput, value.Get<float>() * settings.leanAngle);
+            PlayTransitionMotion(settings.leanMotion);
         }
 
         public void OnCycleScope()
         {
             GetActiveItem().OnCycleScope();
+            PlayTransitionMotion(settings.aimingMotion);
         }
 
         public void OnChangeFireMode()

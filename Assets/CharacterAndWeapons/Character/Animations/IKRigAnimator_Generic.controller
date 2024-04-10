@@ -1872,7 +1872,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: FullBodyWeight
     m_Mirror: 0
-  m_BlendParameter: CrouchWeight
+  m_BlendParameter: Velocity
   m_BlendParameterY: FullBodyWeight
   m_MinThreshold: 0
   m_MaxThreshold: 1

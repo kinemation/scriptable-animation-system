@@ -25,6 +25,14 @@ namespace Demo.Scripts.Runtime
         public float turnInPlaceAngle;
         public AnimationCurve turnCurve = new AnimationCurve(new Keyframe(0f, 0f));
         [Min(0f)] public float turnSpeed = 1f;
+
+        [Header("IK Motions")]
+        public FPSAnimatorProfile aimingMotion;
+        public FPSAnimatorProfile crouchingMotion;
+        public FPSAnimatorProfile jumpingMotion;
+        public FPSAnimatorProfile landingMotion;
+        public FPSAnimatorProfile stopMotion;
+        public FPSAnimatorProfile leanMotion;
         
         [Tab("Controller")] 
         
