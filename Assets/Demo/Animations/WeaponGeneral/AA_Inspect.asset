@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f5fc06806945df8a985b4b99c57863, type: 3}
+  m_Name: AA_Inspect
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 62a322d28a438724fa7c791ca3166fd3, type: 2}
+  clip: {fileID: 7400000, guid: 26e24d59a0afedb459fb39343fbc4b71, type: 2}
+  mask: {fileID: 0}
+  overrideMask: {fileID: 0}
+  isAdditive: 1
+  blendTime:
+    blendInTime: 0.15
+    blendOutTime: 0.15
+    rateScale: 1
+  curves: []

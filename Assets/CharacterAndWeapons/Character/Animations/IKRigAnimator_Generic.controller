@@ -1334,7 +1334,7 @@ AnimatorController:
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
+    m_DefaultWeight: 1
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
@@ -1353,7 +1353,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: InAir
     m_StateMachine: {fileID: -3266401610819755531}
-    m_Mask: {fileID: 31900000, guid: b15cb1ad322ee9f4da30e71586ac0a47, type: 2}
+    m_Mask: {fileID: 31900000, guid: 49cfaad5d6bfc3f4cb63636785f8d40a, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0

@@ -440,7 +440,9 @@ namespace Demo.Scripts.Runtime
 
         public void OnCrouch()
         {
-            if (MovementState != FPSMovementState.Idle && MovementState != FPSMovementState.Walking)
+            if (_animator.GetFloat("OverlayType") < 1f) return;
+            
+            if (MovementState is not (FPSMovementState.Idle or FPSMovementState.Walking))
             {
                 return;
             }
@@ -463,6 +465,8 @@ namespace Demo.Scripts.Runtime
 
         public void OnProne()
         {
+            if (_animator.GetFloat("OverlayType") < 1f) return;
+            
             if (MovementState is FPSMovementState.Sprinting or FPSMovementState.InAir)
             {
                 return;

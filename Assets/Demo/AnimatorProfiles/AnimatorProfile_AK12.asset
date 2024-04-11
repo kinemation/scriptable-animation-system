@@ -388,6 +388,7 @@ MonoBehaviour:
       name: CrouchWeight
       mode: 0
       source: 0
+    keepChildrenPose: 0
 --- !u!114 &-2767156448427965238
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -785,7 +786,7 @@ MonoBehaviour:
   m_Name: CollisionLayerSettings
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 1
+  alpha: 0
   curveBlending:
   - name: FullBodyWeight
     mode: 1

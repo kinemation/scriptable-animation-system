@@ -230,13 +230,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2035f9c45b0d4bc2ba0f13d0624fa523, type: 3}
   m_Name: IkMotionLayerSettings
   m_EditorClassIdentifier: 
-  rigAsset: {fileID: 0}
+  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   alpha: 1
   curveBlending: []
   linkDynamically: 0
   boneToAnimate:
-    name: 
-    index: 0
+    name: IK WeaponBone
+    index: 48
     isVirtual: 0
   rotationCurves:
     x:
@@ -613,12 +613,12 @@ MonoBehaviour:
   - {fileID: -5290396991009541559}
   - {fileID: -5926500349329534600}
   - {fileID: 317458384766536076}
+  - {fileID: -2643861660107487329}
   - {fileID: 65171223751035789}
   - {fileID: 624730328850456579}
   - {fileID: -7807976231479779992}
   - {fileID: 5080528287839197063}
   - {fileID: -349774528806553156}
-  - {fileID: -2643861660107487329}
 --- !u!114 &65171223751035789
 MonoBehaviour:
   m_ObjectHideFlags: 3

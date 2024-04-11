@@ -224,6 +224,8 @@ namespace Demo.Scripts.Runtime
 
         private void OnSprintEnded()
         {
+            if (_animator.GetFloat("OverlayType") == 0) return;
+            
             _userInput.SetValue(FPSANames.StabilizationWeight, 1f);
             _userInput.SetValue(FPSANames.PlayablesWeight, 1f);
             _userInput.SetValue("LookLayerWeight", 1f);
@@ -231,13 +233,11 @@ namespace Demo.Scripts.Runtime
 
         private void OnCrouch()
         {
-            _animator.SetBool(Crouching, true);
             PlayTransitionMotion(settings.crouchingMotion);
         }
 
         private void OnUncrouch()
         {
-            _animator.SetBool(Crouching, false);
             PlayTransitionMotion(settings.crouchingMotion);
         }
         
@@ -314,19 +314,23 @@ namespace Demo.Scripts.Runtime
             Vector2 pitchClamp = Vector2.Lerp(new Vector2(-90f, 90f), new Vector2(-30, 0f), proneWeight);
 
             _playerInput.y = Mathf.Clamp(_playerInput.y, pitchClamp.x, pitchClamp.y);
-            _moveRotation *= Quaternion.Euler(0f, deltaMouseX, 0f);
-            TurnInPlace();
-
-            _jumpState = Mathf.Lerp(_jumpState, _movementComponent.IsInAir() ? 1f : 0f,
-                KMath.ExpDecayAlpha(10f, Time.deltaTime));
-
+            
+            /* Temporarily disabled, a fix is coming soon.
             float moveWeight = Mathf.Clamp01(_movementComponent.AnimatorVelocity.magnitude);
-            transform.rotation = Quaternion.Slerp(transform.rotation, _moveRotation, moveWeight);
+            _jumpState = _movementComponent.IsInAir() ? 1f : 0f;
+            
+            _moveRotation *= Quaternion.Euler(0f, deltaMouseX * Mathf.Clamp01(moveWeight + _jumpState), 0f);
+            TurnInPlace();
+            
+            transform.rotation *= Quaternion.Euler(0f, deltaMouseX * Mathf.Clamp01(moveWeight + _jumpState), 0f);
             _playerInput.x *= 1f - moveWeight;
             _playerInput.x *= 1f - _jumpState;
+            */
+            
+            transform.rotation *= Quaternion.Euler(0f, deltaMouseX, 0f);
             
             _userInput.SetValue(FPSANames.MouseDeltaInput, new Vector4(deltaMouseX, deltaMouseY));
-            _userInput.SetValue(FPSANames.MouseInput, new Vector4(_playerInput.x, _playerInput.y));
+            _userInput.SetValue(FPSANames.MouseInput, new Vector4(0f, _playerInput.y));
         }
 
         private void Update()
@@ -383,19 +387,22 @@ namespace Demo.Scripts.Runtime
             OnFireReleased();
         }
 
-        public void OnAim()
+        public void OnAim(InputValue value)
         {
             if (IsSprinting()) return;
-            
-            PlayTransitionMotion(settings.aimingMotion);
 
-            if (!IsAiming())
+            if (value.isPressed && !IsAiming())
             {
                 if (GetActiveItem().OnAimPressed()) _aimState = FPSAimState.Aiming;
+                PlayTransitionMotion(settings.aimingMotion);
                 return;
             }
-            
-            DisableAim();
+
+            if (!value.isPressed && IsAiming())
+            {
+                DisableAim();
+                PlayTransitionMotion(settings.aimingMotion);
+            }
         }
 
         public void OnChangeWeapon()

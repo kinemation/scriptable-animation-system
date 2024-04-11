@@ -498,7 +498,7 @@ MonoBehaviour:
   m_Name: IkMotionLayerSettings
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 1
+  alpha: 0.7
   curveBlending: []
   linkDynamically: 0
   boneToAnimate:
@@ -651,7 +651,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  rotationScale: {x: 1, y: 1, z: 1}
+  rotationScale: {x: 0, y: 0, z: 0}
   translationScale: {x: 1, y: 1, z: 1}
   blendTime: 0
   playRate: 1
