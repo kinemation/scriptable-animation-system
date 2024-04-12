@@ -6,7 +6,7 @@ namespace Demo.Scripts.Runtime
 {
     public abstract class FPSItem : MonoBehaviour
     {
-        public virtual void OnEquip() { }
+        public virtual void OnEquip(GameObject parent) { }
         
         public virtual void OnUnEquip() { }
 

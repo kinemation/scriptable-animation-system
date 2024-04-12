@@ -179,7 +179,7 @@ namespace Demo.Scripts.Runtime
 
             _instantiatedWeapons[_previousWeaponIndex].gameObject.SetActive(false);
             GetActiveItem().gameObject.SetActive(true);
-            GetActiveItem().OnEquip();
+            GetActiveItem().OnEquip(gameObject);
         }
 
         private void DisableAim()

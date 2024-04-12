@@ -60,29 +60,24 @@ namespace Demo.Scripts.Runtime
         private static readonly int CurveEquip = Animator.StringToHash("CurveEquip");
         private static readonly int CurveUnequip = Animator.StringToHash("CurveUnequip");
         
-        public override void OnEquip()
+        public override void OnEquip(GameObject parent)
         {
+            if (parent == null) return;
+            
             _weaponAnimator = GetComponentInChildren<Animator>();
-            FPSController controller = transform.parent.root.GetComponentInChildren<FPSController>();
-            if (controller == null)
-            {
-                return;
-            }
-
             _fpsAnimatorEntity = GetComponent<FPSAnimatorEntity>();
             
-            _controllerAnimator = controller.GetComponent<Animator>();
-            _userInputController = controller.GetComponent<UserInputController>();
-            _playablesController = controller.GetComponent<IPlayablesController>();
-            _fpsCameraController = controller.GetComponentInChildren<FPSCameraController>();
-            _fpsAnimator = controller.GetComponent<FPSAnimator>();
-            _recoilAnimation = controller.GetComponent<RecoilAnimation>();
+            _controllerAnimator = parent.GetComponent<Animator>();
+            _userInputController = parent.GetComponent<UserInputController>();
+            _playablesController = parent.GetComponent<IPlayablesController>();
+            _fpsCameraController = parent.GetComponentInChildren<FPSCameraController>();
+            _fpsAnimator = parent.GetComponent<FPSAnimator>();
+            _recoilAnimation = parent.GetComponent<RecoilAnimation>();
             
             _controllerAnimator.SetFloat(OverlayType, (float) overlayType);
             _fpsAnimator.LinkAnimatorProfile(gameObject);
             
             _recoilAnimation.Init(recoilData, fireRate, _fireMode);
-            
             _controllerAnimator.CrossFade(CurveEquip, 0.15f);
         }
 
