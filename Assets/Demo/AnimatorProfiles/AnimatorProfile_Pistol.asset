@@ -476,6 +476,7 @@ MonoBehaviour:
   settings:
   - {fileID: 4797716187722070175}
   - {fileID: -1770046306956897463}
+  - {fileID: 2287921055843473786}
   - {fileID: -2929358066986053362}
   - {fileID: -9160313012916100075}
   - {fileID: 5420389157322750660}
@@ -485,6 +486,66 @@ MonoBehaviour:
   - {fileID: -4213245232887500793}
   - {fileID: -7139563932899588606}
   - {fileID: -8072070869313292983}
+--- !u!114 &2287921055843473786
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9861c1a9af9b4f6c9fe07e8768acf6ad, type: 3}
+  m_Name: BlendingLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
+  alpha: 1
+  curveBlending:
+  - name: FullBodyWeight
+    mode: 1
+    source: 0
+  - name: ProneWeight
+    mode: 1
+    source: 0
+  linkDynamically: 0
+  desiredPose: {fileID: 7400000, guid: 4999a677f38b4624f8e8680c7f7e0ea8, type: 2}
+  blendingElements:
+  - elementToBlend:
+      name: Spine
+      index: 12
+      isVirtual: 0
+    weight: 1
+  - elementToBlend:
+      name: Chest
+      index: 13
+      isVirtual: 0
+    weight: 1
+  - elementToBlend:
+      name: UpperChest
+      index: 14
+      isVirtual: 0
+    weight: 0.831
+  - elementToBlend:
+      name: Neck
+      index: 40
+      isVirtual: 0
+    weight: 0.567
+  - elementToBlend:
+      name: Head
+      index: 41
+      isVirtual: 0
+    weight: 0
+  - elementToBlend:
+      name: Left_Shoulder
+      index: 15
+      isVirtual: 0
+    weight: 0.909
+  - elementToBlend:
+      name: Right_Shoulder
+      index: 54
+      isVirtual: 0
+    weight: 0.714
+  blendPosition: 0
 --- !u!114 &4379685225851938434
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -768,13 +829,13 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   positionBlend:
-    x: 0.208
-    y: 0.251
-    z: 0.247
+    x: 0.789
+    y: 0.798
+    z: 0.807
   rotationBlend:
-    x: 0.247
-    y: 0.242
-    z: 0.208
+    x: 0.78
+    y: 0.78
+    z: 0.749
   aimingSpeed: 1.9
   aimPointEaseMode:
     easeFunc: 0

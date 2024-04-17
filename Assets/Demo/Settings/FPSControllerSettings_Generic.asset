@@ -55,8 +55,8 @@ MonoBehaviour:
     index: -1
     isVirtual: 0
   weaponPrefabs:
-  - {fileID: 6581593668812896256, guid: bb5a3f1e70fe48f489aa315ed3d689e8, type: 3}
-  - {fileID: 2208818845419045761, guid: 930933797e08b5041bacaa2dd6b2ff69, type: 3}
-  - {fileID: 4910695102810075455, guid: 3f8355a8e4e41214892d595cdcdc527d, type: 3}
   - {fileID: 8542894136583626980, guid: 4eb869b283956354d8ae03f13c2650ab, type: 3}
+  - {fileID: 4910695102810075455, guid: 3f8355a8e4e41214892d595cdcdc527d, type: 3}
+  - {fileID: 2208818845419045761, guid: 930933797e08b5041bacaa2dd6b2ff69, type: 3}
   - {fileID: 6279796977330283349, guid: aacdb77dce8391f4f943a3049dd9e090, type: 3}
+  - {fileID: 6581593668812896256, guid: bb5a3f1e70fe48f489aa315ed3d689e8, type: 3}

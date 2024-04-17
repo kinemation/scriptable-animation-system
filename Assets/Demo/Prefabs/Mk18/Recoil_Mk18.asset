@@ -20,7 +20,7 @@ MonoBehaviour:
   kickRight: {x: 0, y: 0}
   aimRot: {x: 0.3, y: 0.1, z: 1}
   aimLoc: {x: 0.1, y: 0.1, z: 1}
-  smoothRot: {x: 0, y: 9, z: 5}
+  smoothRot: {x: 0, y: 9, z: 6}
   smoothLoc: {x: 1.1, y: 25, z: 55}
   extraRot: {x: 1.2, y: 3, z: 5}
   extraLoc: {x: 1, y: 1, z: 1.3}
@@ -33,7 +33,7 @@ MonoBehaviour:
   pushAccel: 7
   pushDamp: 7
   hipPivotOffset: {x: 0, y: 0, z: 0}
-  aimPivotOffset: {x: 0, y: -0.05, z: 0}
+  aimPivotOffset: {x: 0, y: -0.04, z: 0}
   smoothRoll: 1
   playRate: 1.05
   recoilCurves:

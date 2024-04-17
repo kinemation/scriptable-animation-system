@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IkMotionLayerSettings
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 1
+  alpha: 0.7
   curveBlending: []
   linkDynamically: 0
   boneToAnimate:
@@ -388,6 +388,7 @@ MonoBehaviour:
       name: CrouchWeight
       mode: 0
       source: 0
+    keepChildrenPose: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,23 +523,23 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   positionBlend:
-    x: 0.404
-    y: 0.394
-    z: 0.384
+    x: 0.325
+    y: 0.334
+    z: 0.334
   rotationBlend:
-    x: 0.414
-    y: 0.399
-    z: 0.404
+    x: 0.358
+    y: 0.33
+    z: 0.334
   aimingSpeed: 1.8
   aimPointEaseMode:
-    easeFunc: 0
+    easeFunc: 1
     curve:
       serializedVersion: 2
       m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  aimPointSpeed: 1
+  aimPointSpeed: 1.8
   isAimingProperty: IsAiming
 --- !u!114 &624730328850456579
 MonoBehaviour:

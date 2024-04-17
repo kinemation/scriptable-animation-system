@@ -786,7 +786,7 @@ MonoBehaviour:
   m_Name: CollisionLayerSettings
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 0
+  alpha: 1
   curveBlending:
   - name: FullBodyWeight
     mode: 1

@@ -8,25 +8,23 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: plastic
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _BLENDMAINNORMAL_ON
-  - _DETAILSOURCE_SPECULARALPHA
-  - _ENABLETRIPLANARPROJECTION_ON
-  - _SOURCE_SPECULARALPHA
-  - _TRIPLANARSPACEPROJECTION_OBJECTSPACE
-  - _USEAOFROMMAINPROPERTIES_ON
-  - _USEEMISSIONFROMMAINPROPERTIES_ON
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -75,16 +73,33 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 0
     - _AoIntensity: 1
+    - _Blend: 0
     - _BlendMainNormal: 1
     - _BlendmodeOverlay: 0
     - _Brightness: 1
     - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
     - _ContrastDetailMap: 0
     - _Cull: 0
     - _Cutoff: 0.494
+    - _DetailAlbedoMapScale: 1
     - _DetailBrightness: 1
     - _DetailGlossiness: 0.5
     - _DetailNormalMapScale: 1
@@ -95,6 +110,7 @@ Material:
     - _EmissionIntensity: 1
     - _EnableDetailMask: 0
     - _EnableTriplanarProjection: 1
+    - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.27
     - _GlossyReflections: 1
@@ -105,7 +121,10 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _Saturation: 0
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _Source: 0
     - _SourceMask: 0
@@ -113,21 +132,38 @@ Material:
     - _SpecularIntensity: 1.11
     - _SpreadDetailMap: 0
     - _SrcBlend: 1
+    - _Surface: 0
     - _TriplanarFalloff: 20
     - _TriplanarSpaceProjection: 0
     - _UVSec: 0
     - _UseAoFromMainProperties: 1
     - _UseEmissionFromMainProperties: 1
     - _VisualizeMask: 0
+    - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 0}
     - _DetailSpecularColor: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GlobalXYTilingXYZWOffsetXY: {r: 1, g: 1, b: 0, a: 0}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 0.17254902, g: 0.18039216, b: 0.19607845, a: 1}
     - _TriplanarXYTilingXYZWOffsetXY: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
+--- !u!114 &7681479979743633669
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
