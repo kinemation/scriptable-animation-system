@@ -1,6 +1,6 @@
 // Designed by KINEMATION, 2024.
 
-using Demo.Scripts.Runtime;
+using Demo.Scripts.Runtime.Character;
 using KINEMATION.KAnimationCore.Editor.Misc;
 using UnityEditor;
 

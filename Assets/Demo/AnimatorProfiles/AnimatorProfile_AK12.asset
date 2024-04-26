@@ -17,8 +17,10 @@ MonoBehaviour:
   curveBlending:
   - name: MaskAttachHand
     mode: 1
+    clampMin: 0
     source: 1
   linkDynamically: 0
+  isStandalone: 0
   customHandPose: {fileID: 0}
   handBone:
     name: Left_Hand
@@ -59,8 +61,10 @@ MonoBehaviour:
   curveBlending:
   - name: LookLayerWeight
     mode: 0
+    clampMin: 0
     source: 2
   linkDynamically: 0
+  isStandalone: 0
   mouseInputProperty: MouseInput
   leanInputProperty: LeanInput
   pitchOffsetElements:
@@ -148,8 +152,10 @@ MonoBehaviour:
   curveBlending:
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   linkDynamically: 0
+  isStandalone: 0
   ikHandGun:
     element:
       name: IK WeaponBone
@@ -197,8 +203,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   alpha: 1
-  curveBlending: []
+  curveBlending:
+  - name: AimingWeight
+    mode: 1
+    clampMin: 0.4
+    source: 2
   linkDynamically: 0
+  isStandalone: 0
   boneToAnimate:
     name: IK WeaponBone
     index: 48
@@ -370,8 +381,10 @@ MonoBehaviour:
   curveBlending:
   - name: AimingWeight
     mode: 1
+    clampMin: 0
     source: 2
   linkDynamically: 0
+  isStandalone: 0
   poseOffsets:
   - pose:
       element:
@@ -387,6 +400,7 @@ MonoBehaviour:
     blend:
       name: CrouchWeight
       mode: 0
+      clampMin: 0
       source: 0
     keepChildrenPose: 0
 --- !u!114 &-2767156448427965238
@@ -406,11 +420,14 @@ MonoBehaviour:
   curveBlending:
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   - name: ProneWeight
     mode: 1
+    clampMin: 0
     source: 0
   linkDynamically: 0
+  isStandalone: 0
   desiredPose: {fileID: 7400000, guid: a9571dabdf500e941abdbe0aa44b6a08, type: 2}
   blendingElements:
   - elementToBlend:
@@ -500,8 +517,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   alpha: 1
-  curveBlending: []
+  curveBlending:
+  - name: AimingWeight
+    mode: 1
+    clampMin: 0.4
+    source: 2
   linkDynamically: 0
+  isStandalone: 0
   boneToModify:
     name: IK WeaponBone
     index: 48
@@ -557,6 +579,7 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  isStandalone: 0
   weaponIkBone:
     name: IK WeaponBone
     index: 48
@@ -619,8 +642,10 @@ MonoBehaviour:
   curveBlending:
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   linkDynamically: 0
+  isStandalone: 0
   weaponIkBone:
     name: IK WeaponBone
     index: 48
@@ -659,8 +684,10 @@ MonoBehaviour:
   curveBlending:
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   linkDynamically: 0
+  isStandalone: 0
   poseToSample: {fileID: 11400000, guid: a704d26885bc7d547bb761fa183f1fb2, type: 2}
   defaultWeaponPose:
     position: {x: 0, y: 0, z: 0}
@@ -668,7 +695,7 @@ MonoBehaviour:
     scale: {x: 1, y: 1, z: 1}
   weaponBoneOffset:
     position: {x: 0, y: 0, z: 0}
-    rotation: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
   ikWeaponBone:
     name: IK WeaponBone
@@ -729,11 +756,14 @@ MonoBehaviour:
   curveBlending:
   - name: ProneWeight
     mode: 0
+    clampMin: 0
     source: 0
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   linkDynamically: 0
+  isStandalone: 0
   desiredPose: {fileID: -203655887218126122, guid: ab52827a2b7d1cb45b782d25e9a4007f,
     type: 3}
   blendingElements:
@@ -790,8 +820,10 @@ MonoBehaviour:
   curveBlending:
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   linkDynamically: 0
+  isStandalone: 0
   weaponIkBone:
     name: IK WeaponBone
     index: 48
@@ -828,6 +860,7 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  isStandalone: 0
   rightHand:
     name: Right_Hand
     index: 57

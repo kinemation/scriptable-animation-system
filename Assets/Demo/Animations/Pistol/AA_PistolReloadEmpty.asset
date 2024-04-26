@@ -18,12 +18,12 @@ MonoBehaviour:
   overrideMask: {fileID: 0}
   isAdditive: 0
   blendTime:
-    blendInTime: 0
-    blendOutTime: 0
+    blendInTime: 0.15
+    blendOutTime: 0.15
     rateScale: 1
   curves:
-  - Name: MaskAttachHand
-    Curve:
+  - name: MaskAttachHand
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -34,21 +34,30 @@ MonoBehaviour:
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
-        outWeight: 0
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1
+        time: 0.70740616
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.8062202
+        value: 0
+        inSlope: -0.42877194
+        outSlope: -0.42877194
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.79893005
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 0
-  - Name: WeaponBoneWeight
-    Curve:
+  - name: WeaponBoneWeight
+    curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3

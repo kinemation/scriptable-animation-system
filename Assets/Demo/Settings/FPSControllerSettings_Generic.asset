@@ -40,14 +40,13 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   turnSpeed: 1.2
-  aimingMotion: {fileID: 11400000, guid: e221447fd15e19d4994a354083a72dfe, type: 2}
-  crouchingMotion: {fileID: 11400000, guid: fc566ec371135a04db172fb2bcd9fe12, type: 2}
-  jumpingMotion: {fileID: 11400000, guid: c047f713180d5a8479c1aa1ad6667663, type: 2}
-  landingMotion: {fileID: 11400000, guid: c047f713180d5a8479c1aa1ad6667663, type: 2}
-  stopMotion: {fileID: 11400000, guid: ac9868de13443d1418b905854ea963dc, type: 2}
-  leanMotion: {fileID: 11400000, guid: dd1ade29be0057b49996c319dbd68b72, type: 2}
+  aimingMotion: {fileID: 11400000, guid: 2951c90938854f24c935627d36bbc3cd, type: 2}
+  crouchingMotion: {fileID: 11400000, guid: fa23e63ff38a3bb4f9f7bca500ced7ce, type: 2}
+  jumpingMotion: {fileID: 11400000, guid: 93be04a77e31740498d5c7d7e8286ab5, type: 2}
+  stopMotion: {fileID: 11400000, guid: df1c50775e86cd04d81a570dca084893, type: 2}
+  leanMotion: {fileID: 11400000, guid: a493caf2a32529d4d88aff9ccf78e181, type: 2}
   timeScale: 1
-  equipDelay: 0.8
+  equipDelay: 0.6
   leanAngle: 25
   sensitivity: 1
   weaponBone:
@@ -56,7 +55,8 @@ MonoBehaviour:
     isVirtual: 0
   weaponPrefabs:
   - {fileID: 8542894136583626980, guid: 4eb869b283956354d8ae03f13c2650ab, type: 3}
-  - {fileID: 4910695102810075455, guid: 3f8355a8e4e41214892d595cdcdc527d, type: 3}
   - {fileID: 2208818845419045761, guid: 930933797e08b5041bacaa2dd6b2ff69, type: 3}
+  - {fileID: 2208818845419045761, guid: 792cc597b92cd774fb2205a53e97948c, type: 3}
+  - {fileID: 4910695102810075455, guid: 3f8355a8e4e41214892d595cdcdc527d, type: 3}
   - {fileID: 6279796977330283349, guid: aacdb77dce8391f4f943a3049dd9e090, type: 3}
   - {fileID: 6581593668812896256, guid: bb5a3f1e70fe48f489aa315ed3d689e8, type: 3}

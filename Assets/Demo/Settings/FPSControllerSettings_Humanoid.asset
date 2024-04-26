@@ -40,8 +40,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   turnSpeed: 1.2
+  aimingMotion: {fileID: 11400000, guid: 2951c90938854f24c935627d36bbc3cd, type: 2}
+  crouchingMotion: {fileID: 11400000, guid: fa23e63ff38a3bb4f9f7bca500ced7ce, type: 2}
+  jumpingMotion: {fileID: 11400000, guid: 93be04a77e31740498d5c7d7e8286ab5, type: 2}
+  stopMotion: {fileID: 11400000, guid: df1c50775e86cd04d81a570dca084893, type: 2}
+  leanMotion: {fileID: 11400000, guid: a493caf2a32529d4d88aff9ccf78e181, type: 2}
   timeScale: 1
   equipDelay: 0.8
+  leanAngle: 25
   sensitivity: 1
   weaponBone:
     name: IK WeaponBone

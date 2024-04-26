@@ -18,7 +18,7 @@ MonoBehaviour:
   overrideMask: {fileID: 0}
   isAdditive: 0
   blendTime:
-    blendInTime: 0
+    blendInTime: 0.15
     blendOutTime: 0.15
     rateScale: 1
   curves:
@@ -34,15 +34,24 @@ MonoBehaviour:
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
-        outWeight: 0
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1
+        time: 0.7853982
         value: 1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.9217592
+        value: -0.0030930168
+        inSlope: -0.21679299
+        outSlope: -0.21679299
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.6673568
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2

@@ -2517,6 +2517,7 @@ GameObject:
   - component: {fileID: 7948552439935663113}
   - component: {fileID: 7733414983735900236}
   - component: {fileID: 652359171}
+  - component: {fileID: 1681428738}
   m_Layer: 0
   m_Name: FPSGenericPlayer
   m_TagString: Untagged
@@ -2668,7 +2669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b2896c936d4be59e98d9bf358c5a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputConfig: {fileID: 11400000, guid: 022095d8cf55fba4080ab3e4c1364954, type: 2}
+  inputConfig: {fileID: 11400000, guid: 7a4896e4318cbb5418fe8eb1a616e382, type: 2}
 --- !u!114 &7948552439935663108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2749,6 +2750,20 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1681428738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102044144766431328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce547e116b44076a8d073dc602131b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilSettings: {fileID: 11400000, guid: be2be2c72d4648d4d9c1626c6fae08bc, type: 2}
+  deltaLookInputProperty: MouseDeltaInput
 --- !u!1 &7151070337432973102
 GameObject:
   m_ObjectHideFlags: 0
@@ -3395,7 +3410,7 @@ Camera:
     height: 1
   near clip plane: 0.03
   far clip plane: 1000
-  field of view: 80
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
