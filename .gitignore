@@ -8,6 +8,5 @@ UserSettings/
 Assets/KINEMATION/
 Packages/com.unity.asset-store-tools/
 *.csproj
-*.png
 *.sln
 Assets/KINEMATION.meta
