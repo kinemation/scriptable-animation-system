@@ -1,5 +1,6 @@
 // Designed by KINEMATION, 2024.
 
+using System;
 using KINEMATION.FPSAnimationFramework.Runtime.Camera;
 using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using KINEMATION.FPSAnimationFramework.Runtime.Playables;
@@ -154,7 +155,11 @@ namespace Demo.Scripts.Runtime.Item
             gripAttachments.Initialize(_fpsAnimator);
             
             _recoilAnimation.Init(recoilData, fireRate, _fireMode);
-            _recoilPattern.Init(recoilPatternSettings);
+
+            if (_recoilPattern != null)
+            {
+                _recoilPattern.Init(recoilPatternSettings);
+            }
             
             _controllerAnimator.CrossFade(CurveEquip, 0.15f);
         }
@@ -207,6 +212,7 @@ namespace Demo.Scripts.Runtime.Item
             
             _lastRecoilTime = Time.unscaledTime;
             _bursts = burstLength;
+            
             OnFire();
             
             return true;

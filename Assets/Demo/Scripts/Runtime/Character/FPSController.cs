@@ -69,6 +69,8 @@ namespace Demo.Scripts.Runtime.Character
 
         private RecoilPattern _recoilPattern;
 
+        private int _sensitivityMultiplierPropertyIndex;
+
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
             if (layerSettings == null)
@@ -162,6 +164,8 @@ namespace Demo.Scripts.Runtime.Character
 
             _actionState = FPSActionState.None;
             EquipWeapon();
+
+            _sensitivityMultiplierPropertyIndex = _userInput.GetPropertyIndex("SensitivityMultiplier");
         }
 
         private void UnequipWeapon()
@@ -307,7 +311,7 @@ namespace Demo.Scripts.Runtime.Character
         
         private void UpdateLookInput()
         {
-            float scale = _userInput.GetValue<float>("SensitivityMultiplier");
+            float scale = _userInput.GetValue<float>(_sensitivityMultiplierPropertyIndex);
             
             float deltaMouseX = _lookDeltaInput.x * settings.sensitivity * scale;
             float deltaMouseY = -_lookDeltaInput.y * settings.sensitivity * scale;
