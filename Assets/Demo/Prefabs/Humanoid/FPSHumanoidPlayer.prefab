@@ -2749,6 +2749,7 @@ GameObject:
   - component: {fileID: 6145671210753562984}
   - component: {fileID: 6145671210753562985}
   - component: {fileID: 2643123026691404016}
+  - component: {fileID: 210151212019459840}
   m_Layer: 0
   m_Name: FPSHumanoidPlayer
   m_TagString: Untagged
@@ -2932,7 +2933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b2896c936d4be59e98d9bf358c5a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputConfig: {fileID: 11400000, guid: 022095d8cf55fba4080ab3e4c1364954, type: 2}
+  inputConfig: {fileID: 11400000, guid: 7a4896e4318cbb5418fe8eb1a616e382, type: 2}
 --- !u!114 &6145671210753562985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2976,6 +2977,20 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &210151212019459840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6451589767442807625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce547e116b44076a8d073dc602131b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilSettings: {fileID: 0}
+  deltaLookInputProperty: MouseInput
 --- !u!1 &6493750368511058701
 GameObject:
   m_ObjectHideFlags: 0

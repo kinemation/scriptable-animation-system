@@ -315,12 +315,12 @@ namespace Demo.Scripts.Runtime.Character
             
             float deltaMouseX = _lookDeltaInput.x * settings.sensitivity * scale;
             float deltaMouseY = -_lookDeltaInput.y * settings.sensitivity * scale;
-
+            
+            _playerInput.y += deltaMouseY;
+            _playerInput.x = deltaMouseX;
+            
             if (_recoilPattern != null)
             {
-                _playerInput.y += deltaMouseY;
-                
-                _playerInput.x = deltaMouseX;
                 _playerInput += _recoilPattern.GetRecoilDelta();
             }
 
