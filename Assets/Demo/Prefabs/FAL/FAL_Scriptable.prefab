@@ -119,7 +119,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5455053575652881098}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0462, z: -0.2896}
+  m_LocalPosition: {x: 0, y: 0.0462, z: -0.218}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -208,9 +208,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fieldOfView: 90
   reloadClip: {fileID: 11400000, guid: 41a6b312371363f40a4cce4e8fb96754, type: 2}
   cameraReloadAnimation: {fileID: 0}
   grenadeClip: {fileID: 11400000, guid: 8c00be63e1ceb6e419dc9b20f7064687, type: 2}
+  cameraGrenadeAnimation: {fileID: 0}
   overlayType: 2
   recoilData: {fileID: 11400000, guid: 242b4114f86718f41a72a9bb8ebd19d0, type: 2}
   recoilPatternSettings: {fileID: 11400000, guid: be2be2c72d4648d4d9c1626c6fae08bc,
@@ -220,7 +222,11 @@ MonoBehaviour:
   supportsAuto: 1
   supportsBurst: 0
   burstLength: 0
-  aimPoints: []
+  barrelAttachments:
+    attachments: []
+  gripAttachments:
+    attachments: []
+  scopeGroups: []
 --- !u!114 &2992999746701429528
 MonoBehaviour:
   m_ObjectHideFlags: 0
