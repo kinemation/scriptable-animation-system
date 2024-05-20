@@ -29,6 +29,9 @@ MonoBehaviour:
   - name: AimingWeight
     defaultValue: 0
     interpolationSpeed: 0
+  - name: SensitivityMultiplier
+    defaultValue: 1
+    interpolationSpeed: 7
   boolProperties:
   - name: IsAiming
     defaultValue: 0
