@@ -2933,7 +2933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b2896c936d4be59e98d9bf358c5a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputConfig: {fileID: 11400000, guid: 7a4896e4318cbb5418fe8eb1a616e382, type: 2}
+  inputConfig: {fileID: 11400000, guid: 022095d8cf55fba4080ab3e4c1364954, type: 2}
 --- !u!114 &6145671210753562985
 MonoBehaviour:
   m_ObjectHideFlags: 0
