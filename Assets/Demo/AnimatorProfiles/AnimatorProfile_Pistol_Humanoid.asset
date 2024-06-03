@@ -17,8 +17,10 @@ MonoBehaviour:
   curveBlending:
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   linkDynamically: 0
+  isStandalone: 0
   ikHandGun:
     element:
       name: IK WeaponBone
@@ -68,6 +70,7 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  isStandalone: 0
   rightHand:
     name: Right_Hand
     index: 57
@@ -132,6 +135,7 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  isStandalone: 0
   boneToModify:
     name: IK WeaponBone
     index: 48
@@ -188,8 +192,10 @@ MonoBehaviour:
   curveBlending:
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   linkDynamically: 0
+  isStandalone: 0
   weaponIkBone:
     name: IK WeaponBone
     index: 48
@@ -227,11 +233,14 @@ MonoBehaviour:
   curveBlending:
   - name: ProneWeight
     mode: 0
+    clampMin: 0
     source: 0
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   linkDynamically: 0
+  isStandalone: 0
   desiredPose: {fileID: -203655887218126122, guid: f5d954f3ff0e03345b601abc0dadf3b0,
     type: 3}
   blendingElements:
@@ -288,8 +297,10 @@ MonoBehaviour:
   curveBlending:
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   linkDynamically: 0
+  isStandalone: 0
   weaponIkBone:
     name: IK WeaponBone
     index: 48
@@ -328,83 +339,101 @@ MonoBehaviour:
   curveBlending:
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   linkDynamically: 0
+  isStandalone: 0
   mouseInputProperty: MouseInput
   leanInputProperty: LeanInput
+  useTurnOffset: 1
+  turnOffsetProperty: TurnOffset
   pitchOffsetElements:
   - rigElement:
       name: Hips
       index: 1
       isVirtual: 0
     clampedAngle: {x: 5, y: 5}
+    cachedClampedAngle: {x: 5, y: 5}
   - rigElement:
       name: Spine
       index: 12
       isVirtual: 0
     clampedAngle: {x: 17, y: 7}
+    cachedClampedAngle: {x: 17, y: 7}
   - rigElement:
       name: Chest
       index: 13
       isVirtual: 0
     clampedAngle: {x: 17, y: 9}
+    cachedClampedAngle: {x: 17, y: 9}
   - rigElement:
       name: UpperChest
       index: 14
       isVirtual: 0
     clampedAngle: {x: 17, y: 12}
+    cachedClampedAngle: {x: 17, y: 12}
   - rigElement:
       name: Neck
       index: 40
       isVirtual: 0
     clampedAngle: {x: 17, y: 66.5}
+    cachedClampedAngle: {x: 17, y: 66.5}
   - rigElement:
       name: Head
       index: 41
       isVirtual: 0
     clampedAngle: {x: 17, y: -9.5}
+    cachedClampedAngle: {x: 17, y: -9.5}
   yawOffsetElements:
   - rigElement:
       name: Spine
       index: 12
       isVirtual: 0
     clampedAngle: {x: 25, y: 25}
+    cachedClampedAngle: {x: 25, y: 25}
   - rigElement:
       name: Chest
       index: 13
       isVirtual: 0
     clampedAngle: {x: 32.5, y: 32.5}
+    cachedClampedAngle: {x: 32.5, y: 32.5}
   - rigElement:
       name: UpperChest
       index: 14
       isVirtual: 0
     clampedAngle: {x: 32.5, y: 32.5}
+    cachedClampedAngle: {x: 32.5, y: 32.5}
   rollOffsetElements:
   - rigElement:
       name: Hips
       index: 1
       isVirtual: 0
     clampedAngle: {x: 5, y: 5}
+    cachedClampedAngle: {x: 5, y: 5}
   - rigElement:
       name: Spine
       index: 12
       isVirtual: 0
     clampedAngle: {x: 21.25, y: 21.25}
+    cachedClampedAngle: {x: 21.25, y: 21.25}
   - rigElement:
       name: Chest
       index: 13
       isVirtual: 0
     clampedAngle: {x: 21.25, y: 21.25}
+    cachedClampedAngle: {x: 21.25, y: 21.25}
   - rigElement:
       name: UpperChest
       index: 14
       isVirtual: 0
     clampedAngle: {x: 21.25, y: 21.25}
+    cachedClampedAngle: {x: 21.25, y: 21.25}
   - rigElement:
       name: 
       index: 0
       isVirtual: 0
     clampedAngle: {x: 21.25, y: 21.25}
+    cachedClampedAngle: {x: 21.25, y: 21.25}
 --- !u!114 &-1770046306956897463
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -422,11 +451,14 @@ MonoBehaviour:
   curveBlending:
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   - name: MaskAttachHand
     mode: 1
+    clampMin: 0
     source: 1
   linkDynamically: 0
+  isStandalone: 0
   customHandPose: {fileID: 0}
   handBone:
     name: Left_Hand
@@ -486,6 +518,7 @@ MonoBehaviour:
   - {fileID: -4213245232887500793}
   - {fileID: -7139563932899588606}
   - {fileID: -8072070869313292983}
+  - {fileID: 5246330669473602304}
 --- !u!114 &3455150131774656829
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -502,6 +535,7 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  isStandalone: 0
   boneToAnimate:
     name: IK WeaponBone
     index: 48
@@ -673,8 +707,10 @@ MonoBehaviour:
   curveBlending:
   - name: FullBodyWeight
     mode: 1
+    clampMin: 0
     source: 0
   linkDynamically: 0
+  isStandalone: 0
   poseToSample: {fileID: 11400000, guid: 0bae0b67fd116394e9f80d5e02a854c5, type: 2}
   defaultWeaponPose:
     position: {x: 0.0687, y: 1.4515, z: 0.551}
@@ -684,6 +720,7 @@ MonoBehaviour:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
+  overwriteRoot: 0
   ikWeaponBone:
     name: IK WeaponBone
     index: 48
@@ -726,6 +763,65 @@ MonoBehaviour:
     isVirtual: 0
   stabilizationWeight: StabilizationWeight
   weaponBoneWeight: WeaponBoneWeight
+--- !u!114 &5246330669473602304
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d029240c6ad3a418c71ce490095bed, type: 3}
+  m_Name: TurnLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
+  alpha: 1
+  curveBlending:
+  - name: SprintPoseWeight
+    mode: 1
+    clampMin: 0
+    source: 0
+  - name: Velocity
+    mode: 1
+    clampMin: 0
+    source: 0
+  linkDynamically: 1
+  isStandalone: 0
+  characterRootBone:
+    name: Skeleton
+    index: 0
+    isVirtual: 0
+  angleThreshold: 70
+  turnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  turnSpeed: 1.1
+  mouseDeltaInputProperty: MouseDeltaInput
+  turnInputProperty: TurnOffset
+  animatorTurnRightTrigger: TurnRight
+  animatorTurnLeftTrigger: TurnLeft
 --- !u!114 &5420389157322750660
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -742,6 +838,7 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  isStandalone: 0
   weaponIkBone:
     name: IK WeaponBone
     index: 48
@@ -803,6 +900,7 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  isStandalone: 0
   poseOffsets:
   - pose:
       element:
@@ -818,4 +916,6 @@ MonoBehaviour:
     blend:
       name: FullBodyWeight
       mode: 0
+      clampMin: 0
       source: 0
+    keepChildrenPose: 0

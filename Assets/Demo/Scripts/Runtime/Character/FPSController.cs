@@ -317,7 +317,7 @@ namespace Demo.Scripts.Runtime.Character
             float deltaMouseY = -_lookDeltaInput.y * settings.sensitivity * scale;
             
             _playerInput.y += deltaMouseY;
-            _playerInput.x = deltaMouseX;
+            _playerInput.x += deltaMouseX;
             
             if (_recoilPattern != null)
             {
@@ -329,10 +329,10 @@ namespace Demo.Scripts.Runtime.Character
 
             _playerInput.y = Mathf.Clamp(_playerInput.y, pitchClamp.x, pitchClamp.y);
             
-            transform.rotation *= Quaternion.Euler(0f, _playerInput.x, 0f);
+            transform.rotation *= Quaternion.Euler(0f, deltaMouseX, 0f);
             
             _userInput.SetValue(FPSANames.MouseDeltaInput, new Vector4(deltaMouseX, deltaMouseY));
-            _userInput.SetValue(FPSANames.MouseInput, new Vector4(0f, _playerInput.y));
+            _userInput.SetValue(FPSANames.MouseInput, new Vector4(_playerInput.x, _playerInput.y));
         }
 
         private void Update()

@@ -67,74 +67,89 @@ MonoBehaviour:
   isStandalone: 0
   mouseInputProperty: MouseInput
   leanInputProperty: LeanInput
+  useTurnOffset: 1
+  turnOffsetProperty: TurnOffset
   pitchOffsetElements:
   - rigElement:
       name: Hips
       index: 1
       isVirtual: 0
     clampedAngle: {x: 5, y: 5}
+    cachedClampedAngle: {x: 5, y: 5}
   - rigElement:
       name: Spine
       index: 12
       isVirtual: 0
     clampedAngle: {x: 17, y: 17}
+    cachedClampedAngle: {x: 17, y: 17}
   - rigElement:
       name: Chest
       index: 13
       isVirtual: 0
     clampedAngle: {x: 17, y: 17}
+    cachedClampedAngle: {x: 17, y: 17}
   - rigElement:
       name: UpperChest
       index: 14
       isVirtual: 0
     clampedAngle: {x: 17, y: 17}
+    cachedClampedAngle: {x: 17, y: 17}
   - rigElement:
       name: Neck
       index: 40
       isVirtual: 0
     clampedAngle: {x: 17, y: 17}
+    cachedClampedAngle: {x: 17, y: 17}
   - rigElement:
       name: Head
       index: 41
       isVirtual: 0
     clampedAngle: {x: 17, y: 17}
+    cachedClampedAngle: {x: 17, y: 17}
   yawOffsetElements:
   - rigElement:
       name: Spine
       index: 12
       isVirtual: 0
     clampedAngle: {x: 25, y: 25}
+    cachedClampedAngle: {x: 25, y: 25}
   - rigElement:
       name: Chest
       index: 13
       isVirtual: 0
     clampedAngle: {x: 32.5, y: 32.5}
+    cachedClampedAngle: {x: 32.5, y: 32.5}
   - rigElement:
       name: UpperChest
       index: 14
       isVirtual: 0
     clampedAngle: {x: 32.5, y: 32.5}
+    cachedClampedAngle: {x: 32.5, y: 32.5}
   rollOffsetElements:
   - rigElement:
       name: Hips
       index: 1
       isVirtual: 0
     clampedAngle: {x: 5, y: 5}
+    cachedClampedAngle: {x: 5, y: 5}
   - rigElement:
       name: Spine
       index: 12
       isVirtual: 0
     clampedAngle: {x: 28.333334, y: 28.333334}
+    cachedClampedAngle: {x: 28.333334, y: 28.333334}
   - rigElement:
       name: Chest
       index: 13
       isVirtual: 0
     clampedAngle: {x: 28.333334, y: 28.333334}
+    cachedClampedAngle: {x: 28.333334, y: 28.333334}
   - rigElement:
       name: UpperChest
       index: 14
       isVirtual: 0
     clampedAngle: {x: 28.333334, y: 28.333334}
+    cachedClampedAngle: {x: 28.333334, y: 28.333334}
 --- !u!114 &-5926500349329534600
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -503,6 +518,7 @@ MonoBehaviour:
   - {fileID: -7807976231479779992}
   - {fileID: 5080528287839197063}
   - {fileID: 7385555169955641035}
+  - {fileID: 6707299392503834191}
 --- !u!114 &65171223751035789
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -697,6 +713,7 @@ MonoBehaviour:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
+  overwriteRoot: 0
   ikWeaponBone:
     name: IK WeaponBone
     index: 48
@@ -844,6 +861,65 @@ MonoBehaviour:
     m_Bits: 64
   rayStartOffset: 0.5
   barrelLength: 1
+--- !u!114 &6707299392503834191
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d029240c6ad3a418c71ce490095bed, type: 3}
+  m_Name: TurnLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
+  alpha: 1
+  curveBlending:
+  - name: SprintPoseWeight
+    mode: 1
+    clampMin: 0
+    source: 0
+  - name: Velocity
+    mode: 1
+    clampMin: 0
+    source: 0
+  linkDynamically: 1
+  isStandalone: 0
+  characterRootBone:
+    name: Skeleton
+    index: 0
+    isVirtual: 0
+  angleThreshold: 70
+  turnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  turnSpeed: 1.1
+  mouseDeltaInputProperty: MouseDeltaInput
+  turnInputProperty: TurnOffset
+  animatorTurnRightTrigger: TurnRight
+  animatorTurnLeftTrigger: TurnLeft
 --- !u!114 &7385555169955641035
 MonoBehaviour:
   m_ObjectHideFlags: 3
