@@ -448,9 +448,9 @@ MonoBehaviour:
   - {fileID: 65171223751035789}
   - {fileID: 624730328850456579}
   - {fileID: -7807976231479779992}
+  - {fileID: 6748443904383875494}
   - {fileID: 5080528287839197063}
   - {fileID: 7385555169955641035}
-  - {fileID: 9043724874852555601}
 --- !u!114 &65171223751035789
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -539,8 +539,8 @@ MonoBehaviour:
   animatedPivotOffset: {x: 0, y: 0, z: 0}
   hintTargetWeight: 0.5
   aimTargetBone:
-    name: CameraSocket
-    index: 46
+    name: Camera
+    index: 45
     isVirtual: 0
   aimingEaseMode:
     easeFunc: 1
@@ -551,13 +551,13 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   positionBlend:
-    x: 0.325
-    y: 0.334
-    z: 0.334
+    x: 0.322
+    y: 0.317
+    z: 0.371
   rotationBlend:
-    x: 0.358
-    y: 0.33
-    z: 0.334
+    x: 0.346
+    y: 0.332
+    z: 0.346
   aimingSpeed: 1.8
   aimPointEaseMode:
     easeFunc: 1
@@ -568,6 +568,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   aimPointSpeed: 1.8
+  cameraBlend: 0
   isAimingProperty: IsAiming
 --- !u!114 &624730328850456579
 MonoBehaviour:
@@ -625,11 +626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   alpha: 1
-  curveBlending:
-  - name: FullBodyWeight
-    mode: 1
-    clampMin: 0
-    source: 0
+  curveBlending: []
   linkDynamically: 0
   isStandalone: 0
   poseToSample: {fileID: 11400000, guid: 50b57ca37fedb734a913effd23bb2378, type: 2}
@@ -641,7 +638,7 @@ MonoBehaviour:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
-  overwriteRoot: 0
+  overwriteRoot: 1
   ikWeaponBone:
     name: IK WeaponBone
     index: 48
@@ -787,8 +784,71 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  rayStartOffset: 0.5
-  barrelLength: 1.32
+  rayStartOffset: 0.3
+  barrelLength: 0.9
+--- !u!114 &6748443904383875494
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d029240c6ad3a418c71ce490095bed, type: 3}
+  m_Name: TurnLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
+  alpha: 1
+  curveBlending:
+  - name: SprintPoseWeight
+    mode: 1
+    clampMin: 0
+    source: 0
+  - name: Velocity
+    mode: 1
+    clampMin: 0
+    source: 0
+  linkDynamically: 1
+  isStandalone: 0
+  characterRootBone:
+    name: Skeleton
+    index: 0
+    isVirtual: 0
+  characterHipBone:
+    name: Hips
+    index: 1
+    isVirtual: 0
+  angleThreshold: 70
+  turnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  turnSpeed: 1.1
+  mouseDeltaInputProperty: MouseDeltaInput
+  turnInputProperty: TurnOffset
+  animatorTurnRightTrigger: TurnRight
+  animatorTurnLeftTrigger: TurnLeft
 --- !u!114 &7385555169955641035
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -854,62 +914,3 @@ MonoBehaviour:
     name: IK LeftKnee
     index: 89
     isVirtual: 0
---- !u!114 &9043724874852555601
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40d029240c6ad3a418c71ce490095bed, type: 3}
-  m_Name: TurnLayerSettings
-  m_EditorClassIdentifier: 
-  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 1
-  curveBlending:
-  - name: SprintPoseWeight
-    mode: 1
-    clampMin: 0
-    source: 0
-  - name: Velocity
-    mode: 1
-    clampMin: 0
-    source: 0
-  linkDynamically: 1
-  isStandalone: 0
-  characterRootBone:
-    name: Skeleton
-    index: 0
-    isVirtual: 0
-  angleThreshold: 70
-  turnCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  turnSpeed: 1.1
-  mouseDeltaInputProperty: MouseDeltaInput
-  turnInputProperty: TurnOffset
-  animatorTurnRightTrigger: TurnRight
-  animatorTurnLeftTrigger: TurnLeft

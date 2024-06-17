@@ -97,7 +97,7 @@ namespace Demo.Scripts.Runtime.Character
             return !_controller.isGrounded;
         }
         
-        private bool IsMoving()
+        public bool IsMoving()
         {
             return !Mathf.Approximately(_inputDirection.normalized.magnitude, 0f);
         }

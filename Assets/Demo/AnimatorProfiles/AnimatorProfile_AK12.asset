@@ -516,9 +516,9 @@ MonoBehaviour:
   - {fileID: 65171223751035789}
   - {fileID: 624730328850456579}
   - {fileID: -7807976231479779992}
+  - {fileID: 5832598400942363740}
   - {fileID: 5080528287839197063}
   - {fileID: 7385555169955641035}
-  - {fileID: 456866637488380054}
 --- !u!114 &65171223751035789
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -611,8 +611,8 @@ MonoBehaviour:
   animatedPivotOffset: {x: 0, y: 0, z: 0}
   hintTargetWeight: 0.5
   aimTargetBone:
-    name: CameraSocket
-    index: 46
+    name: Camera
+    index: 45
     isVirtual: 0
   aimingEaseMode:
     easeFunc: 1
@@ -640,66 +640,8 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   aimPointSpeed: 3
+  cameraBlend: 1
   isAimingProperty: IsAiming
---- !u!114 &456866637488380054
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40d029240c6ad3a418c71ce490095bed, type: 3}
-  m_Name: TurnLayerSettings
-  m_EditorClassIdentifier: 
-  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 1
-  curveBlending:
-  - name: SprintPoseWeight
-    mode: 1
-    clampMin: 0
-    source: 0
-  - name: Velocity
-    mode: 1
-    clampMin: 0
-    source: 0
-  linkDynamically: 1
-  isStandalone: 0
-  characterRootBone:
-    name: Skeleton
-    index: 0
-    isVirtual: 0
-  angleThreshold: 70
-  turnCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  turnSpeed: 1.1
-  mouseDeltaInputProperty: MouseDeltaInput
-  turnInputProperty: TurnOffset
-  animatorTurnRightTrigger: TurnRight
-  animatorTurnLeftTrigger: TurnLeft
 --- !u!114 &624730328850456579
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -772,7 +714,7 @@ MonoBehaviour:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
-  overwriteRoot: 0
+  overwriteRoot: 1
   ikWeaponBone:
     name: IK WeaponBone
     index: 48
@@ -920,6 +862,69 @@ MonoBehaviour:
     m_Bits: 64
   rayStartOffset: 0.5
   barrelLength: 1.32
+--- !u!114 &5832598400942363740
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d029240c6ad3a418c71ce490095bed, type: 3}
+  m_Name: TurnLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
+  alpha: 1
+  curveBlending:
+  - name: SprintPoseWeight
+    mode: 1
+    clampMin: 0
+    source: 0
+  - name: Velocity
+    mode: 1
+    clampMin: 0
+    source: 0
+  linkDynamically: 1
+  isStandalone: 0
+  characterRootBone:
+    name: Skeleton
+    index: 0
+    isVirtual: 0
+  characterHipBone:
+    name: Hips
+    index: 1
+    isVirtual: 0
+  angleThreshold: 70
+  turnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  turnSpeed: 1.1
+  mouseDeltaInputProperty: MouseDeltaInput
+  turnInputProperty: TurnOffset
+  animatorTurnRightTrigger: TurnRight
+  animatorTurnLeftTrigger: TurnLeft
 --- !u!114 &7385555169955641035
 MonoBehaviour:
   m_ObjectHideFlags: 3

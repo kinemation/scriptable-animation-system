@@ -1,6 +1,5 @@
 // Designed by KINEMATION, 2024.
 
-using System;
 using KINEMATION.FPSAnimationFramework.Runtime.Camera;
 using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using KINEMATION.FPSAnimationFramework.Runtime.Playables;

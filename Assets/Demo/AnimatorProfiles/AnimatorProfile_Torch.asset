@@ -66,7 +66,7 @@ MonoBehaviour:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
-  overwriteRoot: 0
+  overwriteRoot: 1
   ikWeaponBone:
     name: IK WeaponBone
     index: 48
@@ -138,6 +138,10 @@ MonoBehaviour:
     name: Skeleton
     index: 0
     isVirtual: 0
+  characterHipBone:
+    name: Hips
+    index: 1
+    isVirtual: 0
   angleThreshold: 70
   turnCurve:
     serializedVersion: 2
@@ -195,9 +199,9 @@ MonoBehaviour:
   - {fileID: -4377869824203062368}
   - {fileID: -8676612904268641884}
   - {fileID: 5184282707310519279}
+  - {fileID: -2995445941229429524}
   - {fileID: 906192546398043497}
   - {fileID: 6470665720658154600}
-  - {fileID: -2995445941229429524}
 --- !u!114 &906192546398043497
 MonoBehaviour:
   m_ObjectHideFlags: 3

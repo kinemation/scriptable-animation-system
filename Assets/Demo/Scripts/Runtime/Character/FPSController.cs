@@ -6,7 +6,6 @@ using KINEMATION.KAnimationCore.Runtime.Input;
 using KINEMATION.KAnimationCore.Runtime.Rig;
 
 using Demo.Scripts.Runtime.Item;
-
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -48,12 +47,6 @@ namespace Demo.Scripts.Runtime.Character
         private FPSAimState _aimState;
         private FPSActionState _actionState;
         
-        private static readonly int TurnRight = Animator.StringToHash("TurnRight");
-        private static readonly int TurnLeft = Animator.StringToHash("TurnLeft");
-        
-        private float _turnProgress = 1f;
-        private bool _isTurning;
-
         private bool _isUnarmed;
         private Animator _animator;
 
@@ -68,7 +61,6 @@ namespace Demo.Scripts.Runtime.Character
         private Vector2 _lookDeltaInput;
 
         private RecoilPattern _recoilPattern;
-
         private int _sensitivityMultiplierPropertyIndex;
 
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
@@ -115,16 +107,13 @@ namespace Demo.Scripts.Runtime.Character
             _movementComponent.sprintCondition += () => !HasActiveAction();
             _movementComponent.proneCondition += () => !HasActiveAction();
             
-            _movementComponent.onStartMoving.AddListener(() =>
-            {
-                if (_movementComponent.PoseState != FPSPoseState.Prone) return;
-                _userInput.SetValue(FPSANames.PlayablesWeight, 0f);
-            });
-            
             _movementComponent.onStopMoving.AddListener(() =>
             {
                 PlayTransitionMotion(settings.stopMotion);
-                if (_movementComponent.PoseState != FPSPoseState.Prone) return;
+            });
+            
+            _movementComponent.onProneEnded.AddListener(() =>
+            {
                 _userInput.SetValue(FPSANames.PlayablesWeight, 1f);
             });
         }
@@ -268,47 +257,6 @@ namespace Demo.Scripts.Runtime.Character
             _activeWeaponIndex = newIndex;
         }
         
-        private void TurnInPlace()
-        {
-            float turnInput = _playerInput.x;
-            _playerInput.x = Mathf.Clamp(_playerInput.x, -90f, 90f);
-            turnInput -= _playerInput.x;
-
-            float sign = Mathf.Sign(_playerInput.x);
-            if (Mathf.Abs(_playerInput.x) > settings.turnInPlaceAngle)
-            {
-                if (!_isTurning)
-                {
-                    _turnProgress = 0f;
-
-                    _animator.ResetTrigger(TurnRight);
-                    _animator.ResetTrigger(TurnLeft);
-
-                    _animator.SetTrigger(sign > 0f ? TurnRight : TurnLeft);
-                }
-
-                _isTurning = true;
-            }
-
-            transform.rotation *= Quaternion.Euler(0f, turnInput, 0f);
-
-            float lastProgress = settings.turnCurve.Evaluate(_turnProgress);
-            _turnProgress += Time.deltaTime * settings.turnSpeed;
-            _turnProgress = Mathf.Min(_turnProgress, 1f);
-
-            float deltaProgress = settings.turnCurve.Evaluate(_turnProgress) - lastProgress;
-
-            _playerInput.x -= sign * settings.turnInPlaceAngle * deltaProgress;
-
-            transform.rotation *= Quaternion.Slerp(Quaternion.identity,
-                Quaternion.Euler(0f, sign * settings.turnInPlaceAngle, 0f), deltaProgress);
-
-            if (Mathf.Approximately(_turnProgress, 1f) && _isTurning)
-            {
-                _isTurning = false;
-            }
-        }
-        
         private void UpdateLookInput()
         {
             float scale = _userInput.GetValue<float>(_sensitivityMultiplierPropertyIndex);
@@ -322,6 +270,7 @@ namespace Demo.Scripts.Runtime.Character
             if (_recoilPattern != null)
             {
                 _playerInput += _recoilPattern.GetRecoilDelta();
+                deltaMouseX += _recoilPattern.GetRecoilDelta().x;
             }
 
             float proneWeight = _animator.GetFloat("ProneWeight");
@@ -335,10 +284,21 @@ namespace Demo.Scripts.Runtime.Character
             _userInput.SetValue(FPSANames.MouseInput, new Vector4(_playerInput.x, _playerInput.y));
         }
 
+        private void OnMovementUpdated()
+        {
+            if (_movementComponent.PoseState == FPSPoseState.Prone)
+            {
+                float targetWeight = _movementComponent.IsMoving() ? 0f : 1f;
+                _userInput.SetValue(FPSANames.PlayablesWeight, targetWeight);
+                _userInput.SetValue(FPSANames.StabilizationWeight, targetWeight);
+            }
+        }
+
         private void Update()
         {
             Time.timeScale = settings.timeScale;
             UpdateLookInput();
+            OnMovementUpdated();
         }
 
 #if ENABLE_INPUT_SYSTEM

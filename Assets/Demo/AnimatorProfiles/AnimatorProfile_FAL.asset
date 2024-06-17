@@ -507,6 +507,10 @@ MonoBehaviour:
     name: Skeleton
     index: 0
     isVirtual: 0
+  characterHipBone:
+    name: Hips
+    index: 1
+    isVirtual: 0
   angleThreshold: 70
   turnCurve:
     serializedVersion: 2
@@ -571,9 +575,9 @@ MonoBehaviour:
   - {fileID: 65171223751035789}
   - {fileID: 624730328850456579}
   - {fileID: -7807976231479779992}
+  - {fileID: -3475864944782953657}
   - {fileID: 5080528287839197063}
   - {fileID: 7385555169955641035}
-  - {fileID: -3475864944782953657}
 --- !u!114 &65171223751035789
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -691,6 +695,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   aimPointSpeed: 1
+  cameraBlend: 0
   isAimingProperty: IsAiming
 --- !u!114 &624730328850456579
 MonoBehaviour:
@@ -764,7 +769,7 @@ MonoBehaviour:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
     scale: {x: 1, y: 1, z: 1}
-  overwriteRoot: 0
+  overwriteRoot: 1
   ikWeaponBone:
     name: IK WeaponBone
     index: 48
