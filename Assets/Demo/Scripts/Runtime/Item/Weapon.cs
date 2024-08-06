@@ -14,27 +14,19 @@ using UnityEngine;
 
 namespace Demo.Scripts.Runtime.Item
 {
-    public enum OverlayType
-    {
-        Default,
-        Pistol,
-        Rifle
-    }
-    
     public class Weapon : FPSItem
     {
         [Header("General")]
         [SerializeField] [Range(0f, 120f)] private float fieldOfView = 90f;
         
-        [Header("Animations")]
         [SerializeField] private FPSAnimationAsset reloadClip;
         [SerializeField] private FPSCameraAnimation cameraReloadAnimation;
         
         [SerializeField] private FPSAnimationAsset grenadeClip;
         [SerializeField] private FPSCameraAnimation cameraGrenadeAnimation;
-        [SerializeField] private OverlayType overlayType;
 
         [Header("Recoil")]
+        [SerializeField] private FPSAnimationAsset fireClip;
         [SerializeField] private RecoilAnimData recoilData;
         [SerializeField] private RecoilPatternSettings recoilPatternSettings;
         [SerializeField] private FPSCameraShake cameraShake;
@@ -78,7 +70,6 @@ namespace Demo.Scripts.Runtime.Item
         private int _bursts;
         private FireMode _fireMode = FireMode.Semi;
         
-        private static readonly int OverlayType = Animator.StringToHash("OverlayType");
         private static readonly int CurveEquip = Animator.StringToHash("CurveEquip");
         private static readonly int CurveUnequip = Animator.StringToHash("CurveUnequip");
 
@@ -141,13 +132,17 @@ namespace Demo.Scripts.Runtime.Item
             _userInputController = parent.GetComponent<UserInputController>();
             _playablesController = parent.GetComponent<IPlayablesController>();
             _fpsCameraController = parent.GetComponentInChildren<FPSCameraController>();
+
+            if (overrideController != _controllerAnimator.runtimeAnimatorController)
+            {
+                _playablesController.UpdateAnimatorController(overrideController);
+            }
             
             InitializeAttachments();
             
             _recoilAnimation = parent.GetComponent<RecoilAnimation>();
             _recoilPattern = parent.GetComponent<RecoilPattern>();
             
-            _controllerAnimator.SetFloat(OverlayType, (float) overlayType);
             _fpsAnimator.LinkAnimatorProfile(gameObject);
             
             barrelAttachments.Initialize(_fpsAnimator);
@@ -160,27 +155,12 @@ namespace Demo.Scripts.Runtime.Item
                 _recoilPattern.Init(recoilPatternSettings);
             }
             
-            _controllerAnimator.CrossFade(CurveEquip, 0.15f);
+            _fpsAnimator.LinkAnimatorLayer(equipMotion);
         }
 
         public override void OnUnEquip()
         {
-            _controllerAnimator.CrossFade(CurveUnequip, 0.15f);
-        }
-
-        public override void OnUnarmedEnabled()
-        {
-            _controllerAnimator.SetFloat(OverlayType, 0);
-            _userInputController.SetValue(FPSANames.PlayablesWeight, 0f);
-            _userInputController.SetValue(FPSANames.StabilizationWeight, 0f);
-        }
-
-        public override void OnUnarmedDisabled()
-        {
-            _controllerAnimator.SetFloat(OverlayType, (int) overlayType);
-            _userInputController.SetValue(FPSANames.PlayablesWeight, 1f);
-            _userInputController.SetValue(FPSANames.StabilizationWeight, 1f);
-            _fpsAnimator.LinkAnimatorProfile(gameObject);
+            _fpsAnimator.LinkAnimatorLayer(unEquipMotion);
         }
 
         public override bool OnAimPressed()
@@ -285,6 +265,8 @@ namespace Demo.Scripts.Runtime.Item
             }
             
             _fpsCameraController.PlayCameraShake(cameraShake);
+            
+            if(fireClip != null) _playablesController.PlayAnimation(fireClip);
 
             if (_recoilAnimation != null && recoilData != null)
             {

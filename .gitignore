@@ -9,6 +9,7 @@ Assets/KINEMATION/
 Packages/com.unity.asset-store-tools/
 *.csproj
 *.sln
+*.png
 Assets/KINEMATION.meta
 Assets/TextMesh Pro
 Assets/TextMesh Pro.meta

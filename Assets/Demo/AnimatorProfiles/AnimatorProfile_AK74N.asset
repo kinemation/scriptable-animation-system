@@ -450,36 +450,43 @@ MonoBehaviour:
       index: 12
       isVirtual: 0
     weight: 1
+    cacheBlendedResult: 1
   - elementToBlend:
       name: Chest
       index: 13
       isVirtual: 0
     weight: 1
+    cacheBlendedResult: 1
   - elementToBlend:
       name: UpperChest
       index: 14
       isVirtual: 0
     weight: 0.7
+    cacheBlendedResult: 1
   - elementToBlend:
       name: Neck
       index: 40
       isVirtual: 0
     weight: 0.509
+    cacheBlendedResult: 1
   - elementToBlend:
       name: Head
       index: 41
       isVirtual: 0
     weight: 0
+    cacheBlendedResult: 1
   - elementToBlend:
       name: Left_Shoulder
       index: 15
       isVirtual: 0
     weight: 0.7
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Right_Shoulder
       index: 54
       isVirtual: 0
     weight: 0.5
+    cacheBlendedResult: 0
   blendPosition: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -790,36 +797,43 @@ MonoBehaviour:
       index: 12
       isVirtual: 0
     weight: 0.9
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Chest
       index: 13
       isVirtual: 0
     weight: 0.9
+    cacheBlendedResult: 0
   - elementToBlend:
       name: UpperChest
       index: 14
       isVirtual: 0
     weight: 0.762
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Neck
       index: 40
       isVirtual: 0
     weight: 0.3
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Head
       index: 41
       isVirtual: 0
     weight: 0
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Left_Shoulder
       index: 15
       isVirtual: 0
     weight: 0.559
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Right_Shoulder
       index: 54
       isVirtual: 0
     weight: 0.9
+    cacheBlendedResult: 0
   blendPosition: 0
 --- !u!114 &5080528287839197063
 MonoBehaviour:

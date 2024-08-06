@@ -11,14 +11,13 @@ namespace Demo.Scripts.Runtime.Item
         [SerializeField] private FPSAnimationAsset meleeAttackAnimation;
         [SerializeField, Min(0f)] private float meleeAttackDelay = 0f;
         
+        [SerializeField] protected FPSAnimationAsset equipClip;
+        [SerializeField] protected FPSAnimationAsset unEquipClip;
+        
         private Animator _controllerAnimator;
         private IPlayablesController _playablesController;
         private FPSAnimator _fpsAnimator;
         
-        private static readonly int CurveEquip = Animator.StringToHash("CurveEquip");
-        private static readonly int CurveUnequip = Animator.StringToHash("CurveUnequip");
-        private static readonly int OverlayType = Animator.StringToHash("OverlayType");
-
         private float _previousAttackTime;
         
         public override void OnEquip(GameObject parent)
@@ -29,23 +28,40 @@ namespace Demo.Scripts.Runtime.Item
             _playablesController = parent.GetComponent<IPlayablesController>();
             _fpsAnimator = _fpsAnimator = parent.GetComponent<FPSAnimator>();
             
-            _fpsAnimator.LinkAnimatorProfile(gameObject);
-            _controllerAnimator.SetFloat(OverlayType, (float) Item.OverlayType.Pistol);
+            if (overrideController != _controllerAnimator.runtimeAnimatorController)
+            {
+                _playablesController.UpdateAnimatorController(overrideController);
+            }
             
-            _controllerAnimator.CrossFade(CurveEquip, 0.15f);
+            _fpsAnimator.LinkAnimatorProfile(gameObject);
+
+            if (equipClip != null)
+            {
+                _playablesController.PlayAnimation(equipClip);
+                return;
+            }
+            
+            _fpsAnimator.LinkAnimatorLayer(equipMotion);
+            _previousAttackTime = -meleeAttackDelay;
         }
 
         public override void OnUnEquip()
         {
-            _controllerAnimator.CrossFade(CurveUnequip, 0.15f);
+            if (unEquipClip != null)
+            {
+                _playablesController.PlayAnimation(unEquipClip);
+                return;
+            }
+            
+            _fpsAnimator.LinkAnimatorLayer(unEquipMotion);
         }
 
         public override bool OnFirePressed()
         {
-            if (Time.unscaledTime - _previousAttackTime < meleeAttackDelay) return false;
+            if (Time.timeSinceLevelLoad - _previousAttackTime < meleeAttackDelay) return false;
             
             _playablesController.PlayAnimation(meleeAttackAnimation, 0f);
-            _previousAttackTime = Time.unscaledTime;
+            _previousAttackTime = Time.timeSinceLevelLoad;
             return true;
         }
     }

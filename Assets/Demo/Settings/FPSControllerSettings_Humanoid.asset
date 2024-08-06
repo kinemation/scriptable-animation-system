@@ -14,32 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   unarmedProfile: {fileID: 11400000, guid: efef821363862f34fa7d317ea008cb11, type: 2}
-  turnInPlaceAngle: 89
-  turnCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  turnSpeed: 1.2
+  unarmedController: {fileID: 0}
   aimingMotion: {fileID: 11400000, guid: 2951c90938854f24c935627d36bbc3cd, type: 2}
   crouchingMotion: {fileID: 11400000, guid: fa23e63ff38a3bb4f9f7bca500ced7ce, type: 2}
   jumpingMotion: {fileID: 11400000, guid: 93be04a77e31740498d5c7d7e8286ab5, type: 2}
@@ -54,5 +29,6 @@ MonoBehaviour:
     index: -1
     isVirtual: 0
   weaponPrefabs:
+  - {fileID: 8167396976885523623, guid: 461fb52887b88de4caa7536053089921, type: 3}
   - {fileID: 3274254057187883935, guid: a5669a8ce1f8bbc4c9e1ab352c89531a, type: 3}
   - {fileID: 4910695102810075455, guid: 56e9a6d969b28f54a927f17ed02fd987, type: 3}

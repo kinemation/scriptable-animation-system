@@ -240,7 +240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4659462780976783133}
-  - component: {fileID: 2038431961706145298}
+  - component: {fileID: 6506090028338386862}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -275,7 +275,7 @@ Transform:
   m_Father: {fileID: 5963740188802376179}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2038431961706145298
+--- !u!114 &6506090028338386862
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2075,6 +2075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe1afa1a43e4c2690f43e59cc30bfef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraBone: {fileID: 0}
   mouseInputProperty: MouseInput
   fovEaseMode:
     easeFunc: 1
@@ -2741,9 +2742,9 @@ GameObject:
   - component: {fileID: 5963740188802376179}
   - component: {fileID: 298181842139659145}
   - component: {fileID: 6145671210753562977}
-  - component: {fileID: 6145671210753562978}
-  - component: {fileID: 6145671210753562980}
   - component: {fileID: 6145671210753562981}
+  - component: {fileID: 6145671210753562980}
+  - component: {fileID: 6145671210753562978}
   - component: {fileID: 6145671210753562982}
   - component: {fileID: 6145671210753562983}
   - component: {fileID: 6145671210753562984}
@@ -2813,7 +2814,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.95, z: 0}
---- !u!114 &6145671210753562978
+--- !u!114 &6145671210753562981
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2822,11 +2823,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6451589767442807625}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2076ea9fc56d456dab4549a97f178a67, type: 3}
+  m_Script: {fileID: 11500000, guid: 81d0c9cae953fca4ab9737e1caf87cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAiming: 0
-  fireMode: 0
+  settings: {fileID: 11400000, guid: e495a32834f196b42a491584ae5df2eb, type: 2}
 --- !u!114 &6145671210753562980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2877,7 +2877,7 @@ MonoBehaviour:
   onSlideEnded:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6145671210753562981
+--- !u!114 &6145671210753562978
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2886,10 +2886,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6451589767442807625}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81d0c9cae953fca4ab9737e1caf87cd3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2076ea9fc56d456dab4549a97f178a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: e495a32834f196b42a491584ae5df2eb, type: 2}
+  isAiming: 0
+  fireMode: 0
 --- !u!114 &6145671210753562982
 MonoBehaviour:
   m_ObjectHideFlags: 0

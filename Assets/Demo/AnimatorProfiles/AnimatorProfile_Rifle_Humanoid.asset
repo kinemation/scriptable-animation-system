@@ -24,6 +24,7 @@ MonoBehaviour:
     clampMin: 0
     source: 0
   linkDynamically: 1
+  enableGizmos: 0
   isStandalone: 0
   characterRootBone:
     name: Skeleton
@@ -83,6 +84,7 @@ MonoBehaviour:
     clampMin: 0
     source: 1
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 0
   customHandPose: {fileID: 0}
   handBone:
@@ -127,6 +129,7 @@ MonoBehaviour:
     clampMin: 0
     source: 2
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 0
   mouseInputProperty: MouseInput
   leanInputProperty: LeanInput
@@ -233,6 +236,7 @@ MonoBehaviour:
     clampMin: 0
     source: 0
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 0
   ikHandGun:
     element:
@@ -287,6 +291,7 @@ MonoBehaviour:
     clampMin: 0
     source: 2
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 0
   poseOffsets:
   - pose:
@@ -322,6 +327,7 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 0
   boneToAnimate:
     name: IK WeaponBone
@@ -497,6 +503,7 @@ MonoBehaviour:
     clampMin: 0
     source: 0
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 0
   poseToSample: {fileID: 11400000, guid: 17a051265d63c894bab0b0c5be42815b, type: 2}
   defaultWeaponPose:
@@ -566,6 +573,7 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 0
   rightHand:
     name: Right_Hand
@@ -628,7 +636,7 @@ MonoBehaviour:
   m_Name: BlendingLayerSettings
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 1
+  alpha: 0
   curveBlending:
   - name: ProneWeight
     mode: 0
@@ -639,6 +647,7 @@ MonoBehaviour:
     clampMin: 0
     source: 0
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 0
   desiredPose: {fileID: -203655887218126122, guid: f5d954f3ff0e03345b601abc0dadf3b0,
     type: 3}
@@ -648,36 +657,43 @@ MonoBehaviour:
       index: 12
       isVirtual: 0
     weight: 0.9
+    cacheBlendedResult: 1
   - elementToBlend:
       name: Chest
       index: 13
       isVirtual: 0
     weight: 0.9
+    cacheBlendedResult: 1
   - elementToBlend:
       name: UpperChest
       index: 14
       isVirtual: 0
     weight: 0.762
+    cacheBlendedResult: 1
   - elementToBlend:
       name: Neck
       index: 40
       isVirtual: 0
     weight: 0.3
+    cacheBlendedResult: 1
   - elementToBlend:
       name: Head
       index: 41
       isVirtual: 0
     weight: 0
+    cacheBlendedResult: 1
   - elementToBlend:
       name: Left_Shoulder
       index: 15
       isVirtual: 0
     weight: 0.559
+    cacheBlendedResult: 1
   - elementToBlend:
       name: Right_Shoulder
       index: 54
       isVirtual: 0
     weight: 0.9
+    cacheBlendedResult: 1
   blendPosition: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -732,6 +748,7 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 0
   boneToModify:
     name: IK WeaponBone
@@ -788,6 +805,7 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 0
   weaponIkBone:
     name: IK WeaponBone
@@ -855,6 +873,7 @@ MonoBehaviour:
     clampMin: 0
     source: 0
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 0
   weaponIkBone:
     name: IK WeaponBone
@@ -897,6 +916,7 @@ MonoBehaviour:
     clampMin: 0
     source: 0
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 0
   weaponIkBone:
     name: IK WeaponBone

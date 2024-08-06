@@ -145,13 +145,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overrideController: {fileID: 22100000, guid: c458db0aeb401744d91349f645fe35e8, type: 2}
+  equipMotion: {fileID: 11400000, guid: b11b46638e8719941a429aa33657277d, type: 2}
+  unEquipMotion: {fileID: 11400000, guid: 6e3ba419dec1a754b9c447a8fc1f9b1f, type: 2}
   fieldOfView: 90
   reloadClip: {fileID: 11400000, guid: 2d446d575ab7f0c44a565f6684c53aaa, type: 2}
   cameraReloadAnimation: {fileID: 11400000, guid: 07fc9d875c58d584a8f0dcdaa9242f7b,
     type: 2}
   grenadeClip: {fileID: 0}
   cameraGrenadeAnimation: {fileID: 0}
-  overlayType: 1
+  fireClip: {fileID: 0}
   recoilData: {fileID: 11400000, guid: 4c797e2e3e4ef994191ed00397d07906, type: 2}
   recoilPatternSettings: {fileID: 11400000, guid: b60711d0a5eabca449a3e2324c4d3483,
     type: 2}

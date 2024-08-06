@@ -6,6 +6,7 @@ using KINEMATION.KAnimationCore.Runtime.Attributes;
 using KINEMATION.KAnimationCore.Runtime.Rig;
 
 using System.Collections.Generic;
+using KINEMATION.FPSAnimationFramework.Runtime.Playables;
 using UnityEngine;
 
 namespace Demo.Scripts.Runtime.Character
@@ -20,12 +21,7 @@ namespace Demo.Scripts.Runtime.Character
         [Tab("Animation")] 
         
         [Header("Unarmed State")]
-        [SerializeField] public FPSAnimatorProfile unarmedProfile;
-        
-        [Header("Turn In Place")]
-        public float turnInPlaceAngle;
-        public AnimationCurve turnCurve = new AnimationCurve(new Keyframe(0f, 0f));
-        [Min(0f)] public float turnSpeed = 1f;
+        [SerializeField] public RuntimeAnimatorController unarmedController;
 
         [Header("IK Motions")]
         public IkMotionLayerSettings aimingMotion;

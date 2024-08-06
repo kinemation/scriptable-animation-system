@@ -16,6 +16,7 @@ MonoBehaviour:
   alpha: 1
   curveBlending: []
   linkDynamically: 0
+  enableGizmos: 0
   isStandalone: 1
   boneToAnimate:
     name: IK WeaponBone
@@ -278,4 +279,4 @@ MonoBehaviour:
   rotationScale: {x: 1, y: 0.3, z: 1.7}
   translationScale: {x: 1, y: 1, z: 1}
   blendTime: 0.3
-  playRate: 1.2
+  playRate: 1.1

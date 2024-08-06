@@ -84,9 +84,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_170df4626b5c4fb5b1bbbe92859280a6: 0
+    - Vector1_170df4626b5c4fb5b1bbbe92859280a6: 0.4
     - Vector1_2da883f99fd74175b2879ab748132dc4: 1
-    - Vector1_a33992eaa5d949cdaf50c10cec0f18d7: 0.5
+    - Vector1_a33992eaa5d949cdaf50c10cec0f18d7: 0.31
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _BumpScale: 1
@@ -100,7 +100,7 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _NormalStrength: 1
+    - _NormalStrength: 0.0025
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0

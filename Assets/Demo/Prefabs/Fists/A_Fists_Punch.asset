@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f5fc06806945df8a985b4b99c57863, type: 3}
+  m_Name: A_Fists_Punch
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
+  clip: {fileID: -203655887218126122, guid: 3e7d00cfab6131e4383722665c56635e, type: 3}
+  mask: {fileID: 31900000, guid: 63d3cad30ec294f47a09e8663bc62589, type: 2}
+  overrideMask: {fileID: 0}
+  isAdditive: 0
+  blendTime:
+    blendInTime: 0.2
+    blendOutTime: 0.3
+    rateScale: 1
+  curves:
+  - name: PelvisYawOffset
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.3136292
+        value: 0.5395657
+        inSlope: 4.6024537
+        outSlope: 4.6024537
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.39211836
+      - serializedVersion: 3
+        time: 0.426239
+        value: 1.005806
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.5389081
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.72838557
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0

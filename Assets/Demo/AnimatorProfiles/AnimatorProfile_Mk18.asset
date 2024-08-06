@@ -171,6 +171,7 @@ MonoBehaviour:
   translationScale: {x: 1, y: 1, z: 1}
   blendTime: 0
   playRate: 1
+  autoBlendOut: 1
 --- !u!114 &-8017070690771127837
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -348,7 +349,7 @@ MonoBehaviour:
       index: 48
       isVirtual: 0
     pose:
-      position: {x: 0.03, y: 0.02, z: 0}
+      position: {x: 0.05, y: 0.025, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 0, y: 0, z: 0}
     space: 2
@@ -465,13 +466,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   alpha: 1
-  curveBlending: []
+  curveBlending:
+  - name: AimingWeight
+    mode: 1
+    clampMin: 0.4
+    source: 2
   linkDynamically: 0
   isStandalone: 0
-  boneToModify:
+  weaponIkBone:
     name: IK WeaponBone
     index: 48
     isVirtual: 0
+  rightHandElbow:
+    name: IK RightElbow
+    index: 50
+    isVirtual: 0
+  leftHandElbow:
+    name: IK LeftElbow
+    index: 52
+    isVirtual: 0
+  animatedPivotOffset: {x: 0, y: 0, z: 0}
+  hintTargetWeight: 1
   headBone:
     name: Head
     index: 41
@@ -539,8 +554,8 @@ MonoBehaviour:
   animatedPivotOffset: {x: 0, y: 0, z: 0}
   hintTargetWeight: 0.5
   aimTargetBone:
-    name: Camera
-    index: 45
+    name: CameraSocket
+    index: 46
     isVirtual: 0
   aimingEaseMode:
     easeFunc: 1
@@ -714,36 +729,43 @@ MonoBehaviour:
       index: 12
       isVirtual: 0
     weight: 0.9
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Chest
       index: 13
       isVirtual: 0
     weight: 0.9
+    cacheBlendedResult: 0
   - elementToBlend:
       name: UpperChest
       index: 14
       isVirtual: 0
     weight: 0.762
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Neck
       index: 40
       isVirtual: 0
     weight: 0.3
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Head
       index: 41
       isVirtual: 0
     weight: 0
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Left_Shoulder
       index: 15
       isVirtual: 0
     weight: 0.559
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Right_Shoulder
       index: 54
       isVirtual: 0
     weight: 0.9
+    cacheBlendedResult: 0
   blendPosition: 0
 --- !u!114 &5080528287839197063
 MonoBehaviour:

@@ -1,18 +1,20 @@
 ﻿// Designed by KINEMATION, 2024.
 
+using KINEMATION.FPSAnimationFramework.Runtime.Layers.IkMotionLayer;
 using UnityEngine;
 
 namespace Demo.Scripts.Runtime.Item
 {
     public abstract class FPSItem : MonoBehaviour
     {
+        [SerializeField] protected RuntimeAnimatorController overrideController;
+        
+        [SerializeField] protected IkMotionLayerSettings equipMotion;
+        [SerializeField] protected IkMotionLayerSettings unEquipMotion;
+        
         public virtual void OnEquip(GameObject parent) { }
         
         public virtual void OnUnEquip() { }
-
-        public virtual void OnUnarmedEnabled() { }
-
-        public virtual void OnUnarmedDisabled() { }
 
         public virtual bool OnAimPressed() { return false; }
 

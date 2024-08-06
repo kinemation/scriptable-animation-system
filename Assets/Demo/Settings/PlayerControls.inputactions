@@ -33,15 +33,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleUnarmed",
-                    "type": "Button",
-                    "id": "3038bfee-99fe-4f0a-9aa5-f13f0f160458",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "ChangeWeapon",
                     "type": "Button",
                     "id": "ccf0f95a-2fe7-4ee9-9082-2fd1a83a0dc9",
@@ -90,7 +81,7 @@
                     "name": "Sprint",
                     "type": "Value",
                     "id": "b45ce92e-934c-4d53-a1ba-78329ac56985",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -204,17 +195,6 @@
                 },
                 {
                     "name": "",
-                    "id": "6fed3c53-5302-4967-baaa-53dc67cc1bf9",
-                    "path": "<Keyboard>/t",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ToggleUnarmed",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "e62386ed-e227-432d-be94-2b77010693cc",
                     "path": "<Keyboard>/f",
                     "interactions": "",
@@ -271,7 +251,7 @@
                 {
                     "name": "WASD",
                     "id": "264568bc-f62c-4850-b57a-b6b822340a5f",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

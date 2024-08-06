@@ -33,7 +33,6 @@ namespace Demo.Scripts.Runtime.Character
     public class FPSController : MonoBehaviour
     {
         //~ Legacy Controller Interface
-
         [SerializeField] private FPSControllerSettings settings;
 
         private FPSMovement _movementComponent;
@@ -47,9 +46,6 @@ namespace Demo.Scripts.Runtime.Character
         private FPSAimState _aimState;
         private FPSActionState _actionState;
         
-        private bool _isUnarmed;
-        private Animator _animator;
-
         //~ Legacy Controller Interface
 
         // ~Scriptable Animation System Integration
@@ -62,6 +58,12 @@ namespace Demo.Scripts.Runtime.Character
 
         private RecoilPattern _recoilPattern;
         private int _sensitivityMultiplierPropertyIndex;
+
+        private static int _fullBodyWeightHash = Animator.StringToHash("FullBodyWeight");
+        private static int _proneWeightHash = Animator.StringToHash("ProneWeight");
+        private static int _inspectStartHash = Animator.StringToHash("InspectStart");
+        private static int _inspectEndHash = Animator.StringToHash("InspectEnd");
+        private static int _slideHash = Animator.StringToHash("Sliding");
 
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
@@ -92,30 +94,30 @@ namespace Demo.Scripts.Runtime.Character
         {
             _movementComponent = GetComponent<FPSMovement>();
             
-            _movementComponent.onJump.AddListener(() => { PlayTransitionMotion(settings.jumpingMotion); });
-            _movementComponent.onLanded.AddListener(() => { PlayTransitionMotion(settings.jumpingMotion); });
+            _movementComponent.onJump = () => { PlayTransitionMotion(settings.jumpingMotion); };
+            _movementComponent.onLanded = () => { PlayTransitionMotion(settings.jumpingMotion); };
 
-            _movementComponent.onCrouch.AddListener(OnCrouch);
-            _movementComponent.onUncrouch.AddListener(OnUncrouch);
+            _movementComponent.onCrouch = OnCrouch;
+            _movementComponent.onUncrouch = OnUncrouch;
 
-            _movementComponent.onSprintStarted.AddListener(OnSprintStarted);
-            _movementComponent.onSprintEnded.AddListener(OnSprintEnded);
+            _movementComponent.onSprintStarted = OnSprintStarted;
+            _movementComponent.onSprintEnded = OnSprintEnded;
 
-            _movementComponent.onSlideStarted.AddListener(OnSlideStarted);
+            _movementComponent.onSlideStarted = OnSlideStarted;
 
-            _movementComponent.slideCondition += () => !HasActiveAction();
-            _movementComponent.sprintCondition += () => !HasActiveAction();
-            _movementComponent.proneCondition += () => !HasActiveAction();
+            _movementComponent._slideActionCondition += () => !HasActiveAction();
+            _movementComponent._sprintActionCondition += () => !HasActiveAction();
+            _movementComponent._proneActionCondition += () => !HasActiveAction();
             
-            _movementComponent.onStopMoving.AddListener(() =>
+            _movementComponent.onStopMoving = () =>
             {
                 PlayTransitionMotion(settings.stopMotion);
-            });
+            };
             
-            _movementComponent.onProneEnded.AddListener(() =>
+            _movementComponent.onProneEnded = () =>
             {
                 _userInput.SetValue(FPSANames.PlayablesWeight, 1f);
-            });
+            };
         }
 
         private void InitializeWeapons()
@@ -144,8 +146,8 @@ namespace Demo.Scripts.Runtime.Character
 
             _weaponBone = GetComponentInChildren<KRigComponent>().GetRigTransform(settings.weaponBone);
             _fpsAnimator = GetComponent<FPSAnimator>();
+            
             _userInput = GetComponent<UserInputController>();
-            _animator = GetComponent<Animator>();
             _recoilPattern = GetComponent<RecoilPattern>();
 
             InitializeMovement();
@@ -205,9 +207,9 @@ namespace Demo.Scripts.Runtime.Character
         
         private void OnSlideStarted()
         {
-            _animator.CrossFade("Sliding", 0.1f);
+            _fpsAnimator.playablesController.GetAnimator().CrossFade(_slideHash, 0.2f);
         }
-
+        
         private void OnSprintStarted()
         {
             OnFireReleased();
@@ -216,16 +218,12 @@ namespace Demo.Scripts.Runtime.Character
             _aimState = FPSAimState.None;
 
             _userInput.SetValue(FPSANames.StabilizationWeight, 0f);
-            _userInput.SetValue(FPSANames.PlayablesWeight, 0f);
             _userInput.SetValue("LookLayerWeight", 0.3f);
         }
 
         private void OnSprintEnded()
         {
-            if (_animator.GetFloat("OverlayType") == 0) return;
-            
             _userInput.SetValue(FPSANames.StabilizationWeight, 1f);
-            _userInput.SetValue(FPSANames.PlayablesWeight, 1f);
             _userInput.SetValue("LookLayerWeight", 1f);
         }
 
@@ -272,8 +270,8 @@ namespace Demo.Scripts.Runtime.Character
                 _playerInput += _recoilPattern.GetRecoilDelta();
                 deltaMouseX += _recoilPattern.GetRecoilDelta().x;
             }
-
-            float proneWeight = _animator.GetFloat("ProneWeight");
+            
+            float proneWeight = _fpsAnimator.GetFloat(_proneWeightHash);
             Vector2 pitchClamp = Vector2.Lerp(new Vector2(-90f, 90f), new Vector2(-30, 0f), proneWeight);
 
             _playerInput.y = Mathf.Clamp(_playerInput.y, pitchClamp.x, pitchClamp.y);
@@ -286,12 +284,8 @@ namespace Demo.Scripts.Runtime.Character
 
         private void OnMovementUpdated()
         {
-            if (_movementComponent.PoseState == FPSPoseState.Prone)
-            {
-                float targetWeight = _movementComponent.IsMoving() ? 0f : 1f;
-                _userInput.SetValue(FPSANames.PlayablesWeight, targetWeight);
-                _userInput.SetValue(FPSANames.StabilizationWeight, targetWeight);
-            }
+            float playablesWeight = 1f - _fpsAnimator.GetFloat(_fullBodyWeightHash);
+            _userInput.SetValue(FPSANames.PlayablesWeight, playablesWeight);
         }
 
         private void Update()
@@ -313,23 +307,7 @@ namespace Demo.Scripts.Runtime.Character
             if (IsSprinting()|| HasActiveAction() || !GetActiveItem().OnGrenadeThrow()) return;
             _actionState = FPSActionState.PlayingAnimation;
         }
-
-        public void OnToggleUnarmed()
-        {
-            _isUnarmed = !_isUnarmed;
-
-            if (_isUnarmed)
-            {
-                GetActiveItem().gameObject.SetActive(false);
-                GetActiveItem().OnUnarmedEnabled();
-                _fpsAnimator.LinkAnimatorProfile(settings.unarmedProfile);
-                return;
-            }
-
-            GetActiveItem().gameObject.SetActive(true);
-            GetActiveItem().OnUnarmedDisabled();
-        }
-
+        
         public void OnFire(InputValue value)
         {
             if (IsSprinting()) return;
@@ -402,11 +380,11 @@ namespace Demo.Scripts.Runtime.Character
 
             if (_actionState == FPSActionState.AttachmentEditing)
             {
-                _animator.CrossFade("InspectStart", 0.2f);
+                _fpsAnimator.CrossFade(_inspectStartHash, 0.2f);
                 return;
             }
             
-            _animator.CrossFade("InspectEnd", 0.3f);
+            _fpsAnimator.CrossFade(_inspectEndHash, 0.3f);
         }
 
         public void OnDigitAxis(InputValue value)

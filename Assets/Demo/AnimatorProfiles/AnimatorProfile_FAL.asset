@@ -183,36 +183,43 @@ MonoBehaviour:
       index: 12
       isVirtual: 0
     weight: 0.9
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Chest
       index: 13
       isVirtual: 0
     weight: 0.9
+    cacheBlendedResult: 0
   - elementToBlend:
       name: UpperChest
       index: 14
       isVirtual: 0
     weight: 0.762
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Neck
       index: 40
       isVirtual: 0
     weight: 0.3
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Head
       index: 41
       isVirtual: 0
     weight: 0
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Left_Shoulder
       index: 15
       isVirtual: 0
     weight: 0.559
+    cacheBlendedResult: 0
   - elementToBlend:
       name: Right_Shoulder
       index: 54
       isVirtual: 0
     weight: 0.9
+    cacheBlendedResult: 0
   blendPosition: 0
 --- !u!114 &-5926500349329534600
 MonoBehaviour:
@@ -439,6 +446,7 @@ MonoBehaviour:
   translationScale: {x: 1, y: 1, z: 1}
   blendTime: 0
   playRate: 1
+  autoBlendOut: 1
 --- !u!114 &-5290396991009541559
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -595,10 +603,20 @@ MonoBehaviour:
   curveBlending: []
   linkDynamically: 0
   isStandalone: 0
-  boneToModify:
+  weaponIkBone:
     name: IK WeaponBone
     index: 48
     isVirtual: 0
+  rightHandElbow:
+    name: IK RightElbow
+    index: 50
+    isVirtual: 0
+  leftHandElbow:
+    name: IK LeftElbow
+    index: 52
+    isVirtual: 0
+  animatedPivotOffset: {x: 0, y: 0, z: 0}
+  hintTargetWeight: 1
   headBone:
     name: Head
     index: 41
