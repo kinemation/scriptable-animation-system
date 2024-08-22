@@ -90,7 +90,7 @@ namespace Demo.Scripts.Runtime.Character
         private bool _wasMoving = false;
 
         private UserInputController _inputController;
-        private FPSAnimator _fpsAnimator;
+        private Animator _animator;
         private bool _consumeMoveInput = true;
 
         private float _gaitProgress;
@@ -149,8 +149,8 @@ namespace Demo.Scripts.Runtime.Character
             Crouch();
             PoseState = FPSPoseState.Prone;
             
-            _fpsAnimator.SetBool(Crouching, false);
-            _fpsAnimator.SetBool(Proning, true);
+            _animator.SetBool(Crouching, false);
+            _animator.SetBool(Proning, true);
             
             onProneStarted?.Invoke();
             _desiredGait = movementSettings.prone;
@@ -169,7 +169,7 @@ namespace Demo.Scripts.Runtime.Character
             
             UnCrouch();
             PoseState = FPSPoseState.Standing;
-            _fpsAnimator.SetBool(Proning, false);
+            _animator.SetBool(Proning, false);
             
             onProneEnded?.Invoke();
             _desiredGait = movementSettings.idle;
@@ -193,7 +193,7 @@ namespace Demo.Scripts.Runtime.Character
 
             PoseState = FPSPoseState.Crouching;
             
-            _fpsAnimator.SetBool(Crouching, true);
+            _animator.SetBool(Crouching, true);
             onCrouch?.Invoke();
         }
 
@@ -204,7 +204,7 @@ namespace Demo.Scripts.Runtime.Character
             
             PoseState = FPSPoseState.Standing;
             
-            _fpsAnimator.SetBool(Crouching, false);
+            _animator.SetBool(Crouching, false);
             onUncrouch?.Invoke();
         }
         
@@ -381,16 +381,16 @@ namespace Demo.Scripts.Runtime.Character
             AnimatorVelocity = Vector2.Lerp(AnimatorVelocity, animatorVelocity, 
                 KMath.ExpDecayAlpha(_desiredGait.velocitySmoothing, Time.deltaTime));
 
-            _fpsAnimator.SetFloat(MoveX, AnimatorVelocity.x);
-            _fpsAnimator.SetFloat(MoveY, AnimatorVelocity.y);
-            _fpsAnimator.SetFloat(Velocity, AnimatorVelocity.magnitude);
-            _fpsAnimator.SetBool(InAir, IsInAir());
-            _fpsAnimator.SetBool(Moving, IsMoving());
+            _animator.SetFloat(MoveX, AnimatorVelocity.x);
+            _animator.SetFloat(MoveY, AnimatorVelocity.y);
+            _animator.SetFloat(Velocity, AnimatorVelocity.magnitude);
+            _animator.SetBool(InAir, IsInAir());
+            _animator.SetBool(Moving, IsMoving());
 
-            float sprintWeight = _fpsAnimator.GetFloat(Sprinting);
+            float sprintWeight = _animator.GetFloat(Sprinting);
             float t = KMath.ExpDecayAlpha(_desiredGait.velocitySmoothing, Time.deltaTime);
             sprintWeight = Mathf.Lerp(sprintWeight, MovementState == FPSMovementState.Sprinting ? 1f : 0f, t);
-            _fpsAnimator.SetFloat(Sprinting, sprintWeight);
+            _animator.SetFloat(Sprinting, sprintWeight);
             
             _inputController.SetValue(FPSANames.MoveInput, 
                 new Vector4(AnimatorVelocity.x, AnimatorVelocity.y));
@@ -400,7 +400,7 @@ namespace Demo.Scripts.Runtime.Character
         {
             _controller = GetComponent<CharacterController>();
             _inputController = GetComponent<UserInputController>();
-            _fpsAnimator = GetComponent<FPSAnimator>();
+            _animator = GetComponent<Animator>();
             
             _originalHeight = _controller.height;
             _originalCenter = _controller.center;

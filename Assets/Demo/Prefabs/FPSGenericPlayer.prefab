@@ -2602,7 +2602,7 @@ Animator:
   m_GameObject: {fileID: 7102044144766431328}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 520bdcb9403d2e54783251767c69f5b3, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b09d8a0688c5abe42998a0987f3f1210, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2723,43 +2723,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSettings: {fileID: 11400000, guid: 7d33a2d0b337ad54e8d85db297de9b26, type: 2}
-  rootBone: {fileID: 7621312306802223834}
-  onStartMoving:
-    m_PersistentCalls:
-      m_Calls: []
-  onStopMoving:
-    m_PersistentCalls:
-      m_Calls: []
-  onSprintStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onSprintEnded:
-    m_PersistentCalls:
-      m_Calls: []
-  onCrouch:
-    m_PersistentCalls:
-      m_Calls: []
-  onUncrouch:
-    m_PersistentCalls:
-      m_Calls: []
-  onProneStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onProneEnded:
-    m_PersistentCalls:
-      m_Calls: []
-  onJump:
-    m_PersistentCalls:
-      m_Calls: []
-  onLanded:
-    m_PersistentCalls:
-      m_Calls: []
-  onSlideStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onSlideEnded:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &652359171
 MonoBehaviour:
   m_ObjectHideFlags: 0

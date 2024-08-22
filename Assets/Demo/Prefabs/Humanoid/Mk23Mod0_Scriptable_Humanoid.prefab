@@ -80,15 +80,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overrideController: {fileID: 9100000, guid: 70b165214a68c65428af65a49a82895b, type: 2}
+  equipMotion: {fileID: 11400000, guid: b11b46638e8719941a429aa33657277d, type: 2}
+  unEquipMotion: {fileID: 11400000, guid: 6e3ba419dec1a754b9c447a8fc1f9b1f, type: 2}
+  fieldOfView: 90
   reloadClip: {fileID: 11400000, guid: 2d446d575ab7f0c44a565f6684c53aaa, type: 2}
+  cameraReloadAnimation: {fileID: 0}
   grenadeClip: {fileID: 0}
+  cameraGrenadeAnimation: {fileID: 0}
   fireClip: {fileID: 0}
-  overlayType: 1
-  canAim: 1
-  cameraShake: {fileID: 11400000, guid: 5563e5a81879bf3488e215990ceb8724, type: 2}
   recoilData: {fileID: 11400000, guid: 4c797e2e3e4ef994191ed00397d07906, type: 2}
+  recoilPatternSettings: {fileID: 0}
+  cameraShake: {fileID: 11400000, guid: 5563e5a81879bf3488e215990ceb8724, type: 2}
   fireRate: 400
-  isAuto: 0
+  supportsAuto: 0
+  supportsBurst: 0
+  burstLength: 0
+  barrelAttachments:
+    attachments: []
+  gripAttachments:
+    attachments: []
+  scopeGroups: []
 --- !u!114 &3801993692961882802
 MonoBehaviour:
   m_ObjectHideFlags: 0

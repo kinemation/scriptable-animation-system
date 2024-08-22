@@ -45,6 +45,8 @@ namespace Demo.Scripts.Runtime.Character
 
         private FPSAimState _aimState;
         private FPSActionState _actionState;
+
+        private Animator _animator;
         
         //~ Legacy Controller Interface
 
@@ -146,6 +148,7 @@ namespace Demo.Scripts.Runtime.Character
 
             _weaponBone = GetComponentInChildren<KRigComponent>().GetRigTransform(settings.weaponBone);
             _fpsAnimator = GetComponent<FPSAnimator>();
+            _animator = GetComponent<Animator>();
             
             _userInput = GetComponent<UserInputController>();
             _recoilPattern = GetComponent<RecoilPattern>();
@@ -207,7 +210,7 @@ namespace Demo.Scripts.Runtime.Character
         
         private void OnSlideStarted()
         {
-            _fpsAnimator.playablesController.GetAnimator().CrossFade(_slideHash, 0.2f);
+            _animator.CrossFade(_slideHash, 0.2f);
         }
         
         private void OnSprintStarted()
@@ -271,7 +274,7 @@ namespace Demo.Scripts.Runtime.Character
                 deltaMouseX += _recoilPattern.GetRecoilDelta().x;
             }
             
-            float proneWeight = _fpsAnimator.GetFloat(_proneWeightHash);
+            float proneWeight = _animator.GetFloat(_proneWeightHash);
             Vector2 pitchClamp = Vector2.Lerp(new Vector2(-90f, 90f), new Vector2(-30, 0f), proneWeight);
 
             _playerInput.y = Mathf.Clamp(_playerInput.y, pitchClamp.x, pitchClamp.y);
@@ -284,7 +287,7 @@ namespace Demo.Scripts.Runtime.Character
 
         private void OnMovementUpdated()
         {
-            float playablesWeight = 1f - _fpsAnimator.GetFloat(_fullBodyWeightHash);
+            float playablesWeight = 1f - _animator.GetFloat(_fullBodyWeightHash);
             _userInput.SetValue(FPSANames.PlayablesWeight, playablesWeight);
         }
 
@@ -380,11 +383,11 @@ namespace Demo.Scripts.Runtime.Character
 
             if (_actionState == FPSActionState.AttachmentEditing)
             {
-                _fpsAnimator.CrossFade(_inspectStartHash, 0.2f);
+                _animator.CrossFade(_inspectStartHash, 0.2f);
                 return;
             }
             
-            _fpsAnimator.CrossFade(_inspectEndHash, 0.3f);
+            _animator.CrossFade(_inspectEndHash, 0.3f);
         }
 
         public void OnDigitAxis(InputValue value)

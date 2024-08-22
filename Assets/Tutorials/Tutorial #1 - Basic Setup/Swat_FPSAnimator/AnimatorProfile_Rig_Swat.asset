@@ -470,6 +470,7 @@ MonoBehaviour:
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
   overwriteRoot: 0
+  overwriteWeaponBone: 1
   ikWeaponBone:
     name: IK WeaponBone
     index: 46

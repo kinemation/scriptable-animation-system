@@ -400,18 +400,52 @@ MonoBehaviour:
   poseOffsets:
   - pose:
       element:
-        name: IK WeaponBone
-        index: 48
+        name: Right_IndexProximal
+        index: 58
         isVirtual: 0
       pose:
-        position: {x: 0, y: 0.01, z: 0}
-        rotation: {x: 0, y: 0, z: 0.06104854, w: 0.9981348}
+        position: {x: 0, y: 0, z: 0}
+        rotation: {x: 0.081938505, y: 0, z: 0, w: 0.9966374}
         scale: {x: 0, y: 0, z: 0}
-      space: 2
+      space: 0
+      modifyMode: 0
+    blend:
+      name: FullBodyWeight
+      mode: 1
+      clampMin: 0
+      source: 0
+    keepChildrenPose: 0
+  - pose:
+      element:
+        name: Right_IndexIntermediate
+        index: 59
+        isVirtual: 0
+      pose:
+        position: {x: 0, y: 0, z: 0}
+        rotation: {x: 0.6652956, y: -0.000000065308846, z: -0.000000058198548, w: -0.74658006}
+        scale: {x: 0, y: 0, z: 0}
+      space: 0
       modifyMode: 0
     blend:
       name: CrouchWeight
-      mode: 0
+      mode: 1
+      clampMin: 0
+      source: 0
+    keepChildrenPose: 0
+  - pose:
+      element:
+        name: Right_IndexDistal
+        index: 60
+        isVirtual: 0
+      pose:
+        position: {x: 0, y: 0, z: 0}
+        rotation: {x: 0.12377473, y: 0, z: 0, w: -0.99231035}
+        scale: {x: 0, y: 0, z: 0}
+      space: 0
+      modifyMode: 0
+    blend:
+      name: CrouchWeight
+      mode: 1
       clampMin: 0
       source: 0
     keepChildrenPose: 0
@@ -654,6 +688,7 @@ MonoBehaviour:
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
   overwriteRoot: 1
+  overwriteWeaponBone: 0
   ikWeaponBone:
     name: IK WeaponBone
     index: 48
