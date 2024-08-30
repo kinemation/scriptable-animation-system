@@ -2427,7 +2427,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6145671210821620904}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2840,43 +2840,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSettings: {fileID: 11400000, guid: 7d33a2d0b337ad54e8d85db297de9b26, type: 2}
-  rootBone: {fileID: 5963740188802376179}
-  onStartMoving:
-    m_PersistentCalls:
-      m_Calls: []
-  onStopMoving:
-    m_PersistentCalls:
-      m_Calls: []
-  onSprintStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onSprintEnded:
-    m_PersistentCalls:
-      m_Calls: []
-  onCrouch:
-    m_PersistentCalls:
-      m_Calls: []
-  onUncrouch:
-    m_PersistentCalls:
-      m_Calls: []
-  onProneStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onProneEnded:
-    m_PersistentCalls:
-      m_Calls: []
-  onJump:
-    m_PersistentCalls:
-      m_Calls: []
-  onLanded:
-    m_PersistentCalls:
-      m_Calls: []
-  onSlideStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onSlideEnded:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &6145671210753562978
 MonoBehaviour:
   m_ObjectHideFlags: 0

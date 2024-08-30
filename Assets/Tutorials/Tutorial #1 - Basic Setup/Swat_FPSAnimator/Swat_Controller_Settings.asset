@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9bd91fa31d045f79762a272fd5f0e61, type: 3}
+  m_Name: Swat_Controller_Settings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 62803392bd78de74f80dc62b61d8ad86, type: 2}
+  unarmedController: {fileID: 0}
+  aimingMotion: {fileID: 11400000, guid: 2951c90938854f24c935627d36bbc3cd, type: 2}
+  crouchingMotion: {fileID: 11400000, guid: fa23e63ff38a3bb4f9f7bca500ced7ce, type: 2}
+  jumpingMotion: {fileID: 11400000, guid: 93be04a77e31740498d5c7d7e8286ab5, type: 2}
+  stopMotion: {fileID: 11400000, guid: df1c50775e86cd04d81a570dca084893, type: 2}
+  leanMotion: {fileID: 11400000, guid: a493caf2a32529d4d88aff9ccf78e181, type: 2}
+  timeScale: 1
+  equipDelay: 0
+  leanAngle: 25
+  sensitivity: 1
+  weaponBone:
+    name: IK WeaponBone
+    index: -1
+    isVirtual: 0
+  weaponPrefabs:
+  - {fileID: 5184969205598449029, guid: c03bfe1e98e1a9045a15c6b9654ef1cd, type: 3}
