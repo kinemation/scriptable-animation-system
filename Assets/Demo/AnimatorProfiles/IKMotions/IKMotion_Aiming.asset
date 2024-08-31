@@ -275,7 +275,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  rotationScale: {x: 5, y: 0.3, z: 1.7}
+  rotationScale: {x: 0.8, y: 0.3, z: 1.7}
   translationScale: {x: 1, y: 1, z: 1}
   blendTime: 0.3
   playRate: 1.1
