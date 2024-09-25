@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4866b03a6252448db13225ec0b949cc9, type: 3}
   m_Name: MovementSettings
   m_EditorClassIdentifier: 
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
   idle:
     velocity: 0
     velocitySmoothing: 6.5

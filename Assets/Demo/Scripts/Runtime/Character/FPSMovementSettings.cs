@@ -18,6 +18,9 @@ namespace Demo.Scripts.Runtime.Character
     public class FPSMovementSettings : ScriptableObject
     {
         [Header("Settings")]
+        
+        public LayerMask groundMask;
+        
         public GaitSettings idle;
         public GaitSettings prone;
         public GaitSettings crouching;

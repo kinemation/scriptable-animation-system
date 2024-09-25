@@ -141,7 +141,7 @@ namespace Demo.Scripts.Runtime.Character
         {
             float height = _originalHeight - _controller.radius * 2f;
             Vector3 position = transform.TransformPoint(_originalCenter + Vector3.up * height / 2f);
-            return !Physics.CheckSphere(position, _controller.radius);
+            return !Physics.CheckSphere(position, _controller.radius, movementSettings.groundMask);
         }
 
         private void OnProneEnabled()
