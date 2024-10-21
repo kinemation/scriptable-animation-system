@@ -70,6 +70,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paramName: CrouchWeight
   paramTargetValue: 1
+--- !u!114 &-8243985238905241968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4437088df934c1a9375bf492c23d011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paramName: CrouchWeight
+  paramTargetValue: 1
 --- !u!1101 &-7820093372569014996
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -430,6 +444,20 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &-4946452990897671158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4437088df934c1a9375bf492c23d011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paramName: CrouchWeight
+  paramTargetValue: 0
 --- !u!1102 &-4611275833142013160
 AnimatorState:
   serializedVersion: 6
@@ -1256,7 +1284,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8891418209640233981}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -8243985238905241968}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1417,7 +1446,8 @@ AnimatorState:
   m_Transitions:
   - {fileID: 4903769328545553253}
   - {fileID: 4308796238576213756}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -4946452990897671158}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
