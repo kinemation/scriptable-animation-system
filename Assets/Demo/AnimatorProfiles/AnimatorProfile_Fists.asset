@@ -387,41 +387,6 @@ MonoBehaviour:
   blendTime: 0
   playRate: 1
   autoBlendOut: 1
---- !u!114 &-245382377930983867
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dee9c1da9424d8498badb5370764946, type: 3}
-  m_Name: PoseOffsetLayerSettings
-  m_EditorClassIdentifier: 
-  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 1
-  curveBlending: []
-  linkDynamically: 0
-  isStandalone: 0
-  poseOffsets:
-  - pose:
-      element:
-        name: Spine
-        index: 12
-        isVirtual: 0
-      pose:
-        position: {x: 0, y: 0, z: 0}
-        rotation: {x: 0, y: -0.38268346, z: 0, w: 0.9238795}
-        scale: {x: 0, y: 0, z: 0}
-      space: 2
-      modifyMode: 0
-    blend:
-      name: PelvisYawOffset
-      mode: 0
-      clampMin: 0
-      source: 1
-    keepChildrenPose: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,7 +415,6 @@ MonoBehaviour:
   - {fileID: 1259209180178974846}
   - {fileID: -8851288690259647356}
   - {fileID: 4818982726422234228}
-  - {fileID: -245382377930983867}
   - {fileID: 5719389036815121392}
   - {fileID: 5236726630021130127}
   - {fileID: 5930458643170788035}
@@ -951,7 +915,8 @@ MonoBehaviour:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
-  overwriteRoot: 0
+  overwriteRoot: 1
+  overwriteWeaponBone: 0
   ikWeaponBone:
     name: IK WeaponBone
     index: 48
@@ -989,8 +954,8 @@ MonoBehaviour:
     index: 1
     isVirtual: 0
   spineRoot:
-    name: Chest
-    index: 13
+    name: Spine
+    index: 12
     isVirtual: 0
   stabilizationWeight: StabilizationWeight
   weaponBoneWeight: WeaponBoneWeight
@@ -1059,3 +1024,7 @@ MonoBehaviour:
     name: IK LeftKnee
     index: 89
     isVirtual: 0
+  rightHandWeight: 1
+  leftHandWeight: 1
+  rightFootWeight: 1
+  leftFootWeight: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IkMotionLayerSettings
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 0.7
+  alpha: 1
   curveBlending: []
   linkDynamically: 0
   isStandalone: 0
@@ -374,81 +374,8 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    space: 0
+    space: 2
     modifyMode: 0
---- !u!114 &-5290396991009541559
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dee9c1da9424d8498badb5370764946, type: 3}
-  m_Name: PoseOffsetLayerSettings
-  m_EditorClassIdentifier: 
-  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 1
-  curveBlending:
-  - name: AimingWeight
-    mode: 1
-    clampMin: 0
-    source: 2
-  linkDynamically: 0
-  isStandalone: 0
-  poseOffsets:
-  - pose:
-      element:
-        name: Right_IndexProximal
-        index: 58
-        isVirtual: 0
-      pose:
-        position: {x: 0, y: 0, z: 0}
-        rotation: {x: 0.081938505, y: 0, z: 0, w: 0.9966374}
-        scale: {x: 0, y: 0, z: 0}
-      space: 0
-      modifyMode: 0
-    blend:
-      name: FullBodyWeight
-      mode: 1
-      clampMin: 0
-      source: 0
-    keepChildrenPose: 0
-  - pose:
-      element:
-        name: Right_IndexIntermediate
-        index: 59
-        isVirtual: 0
-      pose:
-        position: {x: 0, y: 0, z: 0}
-        rotation: {x: 0.6652956, y: -0.000000065308846, z: -0.000000058198548, w: -0.74658006}
-        scale: {x: 0, y: 0, z: 0}
-      space: 0
-      modifyMode: 0
-    blend:
-      name: CrouchWeight
-      mode: 1
-      clampMin: 0
-      source: 0
-    keepChildrenPose: 0
-  - pose:
-      element:
-        name: Right_IndexDistal
-        index: 60
-        isVirtual: 0
-      pose:
-        position: {x: 0, y: 0, z: 0}
-        rotation: {x: 0.12377473, y: 0, z: 0, w: -0.99231035}
-        scale: {x: 0, y: 0, z: 0}
-      space: 0
-      modifyMode: 0
-    blend:
-      name: CrouchWeight
-      mode: 1
-      clampMin: 0
-      source: 0
-    keepChildrenPose: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,7 +403,6 @@ MonoBehaviour:
   - {fileID: 2097171418267287971}
   - {fileID: -8017070690771127837}
   - {fileID: 3320383934504450572}
-  - {fileID: -5290396991009541559}
   - {fileID: -5926500349329534600}
   - {fileID: 317458384766536076}
   - {fileID: -8473158356706104738}
@@ -503,7 +429,7 @@ MonoBehaviour:
   curveBlending:
   - name: AimingWeight
     mode: 1
-    clampMin: 0.4
+    clampMin: 0.184
     source: 2
   linkDynamically: 0
   isStandalone: 0
@@ -520,7 +446,7 @@ MonoBehaviour:
     index: 52
     isVirtual: 0
   animatedPivotOffset: {x: 0, y: 0, z: 0}
-  hintTargetWeight: 1
+  hintTargetWeight: 0.3
   headBone:
     name: Head
     index: 41
@@ -586,10 +512,10 @@ MonoBehaviour:
     index: 52
     isVirtual: 0
   animatedPivotOffset: {x: 0, y: 0, z: 0}
-  hintTargetWeight: 0.5
+  hintTargetWeight: 0.4
   aimTargetBone:
-    name: CameraSocket
-    index: 46
+    name: Camera
+    index: 45
     isVirtual: 0
   aimingEaseMode:
     easeFunc: 1
@@ -653,14 +579,14 @@ MonoBehaviour:
     index: 52
     isVirtual: 0
   animatedPivotOffset: {x: 0, y: 0, z: 0}
-  hintTargetWeight: 0.8
+  hintTargetWeight: 0
   additiveBone:
     name: WeaponBoneAdditive
     index: 85
     isVirtual: 0
   interpSpeed: 0
   aimingInputProperty: AimingWeight
-  adsScalar: 0.3
+  adsScalar: 0.2
 --- !u!114 &2097171418267287971
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -675,7 +601,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   alpha: 1
-  curveBlending: []
+  curveBlending:
+  - name: FullBodyWeight
+    mode: 1
+    clampMin: 0
+    source: 0
   linkDynamically: 0
   isStandalone: 0
   poseToSample: {fileID: 11400000, guid: 50b57ca37fedb734a913effd23bb2378, type: 2}
@@ -971,3 +901,7 @@ MonoBehaviour:
     name: IK LeftKnee
     index: 89
     isVirtual: 0
+  rightHandWeight: 1
+  leftHandWeight: 1
+  rightFootWeight: 1
+  leftFootWeight: 1

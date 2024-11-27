@@ -104,6 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 105817931825604440}
+  - component: {fileID: 2953027108192795482}
   m_Layer: 0
   m_Name: AimPoint
   m_TagString: Untagged
@@ -126,6 +127,22 @@ Transform:
   m_Father: {fileID: 6660123153519852015}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2953027108192795482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5455053575652881098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b92811c9b4da4e1b9cfa4e3a2928c9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachmentLayerSettings: []
+  aimFovZoom: 0.9
+  sensitivityMultiplier: 1
+  aimPoint: {fileID: 105817931825604440}
 --- !u!1 &5639010355609106334
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +246,9 @@ MonoBehaviour:
     attachments: []
   gripAttachments:
     attachments: []
-  scopeGroups: []
+  scopeGroups:
+  - attachments:
+    - {fileID: 2953027108192795482}
 --- !u!114 &2992999746701429528
 MonoBehaviour:
   m_ObjectHideFlags: 0

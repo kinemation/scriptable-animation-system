@@ -379,45 +379,7 @@ MonoBehaviour:
   translationScale: {x: 1, y: 1, z: 1}
   blendTime: 0
   playRate: 1
---- !u!114 &-5290396991009541559
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dee9c1da9424d8498badb5370764946, type: 3}
-  m_Name: PoseOffsetLayerSettings
-  m_EditorClassIdentifier: 
-  rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 1
-  curveBlending:
-  - name: AimingWeight
-    mode: 1
-    clampMin: 0
-    source: 2
-  linkDynamically: 0
-  isStandalone: 0
-  poseOffsets:
-  - pose:
-      element:
-        name: IK WeaponBone
-        index: 48
-        isVirtual: 0
-      pose:
-        position: {x: -0.02, y: 0.02, z: 0}
-        rotation: {x: 0, y: 0, z: 0.043619387, w: 0.99904823}
-        scale: {x: 0, y: 0, z: 0}
-      space: 2
-      modifyMode: 0
-    blend:
-      name: CrouchWeight
-      mode: 0
-      clampMin: 0
-      source: 0
-    keepChildrenPose: 0
+  autoBlendOut: 1
 --- !u!114 &-2767156448427965238
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -479,13 +441,13 @@ MonoBehaviour:
       name: Left_Shoulder
       index: 15
       isVirtual: 0
-    weight: 0.7
+    weight: 0.871
     cacheBlendedResult: 0
   - elementToBlend:
       name: Right_Shoulder
       index: 54
       isVirtual: 0
-    weight: 0.5
+    weight: 0.415
     cacheBlendedResult: 0
   blendPosition: 0
 --- !u!114 &11400000
@@ -507,7 +469,25 @@ MonoBehaviour:
     easeFunc: 1
     curve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -516,7 +496,6 @@ MonoBehaviour:
   - {fileID: -8017070690771127837}
   - {fileID: -2767156448427965238}
   - {fileID: 2879879106747244202}
-  - {fileID: -5290396991009541559}
   - {fileID: -5926500349329534600}
   - {fileID: 317458384766536076}
   - {fileID: -5808398311304781733}
@@ -547,10 +526,20 @@ MonoBehaviour:
     source: 2
   linkDynamically: 0
   isStandalone: 0
-  boneToModify:
+  weaponIkBone:
     name: IK WeaponBone
     index: 48
     isVirtual: 0
+  rightHandElbow:
+    name: IK RightElbow
+    index: 50
+    isVirtual: 0
+  leftHandElbow:
+    name: IK LeftElbow
+    index: 52
+    isVirtual: 0
+  animatedPivotOffset: {x: 0, y: 0, z: 0}
+  hintTargetWeight: 1
   headBone:
     name: Head
     index: 41
@@ -683,7 +672,7 @@ MonoBehaviour:
     index: 52
     isVirtual: 0
   animatedPivotOffset: {x: 0, y: 0, z: 0}
-  hintTargetWeight: 0.8
+  hintTargetWeight: 0
   additiveBone:
     name: WeaponBoneAdditive
     index: 85
@@ -722,6 +711,7 @@ MonoBehaviour:
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
   overwriteRoot: 1
+  overwriteWeaponBone: 0
   ikWeaponBone:
     name: IK WeaponBone
     index: 48
@@ -1004,3 +994,7 @@ MonoBehaviour:
     name: IK LeftKnee
     index: 89
     isVirtual: 0
+  rightHandWeight: 1
+  leftHandWeight: 1
+  rightFootWeight: 1
+  leftFootWeight: 1

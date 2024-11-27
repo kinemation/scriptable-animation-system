@@ -119,6 +119,10 @@ MonoBehaviour:
     name: IK LeftKnee
     index: 89
     isVirtual: 0
+  rightHandWeight: 1
+  leftHandWeight: 1
+  rightFootWeight: 1
+  leftFootWeight: 1
 --- !u!114 &-7896337868018883974
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -477,8 +481,8 @@ MonoBehaviour:
   linkDynamically: 1
   isStandalone: 0
   characterRootBone:
-    name: Hips
-    index: 1
+    name: Skeleton
+    index: 0
     isVirtual: 0
   characterHipBone:
     name: Hips
@@ -872,6 +876,7 @@ MonoBehaviour:
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
   overwriteRoot: 1
+  overwriteWeaponBone: 0
   ikWeaponBone:
     name: IK WeaponBone
     index: 48

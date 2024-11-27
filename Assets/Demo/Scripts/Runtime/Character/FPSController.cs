@@ -145,9 +145,12 @@ namespace Demo.Scripts.Runtime.Character
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            Application.targetFrameRate = 144;
+            
+            _fpsAnimator = GetComponent<FPSAnimator>();
+            _fpsAnimator.Initialize();
 
             _weaponBone = GetComponentInChildren<KRigComponent>().GetRigTransform(settings.weaponBone);
-            _fpsAnimator = GetComponent<FPSAnimator>();
             _animator = GetComponent<Animator>();
             
             _userInput = GetComponent<UserInputController>();

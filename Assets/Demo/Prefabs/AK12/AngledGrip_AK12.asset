@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   alpha: 1
-  curveBlending: []
+  curveBlending:
+  - name: MaskAttachHand
+    mode: 1
+    clampMin: 0
+    source: 1
   linkDynamically: 0
   isStandalone: 1
   customHandPose: {fileID: 7400000, guid: 54cc2172c16ae9d43acc679876f99e3c, type: 2}
@@ -28,11 +32,11 @@ MonoBehaviour:
     isVirtual: 0
   ikWeaponBone:
     name: IK WeaponBone
-    index: -1
+    index: 48
     isVirtual: 0
   weaponBone:
     name: WeaponBone
-    index: -1
+    index: 84
     isVirtual: 0
   elementChainName: LeftHand
   handPoseOffset:

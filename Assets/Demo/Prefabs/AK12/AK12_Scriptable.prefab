@@ -80,8 +80,8 @@ MonoBehaviour:
     - {fileID: 125493306316702506}
   gripAttachments:
     attachments:
-    - {fileID: 659365306898794487}
     - {fileID: 1921354106621488191}
+    - {fileID: 659365306898794487}
     - {fileID: 8377436695880313903}
   scopeGroups:
   - attachments:
