@@ -87,6 +87,159 @@ MonoBehaviour:
     m_Bits: 64
   rayStartOffset: 0.1
   barrelLength: 0.64
+--- !u!114 &-5336992461047360324
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d029240c6ad3a418c71ce490095bed, type: 3}
+  m_Name: TurnLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 62803392bd78de74f80dc62b61d8ad86, type: 2}
+  alpha: 1
+  curveBlending:
+  - name: Velocity
+    mode: 1
+    clampMin: 0
+    source: 0
+  linkDynamically: 0
+  isStandalone: 0
+  characterRootBone:
+    name: mixamorig:Hips
+    index: 0
+    isVirtual: 0
+  characterHipBone:
+    name: mixamorig:Hips
+    index: 0
+    isVirtual: 0
+  angleThreshold: 90
+  turnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  turnSpeed: 1
+  mouseDeltaInputProperty: MouseDeltaInput
+  turnInputProperty: TurnOffset
+  animatorTurnRightTrigger: TurnRight
+  animatorTurnLeftTrigger: TurnLeft
+--- !u!114 &-2856690748704699464
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80ecb68a9ad4fccb78b8c9a53183567, type: 3}
+  m_Name: LookLayerSettings
+  m_EditorClassIdentifier: 
+  rigAsset: {fileID: 11400000, guid: 62803392bd78de74f80dc62b61d8ad86, type: 2}
+  alpha: 1
+  curveBlending:
+  - name: FullBodyWeight
+    mode: 1
+    clampMin: 0.4
+    source: 0
+  linkDynamically: 0
+  isStandalone: 0
+  mouseInputProperty: MouseInput
+  leanInputProperty: LeanInput
+  useTurnOffset: 1
+  turnOffsetProperty: TurnOffset
+  pitchOffsetElements:
+  - rigElement:
+      name: mixamorig:Spine
+      index: 11
+      isVirtual: 0
+    clampedAngle: {x: 15, y: 15}
+    cachedClampedAngle: {x: 15, y: 15}
+  - rigElement:
+      name: mixamorig:Spine1
+      index: 12
+      isVirtual: 0
+    clampedAngle: {x: 25, y: 25}
+    cachedClampedAngle: {x: 25, y: 25}
+  - rigElement:
+      name: mixamorig:Spine2
+      index: 13
+      isVirtual: 0
+    clampedAngle: {x: 25, y: 25}
+    cachedClampedAngle: {x: 25, y: 25}
+  - rigElement:
+      name: mixamorig:Neck
+      index: 39
+      isVirtual: 0
+    clampedAngle: {x: 25, y: 25}
+    cachedClampedAngle: {x: 25, y: 25}
+  yawOffsetElements:
+  - rigElement:
+      name: mixamorig:Spine
+      index: 11
+      isVirtual: 0
+    clampedAngle: {x: 25, y: 25}
+    cachedClampedAngle: {x: 25, y: 25}
+  - rigElement:
+      name: mixamorig:Spine1
+      index: 12
+      isVirtual: 0
+    clampedAngle: {x: 32.5, y: 32.5}
+    cachedClampedAngle: {x: 32.5, y: 32.5}
+  - rigElement:
+      name: mixamorig:Spine2
+      index: 13
+      isVirtual: 0
+    clampedAngle: {x: 32.5, y: 32.5}
+    cachedClampedAngle: {x: 32.5, y: 32.5}
+  rollOffsetElements:
+  - rigElement:
+      name: mixamorig:Spine
+      index: 11
+      isVirtual: 0
+    clampedAngle: {x: 15, y: 15}
+    cachedClampedAngle: {x: 15, y: 15}
+  - rigElement:
+      name: mixamorig:Spine1
+      index: 12
+      isVirtual: 0
+    clampedAngle: {x: 25, y: 25}
+    cachedClampedAngle: {x: 25, y: 25}
+  - rigElement:
+      name: mixamorig:Spine2
+      index: 13
+      isVirtual: 0
+    clampedAngle: {x: 25, y: 25}
+    cachedClampedAngle: {x: 25, y: 25}
+  - rigElement:
+      name: mixamorig:Neck
+      index: 39
+      isVirtual: 0
+    clampedAngle: {x: 25, y: 25}
+    cachedClampedAngle: {x: 25, y: 25}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,8 +253,8 @@ MonoBehaviour:
   m_Name: AnimatorProfile_Rig_Swat
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 62803392bd78de74f80dc62b61d8ad86, type: 2}
-  blendInTime: 0.2
-  blendOutTime: 0.2
+  blendInTime: 0
+  blendOutTime: 0
   easeMode:
     easeFunc: 0
     curve:
@@ -111,13 +264,15 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   settings:
-  - {fileID: 7273167783370680640}
+  - {fileID: 7664280296386446585}
   - {fileID: 5215231130378568488}
   - {fileID: -9149830831234933331}
   - {fileID: 3681430444958103638}
   - {fileID: 441341601204529831}
   - {fileID: 3907530173128919579}
   - {fileID: 3730584619693100643}
+  - {fileID: -2856690748704699464}
+  - {fileID: -5336992461047360324}
   - {fileID: -6534253720401469737}
   - {fileID: 3506197784246314902}
 --- !u!114 &441341601204529831
@@ -203,7 +358,7 @@ MonoBehaviour:
   m_Name: IkLayerSettings
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 62803392bd78de74f80dc62b61d8ad86, type: 2}
-  alpha: 0
+  alpha: 1
   curveBlending: []
   linkDynamically: 0
   isStandalone: 0
@@ -255,10 +410,6 @@ MonoBehaviour:
     name: IK LeftKnee
     index: 82
     isVirtual: 0
-  rightHandWeight: 1
-  leftHandWeight: 1
-  rightFootWeight: 1
-  leftFootWeight: 1
 --- !u!114 &3681430444958103638
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -569,10 +720,10 @@ MonoBehaviour:
   elementChainName: LeftHandChain
   handPoseOffset:
     position: {x: 0.015, y: -0.02, z: 0}
-    rotation: {x: 0.06502464, y: -0.0023615845, z: -0.27134553, w: 0.96028006}
+    rotation: {x: 0.123780824, y: -0.29356542, z: -0.24638039, w: 0.91531104}
     scale: {x: 1, y: 1, z: 1}
-  overridePoseWeight: 1
---- !u!114 &7273167783370680640
+  overridePoseWeight: 0
+--- !u!114 &7664280296386446585
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -591,7 +742,7 @@ MonoBehaviour:
   isStandalone: 0
   poseToSample: {fileID: 11400000, guid: 4430773841f04564a9ec302315ce717f, type: 2}
   defaultWeaponPose:
-    position: {x: 0, y: 0, z: 0}
+    position: {x: 0.165, y: 1.431, z: 0.494}
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
   weaponBoneOffset:
