@@ -410,6 +410,11 @@ MonoBehaviour:
     name: IK LeftKnee
     index: 82
     isVirtual: 0
+  offsetFeetTargets: 0
+  rightHandWeight: 1
+  leftHandWeight: 1
+  rightFootWeight: 0
+  leftFootWeight: 0
 --- !u!114 &3681430444958103638
 MonoBehaviour:
   m_ObjectHideFlags: 3
