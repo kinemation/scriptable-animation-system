@@ -113,6 +113,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33af041646452e742b27dd37d83f8ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overrideController: {fileID: 22100000, guid: 7b30ccb51858b794d9b2dc1c824e9fc9, type: 2}
+  equipMotion: {fileID: 11400000, guid: b11b46638e8719941a429aa33657277d, type: 2}
+  unEquipMotion: {fileID: 11400000, guid: 6e3ba419dec1a754b9c447a8fc1f9b1f, type: 2}
   meleeAttackAnimation: {fileID: 11400000, guid: 3b06199e59981bb459020c433502760a,
     type: 2}
   meleeAttackDelay: 1
+  equipClip: {fileID: 0}
+  unEquipClip: {fileID: 0}

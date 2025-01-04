@@ -1,4 +1,4 @@
-﻿// Designed by KINEMATION, 2024.
+﻿// Designed by KINEMATION, 2025.
 
 using KINEMATION.FPSAnimationFramework.Runtime.Layers.IkMotionLayer;
 using UnityEngine;

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// Designed by KINEMATION, 2025.
+
+using UnityEngine;
 
 namespace Demo.Scripts.Runtime.AttachmentSystem
 {

@@ -1,4 +1,4 @@
-// Designed by KINEMATION, 2024.
+// Designed by KINEMATION, 2025.
 
 using Demo.Scripts.Runtime.Character;
 using KINEMATION.KAnimationCore.Editor.Misc;
