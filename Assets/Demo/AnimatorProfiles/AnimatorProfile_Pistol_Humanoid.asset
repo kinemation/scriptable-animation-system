@@ -813,8 +813,8 @@ MonoBehaviour:
   linkDynamically: 1
   isStandalone: 0
   characterRootBone:
-    name: Skeleton
-    index: 0
+    name: Hips
+    index: 1
     isVirtual: 0
   characterHipBone:
     name: Hips
@@ -938,7 +938,7 @@ MonoBehaviour:
         isVirtual: 0
       pose:
         position: {x: 0, y: 0, z: 0}
-        rotation: {x: 0, y: 0, z: 0, w: 0}
+        rotation: {x: 0, y: 0, z: 0, w: 1}
         scale: {x: 0, y: 0, z: 0}
       space: 2
       modifyMode: 0
