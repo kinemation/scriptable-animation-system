@@ -268,7 +268,7 @@ MonoBehaviour:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
-  overwriteRoot: 0
+  overwriteRoot: 1
   overwriteWeaponBone: 0
   ikWeaponBone:
     name: IK WeaponBone
@@ -327,7 +327,7 @@ MonoBehaviour:
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
   alpha: 1
   curveBlending: []
-  linkDynamically: 0
+  linkDynamically: 1
   isStandalone: 0
   characterRootBone:
     name: Skeleton
