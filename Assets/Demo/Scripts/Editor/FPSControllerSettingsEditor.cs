@@ -1,7 +1,7 @@
 // Designed by KINEMATION, 2025.
 
 using Demo.Scripts.Runtime.Character;
-using KINEMATION.KAnimationCore.Editor.Misc;
+using KINEMATION.KAnimationCore.Editor.Tools;
 using UnityEditor;
 
 namespace Demo.Scripts.Editor

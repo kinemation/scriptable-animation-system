@@ -13,345 +13,344 @@ MonoBehaviour:
   m_Name: Rig_UnityCharacter
   m_EditorClassIdentifier: 
   targetAnimator: {fileID: 9100000, guid: b09d8a0688c5abe42998a0987f3f1210, type: 2}
-  inputConfig: {fileID: 11400000, guid: 022095d8cf55fba4080ab3e4c1364954, type: 2}
   rigHierarchy:
   - name: Skeleton
     index: 0
-    isVirtual: 0
+    depth: 0
   - name: Hips
     index: 1
-    isVirtual: 0
+    depth: 1
   - name: Left_UpperLeg
     index: 2
-    isVirtual: 0
+    depth: 2
   - name: Left_LowerLeg
     index: 3
-    isVirtual: 0
+    depth: 3
   - name: Left_Foot
     index: 4
-    isVirtual: 0
+    depth: 4
   - name: Left_Toes
     index: 5
-    isVirtual: 0
+    depth: 5
   - name: Left_ToesEnd
     index: 6
-    isVirtual: 0
+    depth: 6
   - name: Right_UpperLeg
     index: 7
-    isVirtual: 0
+    depth: 2
   - name: Right_LowerLeg
     index: 8
-    isVirtual: 0
+    depth: 3
   - name: Right_Foot
     index: 9
-    isVirtual: 0
+    depth: 4
   - name: Right_Toes
     index: 10
-    isVirtual: 0
+    depth: 5
   - name: Right_ToesEnd
     index: 11
-    isVirtual: 0
+    depth: 6
   - name: Spine
     index: 12
-    isVirtual: 0
+    depth: 2
   - name: Chest
     index: 13
-    isVirtual: 0
+    depth: 3
   - name: UpperChest
     index: 14
-    isVirtual: 0
+    depth: 4
   - name: Left_Shoulder
     index: 15
-    isVirtual: 0
+    depth: 5
   - name: Left_UpperArm
     index: 16
-    isVirtual: 0
+    depth: 6
   - name: Left_LowerArm
     index: 17
-    isVirtual: 0
+    depth: 7
   - name: Left_Hand
     index: 18
-    isVirtual: 0
+    depth: 8
   - name: Left_IndexProximal
     index: 19
-    isVirtual: 0
+    depth: 9
   - name: Left_IndexIntermediate
     index: 20
-    isVirtual: 0
+    depth: 10
   - name: Left_IndexDistal
     index: 21
-    isVirtual: 0
+    depth: 11
   - name: Left_IndexDistalEnd
     index: 22
-    isVirtual: 0
+    depth: 12
   - name: Left_MiddleProximal
     index: 23
-    isVirtual: 0
+    depth: 9
   - name: Left_MiddleIntermediate
     index: 24
-    isVirtual: 0
+    depth: 10
   - name: Left_MiddleDistal
     index: 25
-    isVirtual: 0
+    depth: 11
   - name: Left_MiddleDistalEnd
     index: 26
-    isVirtual: 0
+    depth: 12
   - name: Left_PinkyProximal
     index: 27
-    isVirtual: 0
+    depth: 9
   - name: Left_PinkyIntermediate
     index: 28
-    isVirtual: 0
+    depth: 10
   - name: Left_PinkyDistal
     index: 29
-    isVirtual: 0
+    depth: 11
   - name: Left_PinkyDistalEnd
     index: 30
-    isVirtual: 0
+    depth: 12
   - name: Left_RingProximal
     index: 31
-    isVirtual: 0
+    depth: 9
   - name: Left_RingIntermediate
     index: 32
-    isVirtual: 0
+    depth: 10
   - name: Left_RingDistal
     index: 33
-    isVirtual: 0
+    depth: 11
   - name: Left_RingDistalEnd
     index: 34
-    isVirtual: 0
+    depth: 12
   - name: Left_ThumbProximal
     index: 35
-    isVirtual: 0
+    depth: 9
   - name: Left_ThumbIntermediate
     index: 36
-    isVirtual: 0
+    depth: 10
   - name: Left_ThumbDistal
     index: 37
-    isVirtual: 0
+    depth: 11
   - name: Left_ThumbDistalEnd
     index: 38
-    isVirtual: 0
+    depth: 12
   - name: IK WeaponBoneLeft
     index: 39
-    isVirtual: 0
+    depth: 9
   - name: Neck
     index: 40
-    isVirtual: 0
+    depth: 5
   - name: Head
     index: 41
-    isVirtual: 0
+    depth: 6
   - name: Jaw
     index: 42
-    isVirtual: 0
+    depth: 7
   - name: Left_Eye
     index: 43
-    isVirtual: 0
+    depth: 7
   - name: Right_Eye
     index: 44
-    isVirtual: 0
+    depth: 7
   - name: Camera
     index: 45
-    isVirtual: 0
+    depth: 7
   - name: CameraSocket
     index: 46
-    isVirtual: 0
+    depth: 8
   - name: Socket
     index: 47
-    isVirtual: 0
+    depth: 7
   - name: IK WeaponBone
     index: 48
-    isVirtual: 0
+    depth: 7
   - name: IK RightHand
     index: 49
-    isVirtual: 0
+    depth: 8
   - name: IK RightElbow
     index: 50
-    isVirtual: 0
+    depth: 8
   - name: IK LeftHand
     index: 51
-    isVirtual: 0
+    depth: 8
   - name: IK LeftElbow
     index: 52
-    isVirtual: 0
+    depth: 8
   - name: Neck_Twist_A
     index: 53
-    isVirtual: 0
+    depth: 6
   - name: Right_Shoulder
     index: 54
-    isVirtual: 0
+    depth: 5
   - name: Right_UpperArm
     index: 55
-    isVirtual: 0
+    depth: 6
   - name: Right_LowerArm
     index: 56
-    isVirtual: 0
+    depth: 7
   - name: Right_Hand
     index: 57
-    isVirtual: 0
+    depth: 8
   - name: Right_IndexProximal
     index: 58
-    isVirtual: 0
+    depth: 9
   - name: Right_IndexIntermediate
     index: 59
-    isVirtual: 0
+    depth: 10
   - name: Right_IndexDistal
     index: 60
-    isVirtual: 0
+    depth: 11
   - name: Right_IndexDistalEnd
     index: 61
-    isVirtual: 0
+    depth: 12
   - name: Right_MiddleProximal
     index: 62
-    isVirtual: 0
+    depth: 9
   - name: Right_MiddleIntermediate
     index: 63
-    isVirtual: 0
+    depth: 10
   - name: Right_MiddleDistal
     index: 64
-    isVirtual: 0
+    depth: 11
   - name: Right_MiddleDistalEnd
     index: 65
-    isVirtual: 0
+    depth: 12
   - name: Right_PinkyProximal
     index: 66
-    isVirtual: 0
+    depth: 9
   - name: Right_PinkyIntermediate
     index: 67
-    isVirtual: 0
+    depth: 10
   - name: Right_PinkyDistal
     index: 68
-    isVirtual: 0
+    depth: 11
   - name: Right_PinkyDistalEnd
     index: 69
-    isVirtual: 0
+    depth: 12
   - name: Right_RingProximal
     index: 70
-    isVirtual: 0
+    depth: 9
   - name: Right_RingIntermediate
     index: 71
-    isVirtual: 0
+    depth: 10
   - name: Right_RingDistal
     index: 72
-    isVirtual: 0
+    depth: 11
   - name: Right_RingDistalEnd
     index: 73
-    isVirtual: 0
+    depth: 12
   - name: Right_ThumbProximal
     index: 74
-    isVirtual: 0
+    depth: 9
   - name: Right_ThumbIntermediate
     index: 75
-    isVirtual: 0
+    depth: 10
   - name: Right_ThumbDistal
     index: 76
-    isVirtual: 0
+    depth: 11
   - name: Right_ThumbDistalEnd
     index: 77
-    isVirtual: 0
+    depth: 12
   - name: IK WeaponBoneRight
     index: 78
-    isVirtual: 0
+    depth: 9
   - name: IK_Elbow_Left
     index: 79
-    isVirtual: 0
+    depth: 1
   - name: IK_Elbow_Right
     index: 80
-    isVirtual: 0
+    depth: 1
   - name: ik_hand_gun
     index: 81
-    isVirtual: 0
+    depth: 1
   - name: IK_Hand_Left
     index: 82
-    isVirtual: 0
+    depth: 1
   - name: IK_Hand_Right
     index: 83
-    isVirtual: 0
+    depth: 1
   - name: WeaponBone
     index: 84
-    isVirtual: 0
+    depth: 1
   - name: WeaponBoneAdditive
     index: 85
-    isVirtual: 0
+    depth: 1
   - name: IK RightFoot
     index: 86
-    isVirtual: 0
+    depth: 1
   - name: IK RightKnee
     index: 87
-    isVirtual: 0
+    depth: 1
   - name: IK LeftFoot
     index: 88
-    isVirtual: 0
+    depth: 1
   - name: IK LeftKnee
     index: 89
-    isVirtual: 0
+    depth: 1
   rigElementChains:
   - chainName: LeftHand
     elementChain:
     - name: Left_Hand
       index: 18
-      isVirtual: 0
+      depth: 0
     - name: Left_IndexProximal
       index: 19
-      isVirtual: 0
+      depth: 0
     - name: Left_IndexIntermediate
       index: 20
-      isVirtual: 0
+      depth: 0
     - name: Left_IndexDistal
       index: 21
-      isVirtual: 0
+      depth: 0
     - name: Left_IndexDistalEnd
       index: 22
-      isVirtual: 0
+      depth: 0
     - name: Left_MiddleProximal
       index: 23
-      isVirtual: 0
+      depth: 0
     - name: Left_MiddleIntermediate
       index: 24
-      isVirtual: 0
+      depth: 0
     - name: Left_MiddleDistal
       index: 25
-      isVirtual: 0
+      depth: 0
     - name: Left_MiddleDistalEnd
       index: 26
-      isVirtual: 0
+      depth: 0
     - name: Left_PinkyProximal
       index: 27
-      isVirtual: 0
+      depth: 0
     - name: Left_PinkyIntermediate
       index: 28
-      isVirtual: 0
+      depth: 0
     - name: Left_PinkyDistal
       index: 29
-      isVirtual: 0
+      depth: 0
     - name: Left_PinkyDistalEnd
       index: 30
-      isVirtual: 0
+      depth: 0
     - name: Left_RingProximal
       index: 31
-      isVirtual: 0
+      depth: 0
     - name: Left_RingIntermediate
       index: 32
-      isVirtual: 0
+      depth: 0
     - name: Left_RingDistal
       index: 33
-      isVirtual: 0
+      depth: 0
     - name: Left_RingDistalEnd
       index: 34
-      isVirtual: 0
+      depth: 0
     - name: Left_ThumbProximal
       index: 35
-      isVirtual: 0
+      depth: 0
     - name: Left_ThumbIntermediate
       index: 36
-      isVirtual: 0
+      depth: 0
     - name: Left_ThumbDistal
       index: 37
-      isVirtual: 0
+      depth: 0
     - name: Left_ThumbDistalEnd
       index: 38
-      isVirtual: 0
-    isStandalone: 0
+      depth: 0
+  inputConfig: {fileID: 11400000, guid: 022095d8cf55fba4080ab3e4c1364954, type: 2}
   rigCurves:
   - MaskAttachHand
   - WeaponBoneWeight
