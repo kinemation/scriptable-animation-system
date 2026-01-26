@@ -2,11 +2,10 @@
 
 using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using KINEMATION.FPSAnimationFramework.Runtime.Layers.IkMotionLayer;
-using KINEMATION.KAnimationCore.Runtime.Attributes;
-using KINEMATION.KAnimationCore.Runtime.Rig;
 
 using System.Collections.Generic;
-using KINEMATION.FPSAnimationFramework.Runtime.Playables;
+using KINEMATION.Shared.KAnimationCore.Runtime.Attributes;
+using KINEMATION.Shared.KAnimationCore.Runtime.Rig;
 using UnityEngine;
 
 namespace Demo.Scripts.Runtime.Character

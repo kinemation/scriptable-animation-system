@@ -1,7 +1,7 @@
 // Designed by KINEMATION, 2025.
 
 using Demo.Scripts.Runtime.Character;
-using KINEMATION.KAnimationCore.Editor.Tools;
+using KINEMATION.Shared.KAnimationCore.Editor.Widgets;
 using UnityEditor;
 
 namespace Demo.Scripts.Editor
@@ -19,7 +19,7 @@ namespace Demo.Scripts.Editor
         
         public override void OnInspectorGUI()
         {
-            _tabInspectorWidget.Render();
+            _tabInspectorWidget.OnGUI();
         }
     }
 }

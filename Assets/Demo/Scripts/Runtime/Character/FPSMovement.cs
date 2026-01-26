@@ -1,9 +1,8 @@
 // Designed by KINEMATION, 2025.
 
 using KINEMATION.FPSAnimationFramework.Runtime.Core;
-using KINEMATION.KAnimationCore.Runtime.Core;
-using KINEMATION.KAnimationCore.Runtime.Input;
-
+using KINEMATION.Shared.KAnimationCore.Runtime.Core;
+using KINEMATION.Shared.KAnimationCore.Runtime.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

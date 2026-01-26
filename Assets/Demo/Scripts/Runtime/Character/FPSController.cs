@@ -2,12 +2,11 @@
 
 using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using KINEMATION.FPSAnimationFramework.Runtime.Recoil;
-using KINEMATION.KAnimationCore.Runtime.Input;
-using KINEMATION.KAnimationCore.Runtime.Rig;
 
 using Demo.Scripts.Runtime.Item;
 using System.Collections.Generic;
-
+using KINEMATION.Shared.KAnimationCore.Runtime.Input;
+using KINEMATION.Shared.KAnimationCore.Runtime.Rig;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

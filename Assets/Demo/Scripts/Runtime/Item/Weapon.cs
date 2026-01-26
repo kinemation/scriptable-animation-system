@@ -5,12 +5,12 @@ using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using KINEMATION.FPSAnimationFramework.Runtime.Playables;
 using KINEMATION.FPSAnimationFramework.Runtime.Recoil;
 using KINEMATION.ProceduralRecoilAnimationSystem.Runtime;
-using KINEMATION.KAnimationCore.Runtime.Input;
 
 using Demo.Scripts.Runtime.AttachmentSystem;
 
 using System.Collections.Generic;
 using Demo.Scripts.Runtime.Character;
+using KINEMATION.Shared.KAnimationCore.Runtime.Input;
 using UnityEngine;
 
 namespace Demo.Scripts.Runtime.Item
