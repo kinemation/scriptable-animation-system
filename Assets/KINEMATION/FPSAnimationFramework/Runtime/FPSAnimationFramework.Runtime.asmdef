@@ -1,0 +1,36 @@
+{
+    "name": "FPSAnimationFramework.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d8548a9d25a091541a1fcde53694c91a",
+        "GUID:bef7f1246b968e04096165af98b4f824"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "GameCoreScarlett",
+        "GameCoreXboxOne",
+        "iOS",
+        "LinuxStandalone64",
+        "CloudRendering",
+        "macOSStandalone",
+        "PS4",
+        "PS5",
+        "Stadia",
+        "Switch",
+        "tvOS",
+        "WSA",
+        "WebGL",
+        "WindowsStandalone32",
+        "WindowsStandalone64",
+        "XboxOne"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

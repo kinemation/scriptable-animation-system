@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e8993601b7c484b862c9c567134ed2e, type: 3}
+  m_Name: InputConfig_FPSAnimationFramework
+  m_EditorClassIdentifier: 
+  intProperties: []
+  floatProperties:
+  - name: PlayablesWeight
+    defaultValue: 1
+    interpolationSpeed: 0
+  - name: StabilizationWeight
+    defaultValue: 1
+    interpolationSpeed: 7
+  - name: LookLayerWeight
+    defaultValue: 1
+    interpolationSpeed: 7
+  - name: LeanInput
+    defaultValue: 0
+    interpolationSpeed: 7
+  - name: AimingWeight
+    defaultValue: 0
+    interpolationSpeed: 0
+  - name: SensitivityMultiplier
+    defaultValue: 1
+    interpolationSpeed: 8
+  - name: TurnOffset
+    defaultValue: 0
+    interpolationSpeed: 0
+  boolProperties:
+  - name: IsAiming
+    defaultValue: 0
+  - name: UseFreeAim
+    defaultValue: 0
+  vectorProperties:
+  - name: MouseInput
+    defaultValue: {x: 0, y: 0, z: 0, w: 0}
+  - name: MouseDeltaInput
+    defaultValue: {x: 0, y: 0, z: 0, w: 0}
+  - name: MoveInput
+    defaultValue: {x: 0, y: 0, z: 0, w: 0}

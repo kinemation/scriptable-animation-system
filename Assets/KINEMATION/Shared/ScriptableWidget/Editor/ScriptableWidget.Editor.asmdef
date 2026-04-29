@@ -1,0 +1,18 @@
+{
+    "name": "ScriptableWidget.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9e0de4a12aaad02499ffafb271fc9e4c"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,19 @@
+{
+    "name": "RecoilAnimation.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d8548a9d25a091541a1fcde53694c91a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [
+        "EmbeddedLinux",
+        "Lumin"
+    ],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
