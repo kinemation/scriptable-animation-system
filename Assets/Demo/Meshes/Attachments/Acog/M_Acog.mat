@@ -8,8 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Acog
-  m_Shader: {fileID: -6465566751694194690, guid: 55065a556855eb4479dc384aaf8dc4c2,
-    type: 3}
+  m_Shader: {fileID: 4800000, guid: 4d001f66091d1e64fbb3282f8459942b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
