@@ -25,19 +25,19 @@ MonoBehaviour:
   handBone:
     name: Left_Hand
     index: 18
-    isVirtual: 0
+    depth: 8
   ikHandBone:
     name: IK LeftHand
     index: 51
-    isVirtual: 0
+    depth: 8
   ikWeaponBone:
     name: IK WeaponBone
     index: 48
-    isVirtual: 0
+    depth: 7
   weaponBone:
     name: WeaponBone
     index: 84
-    isVirtual: 0
+    depth: 1
   elementChainName: LeftHand
   handPoseOffset:
     position: {x: 0, y: 0, z: 0}
@@ -73,81 +73,81 @@ MonoBehaviour:
   - rigElement:
       name: Hips
       index: 1
-      isVirtual: 0
+      depth: 1
     clampedAngle: {x: 5, y: 5}
     cachedClampedAngle: {x: 5, y: 5}
   - rigElement:
       name: Spine
       index: 12
-      isVirtual: 0
+      depth: 2
     clampedAngle: {x: 17, y: 17}
     cachedClampedAngle: {x: 17, y: 17}
   - rigElement:
       name: Chest
       index: 13
-      isVirtual: 0
+      depth: 3
     clampedAngle: {x: 17, y: 17}
     cachedClampedAngle: {x: 17, y: 17}
   - rigElement:
       name: UpperChest
       index: 14
-      isVirtual: 0
+      depth: 4
     clampedAngle: {x: 17, y: 17}
     cachedClampedAngle: {x: 17, y: 17}
   - rigElement:
       name: Neck
       index: 40
-      isVirtual: 0
+      depth: 5
     clampedAngle: {x: 17, y: 17}
     cachedClampedAngle: {x: 17, y: 17}
   - rigElement:
       name: Head
       index: 41
-      isVirtual: 0
+      depth: 6
     clampedAngle: {x: 17, y: 17}
     cachedClampedAngle: {x: 17, y: 17}
   yawOffsetElements:
   - rigElement:
       name: Spine
       index: 12
-      isVirtual: 0
+      depth: 2
     clampedAngle: {x: 25, y: 25}
     cachedClampedAngle: {x: 25, y: 25}
   - rigElement:
       name: Chest
       index: 13
-      isVirtual: 0
+      depth: 3
     clampedAngle: {x: 32.5, y: 32.5}
     cachedClampedAngle: {x: 32.5, y: 32.5}
   - rigElement:
       name: UpperChest
       index: 14
-      isVirtual: 0
+      depth: 4
     clampedAngle: {x: 32.5, y: 32.5}
     cachedClampedAngle: {x: 32.5, y: 32.5}
   rollOffsetElements:
   - rigElement:
       name: Hips
       index: 1
-      isVirtual: 0
+      depth: 1
     clampedAngle: {x: 5, y: 5}
     cachedClampedAngle: {x: 5, y: 5}
   - rigElement:
       name: Spine
       index: 12
-      isVirtual: 0
+      depth: 2
     clampedAngle: {x: 28.333334, y: 28.333334}
     cachedClampedAngle: {x: 28.333334, y: 28.333334}
   - rigElement:
       name: Chest
       index: 13
-      isVirtual: 0
+      depth: 3
     clampedAngle: {x: 28.333334, y: 28.333334}
     cachedClampedAngle: {x: 28.333334, y: 28.333334}
   - rigElement:
       name: UpperChest
       index: 14
-      isVirtual: 0
+      depth: 4
     clampedAngle: {x: 28.333334, y: 28.333334}
     cachedClampedAngle: {x: 28.333334, y: 28.333334}
 --- !u!114 &-5926500349329534600
@@ -175,10 +175,10 @@ MonoBehaviour:
     element:
       name: IK WeaponBone
       index: 48
-      isVirtual: 0
+      depth: 7
     pose:
-      position: {x: 0, y: 0.04, z: 0}
-      rotation: {x: 0.00007449071, y: -0.005846337, z: 0.0127402, w: -0.9999017}
+      position: {x: -0.072, y: 0.038, z: 0.07}
+      rotation: {x: -0.029202562, y: 0.022837186, z: -0.020890439, w: -0.99909425}
       scale: {x: 0, y: 0, z: 0}
     space: 2
     modifyMode: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
     element:
       name: 
       index: 0
-      isVirtual: 0
+      depth: 0
     pose:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -197,7 +197,7 @@ MonoBehaviour:
     element:
       name: 
       index: 0
-      isVirtual: 0
+      depth: 0
     pose:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -228,7 +228,7 @@ MonoBehaviour:
   boneToAnimate:
     name: IK WeaponBone
     index: 48
-    isVirtual: 0
+    depth: 7
   rotationCurves:
     x:
       serializedVersion: 2
@@ -410,43 +410,43 @@ MonoBehaviour:
   - elementToBlend:
       name: Spine
       index: 12
-      isVirtual: 0
+      depth: 2
     weight: 1
     cacheBlendedResult: 1
   - elementToBlend:
       name: Chest
       index: 13
-      isVirtual: 0
+      depth: 3
     weight: 1
     cacheBlendedResult: 1
   - elementToBlend:
       name: UpperChest
       index: 14
-      isVirtual: 0
+      depth: 4
     weight: 0.7
     cacheBlendedResult: 1
   - elementToBlend:
       name: Neck
       index: 40
-      isVirtual: 0
+      depth: 5
     weight: 0.509
     cacheBlendedResult: 1
   - elementToBlend:
       name: Head
       index: 41
-      isVirtual: 0
+      depth: 6
     weight: 0
     cacheBlendedResult: 1
   - elementToBlend:
       name: Left_Shoulder
       index: 15
-      isVirtual: 0
+      depth: 5
     weight: 0.871
     cacheBlendedResult: 0
   - elementToBlend:
       name: Right_Shoulder
       index: 54
-      isVirtual: 0
+      depth: 5
     weight: 0.415
     cacheBlendedResult: 0
   blendPosition: 0
@@ -529,21 +529,21 @@ MonoBehaviour:
   weaponIkBone:
     name: IK WeaponBone
     index: 48
-    isVirtual: 0
+    depth: 7
   rightHandElbow:
     name: IK RightElbow
     index: 50
-    isVirtual: 0
+    depth: 8
   leftHandElbow:
     name: IK LeftElbow
     index: 52
-    isVirtual: 0
+    depth: 8
   animatedPivotOffset: {x: 0, y: 0, z: 0}
   hintTargetWeight: 1
   headBone:
     name: Head
     index: 41
-    isVirtual: 0
+    depth: 6
   freeAimClamp: 0
   freeAimInterpSpeed: 3
   freeAimInputScale: 0
@@ -595,21 +595,21 @@ MonoBehaviour:
   weaponIkBone:
     name: IK WeaponBone
     index: 48
-    isVirtual: 0
+    depth: 7
   rightHandElbow:
     name: IK RightElbow
     index: 50
-    isVirtual: 0
+    depth: 8
   leftHandElbow:
     name: IK LeftElbow
     index: 52
-    isVirtual: 0
+    depth: 8
   animatedPivotOffset: {x: 0, y: 0, z: 0}
   hintTargetWeight: 0.5
   aimTargetBone:
     name: Camera
     index: 45
-    isVirtual: 0
+    depth: 7
   aimingEaseMode:
     easeFunc: 1
     curve:
@@ -662,21 +662,21 @@ MonoBehaviour:
   weaponIkBone:
     name: IK WeaponBone
     index: 48
-    isVirtual: 0
+    depth: 7
   rightHandElbow:
     name: IK RightElbow
     index: 50
-    isVirtual: 0
+    depth: 8
   leftHandElbow:
     name: IK LeftElbow
     index: 52
-    isVirtual: 0
+    depth: 8
   animatedPivotOffset: {x: 0, y: 0, z: 0}
   hintTargetWeight: 0
   additiveBone:
     name: WeaponBoneAdditive
     index: 85
-    isVirtual: 0
+    depth: 1
   interpSpeed: 0
   aimingInputProperty: AimingWeight
   adsScalar: 0.3
@@ -715,43 +715,43 @@ MonoBehaviour:
   ikWeaponBone:
     name: IK WeaponBone
     index: 48
-    isVirtual: 0
+    depth: 7
   ikHandRight:
     name: IK RightHand
     index: 49
-    isVirtual: 0
+    depth: 8
   ikHandLeft:
     name: IK LeftHand
     index: 51
-    isVirtual: 0
+    depth: 8
   ikHandRightHint:
     name: IK RightElbow
     index: 50
-    isVirtual: 0
+    depth: 8
   ikHandLeftHint:
     name: IK LeftElbow
     index: 52
-    isVirtual: 0
+    depth: 8
   weaponBoneRight:
     name: IK WeaponBoneRight
     index: 78
-    isVirtual: 0
+    depth: 9
   weaponBoneLeft:
     name: IK WeaponBoneLeft
     index: 39
-    isVirtual: 0
+    depth: 9
   weaponBone:
     name: WeaponBone
     index: 84
-    isVirtual: 0
+    depth: 1
   pelvis:
     name: Hips
     index: 1
-    isVirtual: 0
+    depth: 1
   spineRoot:
     name: Spine
     index: 12
-    isVirtual: 0
+    depth: 2
   stabilizationWeight: StabilizationWeight
   weaponBoneWeight: WeaponBoneWeight
 --- !u!114 &2879879106747244202
@@ -785,43 +785,43 @@ MonoBehaviour:
   - elementToBlend:
       name: Spine
       index: 12
-      isVirtual: 0
+      depth: 2
     weight: 0.9
     cacheBlendedResult: 0
   - elementToBlend:
       name: Chest
       index: 13
-      isVirtual: 0
+      depth: 3
     weight: 0.9
     cacheBlendedResult: 0
   - elementToBlend:
       name: UpperChest
       index: 14
-      isVirtual: 0
+      depth: 4
     weight: 0.762
     cacheBlendedResult: 0
   - elementToBlend:
       name: Neck
       index: 40
-      isVirtual: 0
+      depth: 5
     weight: 0.3
     cacheBlendedResult: 0
   - elementToBlend:
       name: Head
       index: 41
-      isVirtual: 0
+      depth: 6
     weight: 0
     cacheBlendedResult: 0
   - elementToBlend:
       name: Left_Shoulder
       index: 15
-      isVirtual: 0
+      depth: 5
     weight: 0.559
     cacheBlendedResult: 0
   - elementToBlend:
       name: Right_Shoulder
       index: 54
-      isVirtual: 0
+      depth: 5
     weight: 0.9
     cacheBlendedResult: 0
   blendPosition: 0
@@ -849,7 +849,7 @@ MonoBehaviour:
   weaponIkBone:
     name: IK WeaponBone
     index: 48
-    isVirtual: 0
+    depth: 7
   primaryPose:
     position: {x: 0, y: 0.05, z: -0.15}
     rotation: {x: -0.67559016, y: 0.00000006447591, z: 0.000000059081025, w: 0.7372773}
@@ -894,11 +894,11 @@ MonoBehaviour:
   characterRootBone:
     name: Skeleton
     index: 0
-    isVirtual: 0
+    depth: 0
   characterHipBone:
     name: Hips
     index: 1
-    isVirtual: 0
+    depth: 1
   angleThreshold: 70
   turnCurve:
     serializedVersion: 2
@@ -949,51 +949,52 @@ MonoBehaviour:
   rightHand:
     name: Right_Hand
     index: 57
-    isVirtual: 0
+    depth: 8
   leftHand:
     name: Left_Hand
     index: 18
-    isVirtual: 0
+    depth: 8
   rightHandIk:
     name: IK RightHand
     index: 49
-    isVirtual: 0
+    depth: 8
   leftHandIk:
     name: IK LeftHand
     index: 51
-    isVirtual: 0
+    depth: 8
   rightHandHint:
     name: IK RightElbow
     index: 50
-    isVirtual: 0
+    depth: 8
   leftHandHint:
     name: IK LeftElbow
     index: 52
-    isVirtual: 0
+    depth: 8
   rightFoot:
     name: Right_Foot
     index: 9
-    isVirtual: 0
+    depth: 4
   leftFoot:
     name: Left_Foot
     index: 4
-    isVirtual: 0
+    depth: 4
   rightFootIk:
     name: IK RightFoot
     index: 86
-    isVirtual: 0
+    depth: 1
   leftFootIk:
     name: IK LeftFoot
     index: 88
-    isVirtual: 0
+    depth: 1
   rightFootHint:
     name: IK RightKnee
     index: 87
-    isVirtual: 0
+    depth: 1
   leftFootHint:
     name: IK LeftKnee
     index: 89
-    isVirtual: 0
+    depth: 1
+  offsetFeetTargets: 1
   rightHandWeight: 1
   leftHandWeight: 1
   rightFootWeight: 1
