@@ -237,44 +237,44 @@ MonoBehaviour:
   - rigElement:
       name: Spine
       index: 12
-      depth: 0
+      depth: 2
     clampedAngle: {x: 35, y: 35}
     cachedClampedAngle: {x: 35, y: 35}
   - rigElement:
       name: Chest
       index: 13
-      depth: 0
+      depth: 3
     clampedAngle: {x: 27.5, y: 27.5}
     cachedClampedAngle: {x: 27.5, y: 27.5}
   - rigElement:
       name: Chest
       index: 13
-      depth: 0
+      depth: 3
     clampedAngle: {x: 27.5, y: 27.5}
     cachedClampedAngle: {x: 27.5, y: 27.5}
   yawSpineElements:
   - rigElement:
       name: Spine
       index: 12
-      depth: 0
+      depth: 2
     clampedAngle: {x: 35, y: 35}
     cachedClampedAngle: {x: 35, y: 35}
   - rigElement:
       name: Chest
       index: 13
-      depth: 0
+      depth: 3
     clampedAngle: {x: 27.5, y: 27.5}
     cachedClampedAngle: {x: 27.5, y: 27.5}
   - rigElement:
       name: Chest
       index: 13
-      depth: 0
+      depth: 3
     clampedAngle: {x: 27.5, y: 27.5}
     cachedClampedAngle: {x: 27.5, y: 27.5}
   boneToAlign:
     name: IK WeaponBone
     index: 48
-    depth: 0
+    depth: 7
   rotateBoneToAlignYaw: 1
   boneToAlignYawClamp: {x: 15, y: 15}
   rotateBoneToAlignPitch: 1
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Name: LookLayerSettings
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  alpha: 0
+  alpha: 1
   curveBlending:
   - name: LookLayerWeight
     mode: 0
@@ -416,8 +416,8 @@ MonoBehaviour:
       index: 48
       depth: 7
     pose:
-      position: {x: 0.05, y: 0.025, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
+      position: {x: 0, y: 0.03, z: 0.06}
+      rotation: {x: 0.015707212, y: 0.0017451129, z: 0.000027414433, w: -0.99987507}
       scale: {x: 0, y: 0, z: 0}
     space: 2
     modifyMode: 0
@@ -598,9 +598,9 @@ MonoBehaviour:
     y: 0.317
     z: 0.371
   rotationBlend:
-    x: 0.346
-    y: 0.332
-    z: 0.346
+    x: 0.1
+    y: 0.1
+    z: 0.1
   aimingSpeed: 1.8
   aimPointEaseMode:
     easeFunc: 1

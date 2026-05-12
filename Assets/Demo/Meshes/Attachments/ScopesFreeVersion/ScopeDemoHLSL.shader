@@ -12,14 +12,13 @@ Shader "FPS/ScopeDemo HLSL"
         [Toggle(_USESCOPEFOV)] _USESCOPEFOV ("UseScopeFOV", Float) = 1
         _FOV_Size ("FOV Size", Range(0, 1)) = 0.75
         _FOVFadeDistance ("FOVFadeDistance", Range(0, 0.05)) = 0.01
+        _ReticleMaskDepth ("Reticle Mask Depth", Range(-1, 1)) = 0
         [Toggle(_USE_TEXTURE_COLOR)] _USE_TEXTURE_COLOR ("Use Texture Color", Float) = 1
         _d ("d", Range(0, 0.3)) = 0.1
         _EyeReliefStrength ("Eye Relief Strength", Range(0, 1)) = 1
         _EyeReliefMinDistance ("Eye Relief Min Distance", Range(0, 1)) = 0
         _EyeReliefMaxDistance ("Eye Relief Max Distance", Range(0, 1)) = 0.18
         _EyeReliefDistanceFade ("Eye Relief Distance Fade", Range(0.001, 0.5)) = 0.02
-        _EyeReliefEyeBoxRadius ("Eye Relief Eye Box Radius", Range(0.001, 0.2)) = 0.045
-        _EyeReliefEyeBoxFade ("Eye Relief Eye Box Fade", Range(0.001, 0.1)) = 0.015
         _EyeReliefRadius ("Eye Relief Aperture Radius", Range(0.01, 1)) = 0.5
         _EyeReliefFadeDistance ("Eye Relief Aperture Fade", Range(0.001, 0.25)) = 0.06
         _EyeReliefOffsetStrength ("Eye Relief Aperture Offset", Range(-4, 4)) = 1
@@ -47,13 +46,12 @@ Shader "FPS/ScopeDemo HLSL"
         float _ShaderZoom;
         float _FOV_Size;
         float _FOVFadeDistance;
+        float _ReticleMaskDepth;
         float _d;
         float _EyeReliefStrength;
         float _EyeReliefMinDistance;
         float _EyeReliefMaxDistance;
         float _EyeReliefDistanceFade;
-        float _EyeReliefEyeBoxRadius;
-        float _EyeReliefEyeBoxFade;
         float _EyeReliefRadius;
         float _EyeReliefFadeDistance;
         float _EyeReliefOffsetStrength;
@@ -63,6 +61,7 @@ Shader "FPS/ScopeDemo HLSL"
     // shader avoids pipeline-specific includes.
     float4x4 unity_ObjectToWorld;
     float4x4 unity_WorldToObject;
+    float4x4 unity_CameraToWorld;
     float4x4 unity_MatrixVP;
     float4 unity_WorldTransformParams;
     float3 _WorldSpaceCameraPos;
@@ -151,10 +150,16 @@ Shader "FPS/ScopeDemo HLSL"
         return (uv * inverseZoom) + ((1.0 - inverseZoom) * 0.5);
     }
 
-    float GetScopeFovMask(float2 distortedUv)
+    float2 GetReticleMaskUv(float2 distortedUv)
+    {
+        float depthScale = max(1.0 + _ReticleMaskDepth, 1e-4);
+        return ((distortedUv - float2(0.5, 0.5)) * depthScale) + float2(0.5, 0.5);
+    }
+
+    float GetScopeFovMask(float2 reticleMaskUv)
     {
     #if defined(_USESCOPEFOV)
-        float objectiveDistance = distance(distortedUv, float2(0.5, 0.5)) * 2.0;
+        float objectiveDistance = distance(reticleMaskUv, float2(0.5, 0.5)) * 2.0;
         float fadeDistance = max(_FOVFadeDistance, 1e-5);
         float fade = saturate(saturate(_FOVFadeDistance - (objectiveDistance - _FOV_Size)) / fadeDistance);
         return 0.5 - (0.5 * cos(fade * SCOPE_PI));
@@ -163,41 +168,56 @@ Shader "FPS/ScopeDemo HLSL"
     #endif
     }
 
-    float GetReliefDistanceBand(float axialDistance)
+    float2 GetReliefDistanceFactors(float axialDistance)
     {
         float minDistance = min(_EyeReliefMinDistance, _EyeReliefMaxDistance);
         float maxDistance = max(_EyeReliefMinDistance, _EyeReliefMaxDistance);
-        float halfBand = max((maxDistance - minDistance) * 0.5, 1e-5);
+        float distanceRange = max(maxDistance - minDistance, 1e-5);
+        float halfBand = max(distanceRange * 0.5, 1e-5);
         float fadeDistance = min(max(_EyeReliefDistanceFade, 1e-5), halfBand);
-        float nearMask = smoothstep(minDistance, minDistance + fadeDistance, axialDistance);
-        float farMask = 1.0 - smoothstep(maxDistance - fadeDistance, maxDistance, axialDistance);
+        float nearFade = smoothstep(minDistance, minDistance + fadeDistance, axialDistance);
 
-        return saturate(nearMask * farMask);
+        // Shrink the exit pupil throughout the configured eye-relief range,
+        // instead of only inside the final fade band near max distance.
+        float farProgress = saturate((axialDistance - minDistance) / distanceRange);
+        float farApertureScale = sqrt(saturate(1.0 - (farProgress * farProgress)));
+
+        return float2(nearFade, farApertureScale);
     }
 
-    float GetEyeBoxMask(float2 lateralPosition)
+    float2 GetEyeReliefDelta(float3 cameraToObjectTS, float axialDistance, float3 cameraForwardTS)
     {
-        float radius = max(_EyeReliefEyeBoxRadius, 1e-5);
-        float fadeDistance = min(max(_EyeReliefEyeBoxFade, 1e-5), radius);
-        float innerRadius = max(radius - fadeDistance, 0.0);
-
-        return 1.0 - smoothstep(innerRadius, radius, length(lateralPosition));
+        float forwardAxial = max(abs(cameraForwardTS.z), 1e-5);
+        float2 translationDelta = cameraToObjectTS.xy / axialDistance;
+        float2 forwardDelta = cameraForwardTS.xy / forwardAxial;
+        return translationDelta + forwardDelta;
     }
 
-    float GetEyeReliefMask(float2 lensUv, float3 cameraToObjectTS)
+    float2 GetEyeReliefCenter(float2 reliefDelta)
+    {
+        float offsetStrength = abs(_EyeReliefOffsetStrength) < 1e-5 ? 1.0 : _EyeReliefOffsetStrength;
+        return float2(0.5, 0.5) + (reliefDelta * offsetStrength);
+    }
+
+    float GetEyeReliefMask(float2 reticleUv, float3 cameraToObjectTS, float3 cameraForwardTS)
     {
         float strength = saturate(_EyeReliefStrength);
         float axialDistance = max(abs(cameraToObjectTS.z), 1e-5);
-        float distanceMask = GetReliefDistanceBand(axialDistance);
-        float eyeBoxMask = GetEyeBoxMask(cameraToObjectTS.xy);
-        float apertureRadius = max(_EyeReliefRadius, 1e-5);
-        float apertureFade = min(max(_EyeReliefFadeDistance, 1e-5), apertureRadius);
+        float2 distanceFactors = GetReliefDistanceFactors(axialDistance);
+        float2 reliefDelta = GetEyeReliefDelta(cameraToObjectTS, axialDistance, cameraForwardTS);
+        float apertureRadius = _EyeReliefRadius * distanceFactors.y;
+        float apertureFade = min(max(_EyeReliefFadeDistance, 1e-5), max(apertureRadius, 1e-5));
         float innerApertureRadius = max(apertureRadius - apertureFade, 0.0);
-        float2 reliefOffset = (cameraToObjectTS.xy / axialDistance) * _EyeReliefOffsetStrength;
-        float2 reliefCenter = float2(0.5, 0.5) - reliefOffset;
-        float apertureDistance = distance(lensUv, reliefCenter);
-        float apertureMask = 1.0 - smoothstep(innerApertureRadius, apertureRadius, apertureDistance);
-        float reliefMask = apertureMask * distanceMask * eyeBoxMask;
+        float2 reliefCenter = GetEyeReliefCenter(reliefDelta);
+        float apertureDistance = distance(reticleUv, reliefCenter);
+        float apertureMask = 0.0;
+
+        if (apertureRadius > 1e-5)
+        {
+            apertureMask = 1.0 - smoothstep(innerApertureRadius, apertureRadius, apertureDistance);
+        }
+
+        float reliefMask = apertureMask * distanceFactors.x;
 
         return lerp(1.0, saturate(reliefMask), strength);
     }
@@ -242,16 +262,22 @@ Shader "FPS/ScopeDemo HLSL"
         float3 viewDirTS = TransformWorldToTangentExact(viewDirWS, tangentToWorld, true);
 
         float2 distortedUv = GetDistortedScopeUv(viewDirTS);
+        float2 reticleMaskUv = GetReticleMaskUv(distortedUv);
         float2 pipUv = ApplyShaderZoom(distortedUv);
-        float scopeFovMask = GetScopeFovMask(distortedUv);
+        float scopeFovMask = GetScopeFovMask(reticleMaskUv);
 
         float3 objectOriginWS = mul(unity_ObjectToWorld, float4(0.0, 0.0, 0.0, 1.0)).xyz;
         float3 cameraToObjectWS = _WorldSpaceCameraPos - objectOriginWS;
+        float3 cameraForwardWS = NormalizeSafe(float3(
+            unity_CameraToWorld._m02,
+            unity_CameraToWorld._m12,
+            unity_CameraToWorld._m22
+        ));
         float3 cameraToObjectTS = TransformWorldToTangentDirExact(cameraToObjectWS, tangentToWorld, false);
+        float3 cameraForwardTS = TransformWorldToTangentDirExact(cameraForwardWS, tangentToWorld, true);
         float3 cameraToObjectDirTS = TransformWorldToTangentDirExact(cameraToObjectWS, tangentToWorld, true);
-        float eyeReliefMask = GetEyeReliefMask(input.uv0, cameraToObjectTS);
-
         float2 crosshairUv = GetCrosshairUv(distortedUv, cameraToObjectDirTS);
+        float eyeReliefMask = GetEyeReliefMask(crosshairUv, cameraToObjectTS, cameraForwardTS);
 
         float4 pipSample = Texture2D_331d4af5170a491393c16295823bf2d6.Sample(
             sampler_Texture2D_331d4af5170a491393c16295823bf2d6,
