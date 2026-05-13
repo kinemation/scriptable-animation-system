@@ -15,6 +15,7 @@ Shader "FPS/ScopeDemo HLSL"
         _ReticleMaskDepth ("Reticle Mask Depth", Range(-1, 1)) = 0
         [Toggle(_USE_TEXTURE_COLOR)] _USE_TEXTURE_COLOR ("Use Texture Color", Float) = 1
         _d ("d", Range(0, 0.3)) = 0.1
+        _Curvature ("Lens Curvature", Range(0, 2)) = 0.5
         _EyeReliefStrength ("Eye Relief Strength", Range(0, 1)) = 1
         _EyeReliefMinDistance ("Eye Relief Min Distance", Range(0, 1)) = 0
         _EyeReliefMaxDistance ("Eye Relief Max Distance", Range(0, 1)) = 0.18
@@ -22,6 +23,7 @@ Shader "FPS/ScopeDemo HLSL"
         _EyeReliefRadius ("Eye Relief Aperture Radius", Range(0.01, 1)) = 0.5
         _EyeReliefFadeDistance ("Eye Relief Aperture Fade", Range(0.001, 0.25)) = 0.06
         _EyeReliefOffsetStrength ("Eye Relief Aperture Offset", Range(-4, 4)) = 1
+        _EyeReliefPositionSensitivity ("Eye Relief Position Sensitivity", Range(0, 4)) = 1
     }
 
     HLSLINCLUDE
@@ -48,6 +50,7 @@ Shader "FPS/ScopeDemo HLSL"
         float _FOVFadeDistance;
         float _ReticleMaskDepth;
         float _d;
+        float _Curvature;
         float _EyeReliefStrength;
         float _EyeReliefMinDistance;
         float _EyeReliefMaxDistance;
@@ -55,6 +58,7 @@ Shader "FPS/ScopeDemo HLSL"
         float _EyeReliefRadius;
         float _EyeReliefFadeDistance;
         float _EyeReliefOffsetStrength;
+        float _EyeReliefPositionSensitivity;
     }
 
     // Declare the Unity-built transform/camera uniforms explicitly because this
@@ -62,6 +66,7 @@ Shader "FPS/ScopeDemo HLSL"
     float4x4 unity_ObjectToWorld;
     float4x4 unity_WorldToObject;
     float4x4 unity_CameraToWorld;
+    float4x4 glstate_matrix_projection;
     float4x4 unity_MatrixVP;
     float4 unity_WorldTransformParams;
     float3 _WorldSpaceCameraPos;
@@ -117,6 +122,32 @@ Shader "FPS/ScopeDemo HLSL"
     {
         float3 result = mul(tangentToWorld, directionWS);
         return doNormalize ? NormalizeSafe(result) : result;
+    }
+
+    float GetLensCurvatureStrength()
+    {
+        return saturate(_Curvature * 0.5);
+    }
+
+    float3 GetCurvedLensPoint(float2 uv)
+    {
+        float2 centeredUv = uv - float2(0.5, 0.5);
+        float curvature = GetLensCurvatureStrength();
+
+        if (curvature < 1e-5)
+        {
+            return float3(centeredUv, 0.0);
+        }
+
+        float lensRadius = 0.5 / curvature;
+        float lensRadiusSq = lensRadius * lensRadius;
+        float sag = lensRadius - sqrt(max(lensRadiusSq - dot(centeredUv, centeredUv), 1e-6));
+        return float3(centeredUv, sag);
+    }
+
+    float GetCurvedLensDistance(float2 uv, float2 center)
+    {
+        return length(GetCurvedLensPoint(uv) - GetCurvedLensPoint(center));
     }
 
     float GetLensAlpha(float2 uv)
@@ -185,10 +216,18 @@ Shader "FPS/ScopeDemo HLSL"
         return float2(nearFade, farApertureScale);
     }
 
+    float GetFovAdjustedAxialDistance(float axialDistance)
+    {
+        // Vertical FOV 90 has projection scale 1.0, so it preserves the authored distance.
+        float cameraFovScale = max(abs(glstate_matrix_projection._m11), 1e-5);
+        return max(axialDistance * cameraFovScale, 1e-5);
+    }
+
     float2 GetEyeReliefDelta(float3 cameraToObjectTS, float axialDistance, float3 cameraForwardTS)
     {
         float forwardAxial = max(abs(cameraForwardTS.z), 1e-5);
-        float2 translationDelta = cameraToObjectTS.xy / axialDistance;
+        float positionSensitivity = max(_EyeReliefPositionSensitivity, 0.0);
+        float2 translationDelta = (cameraToObjectTS.xy / axialDistance) * positionSensitivity;
         float2 forwardDelta = cameraForwardTS.xy / forwardAxial;
         return translationDelta + forwardDelta;
     }
@@ -199,17 +238,17 @@ Shader "FPS/ScopeDemo HLSL"
         return float2(0.5, 0.5) + (reliefDelta * offsetStrength);
     }
 
-    float GetEyeReliefMask(float2 reticleUv, float3 cameraToObjectTS, float3 cameraForwardTS)
+    float GetEyeReliefMask(float2 projectedUv, float3 cameraToObjectTS, float3 cameraForwardTS)
     {
         float strength = saturate(_EyeReliefStrength);
-        float axialDistance = max(abs(cameraToObjectTS.z), 1e-5);
+        float axialDistance = GetFovAdjustedAxialDistance(abs(cameraToObjectTS.z));
         float2 distanceFactors = GetReliefDistanceFactors(axialDistance);
         float2 reliefDelta = GetEyeReliefDelta(cameraToObjectTS, axialDistance, cameraForwardTS);
         float apertureRadius = _EyeReliefRadius * distanceFactors.y;
         float apertureFade = min(max(_EyeReliefFadeDistance, 1e-5), max(apertureRadius, 1e-5));
         float innerApertureRadius = max(apertureRadius - apertureFade, 0.0);
         float2 reliefCenter = GetEyeReliefCenter(reliefDelta);
-        float apertureDistance = distance(reticleUv, reliefCenter);
+        float apertureDistance = GetCurvedLensDistance(projectedUv, reliefCenter);
         float apertureMask = 0.0;
 
         if (apertureRadius > 1e-5)
@@ -277,7 +316,7 @@ Shader "FPS/ScopeDemo HLSL"
         float3 cameraForwardTS = TransformWorldToTangentDirExact(cameraForwardWS, tangentToWorld, true);
         float3 cameraToObjectDirTS = TransformWorldToTangentDirExact(cameraToObjectWS, tangentToWorld, true);
         float2 crosshairUv = GetCrosshairUv(distortedUv, cameraToObjectDirTS);
-        float eyeReliefMask = GetEyeReliefMask(crosshairUv, cameraToObjectTS, cameraForwardTS);
+        float eyeReliefMask = GetEyeReliefMask(reticleMaskUv, cameraToObjectTS, cameraForwardTS);
 
         float4 pipSample = Texture2D_331d4af5170a491393c16295823bf2d6.Sample(
             sampler_Texture2D_331d4af5170a491393c16295823bf2d6,

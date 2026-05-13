@@ -32,6 +32,28 @@ MonoBehaviour:
   pushAmount: -0.05
   pushAccel: 7
   pushDamp: 7
+  recoilSway:
+    pitchSway: {x: 0, y: 0}
+    yawSway: {x: 0, y: 0}
+    rollMultiplier: 0
+    damping: 0
+    acceleration: 0
+    adsScale: 0
+    pivotOffset: {x: 0, y: 0, z: 0}
+  pitchProgress:
+    acceleration: 0
+    damping: 0
+    amount: 0
+  upProgress:
+    acceleration: 0
+    damping: 0
+    amount: 0
+  adsProgressAlpha: 1
+  horizontalRecoil: {x: 0, y: 0}
+  verticalRecoil: {x: 0, y: 0}
+  horizontalSmoothing: 0
+  verticalSmoothing: 0
+  damping: 0
   hipPivotOffset: {x: 0, y: 0, z: 0}
   aimPivotOffset: {x: 0, y: -0.05, z: 0}
   smoothRoll: 1

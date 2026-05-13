@@ -113,6 +113,7 @@ Material:
     - _CrosshairAlpha: 1
     - _CrosshairEmission: 5
     - _Cull: 2
+    - _Curvature: 0
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -123,11 +124,12 @@ Material:
     - _EyeReliefDistanceFade: 0.04
     - _EyeReliefEyeBoxFade: 0.1
     - _EyeReliefEyeBoxRadius: 0.102
-    - _EyeReliefFadeDistance: 0.169
-    - _EyeReliefMaxDistance: 0.3
+    - _EyeReliefFadeDistance: 0.181
+    - _EyeReliefMaxDistance: 0.5
     - _EyeReliefMinDistance: 0
     - _EyeReliefOffsetStrength: 0
-    - _EyeReliefRadius: 0.643
+    - _EyeReliefPositionSensitivity: 1
+    - _EyeReliefRadius: 0.344
     - _EyeReliefStrength: 1
     - _FOVFadeDistance: 0.0266
     - _FOV_Size: 1
@@ -151,7 +153,7 @@ Material:
     - _USE_TEXTURE_COLOR: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _d: 0.2
+    - _d: 0.1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
