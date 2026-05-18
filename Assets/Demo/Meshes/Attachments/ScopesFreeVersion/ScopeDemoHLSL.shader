@@ -15,15 +15,18 @@ Shader "FPS/ScopeDemo HLSL"
         _ReticleMaskDepth ("Reticle Mask Depth", Range(-1, 1)) = 0
         [Toggle(_USE_TEXTURE_COLOR)] _USE_TEXTURE_COLOR ("Use Texture Color", Float) = 1
         _d ("d", Range(0, 0.3)) = 0.1
-        _Curvature ("Lens Curvature", Range(0, 2)) = 0.5
-        _EyeReliefStrength ("Eye Relief Strength", Range(0, 1)) = 1
-        _EyeReliefMinDistance ("Eye Relief Min Distance", Range(0, 1)) = 0
-        _EyeReliefMaxDistance ("Eye Relief Max Distance", Range(0, 1)) = 0.18
-        _EyeReliefDistanceFade ("Eye Relief Distance Fade", Range(0.001, 0.5)) = 0.02
-        _EyeReliefRadius ("Eye Relief Aperture Radius", Range(0.01, 1)) = 0.5
-        _EyeReliefFadeDistance ("Eye Relief Aperture Fade", Range(0.001, 0.25)) = 0.06
-        _EyeReliefOffsetStrength ("Eye Relief Aperture Offset", Range(-4, 4)) = 1
-        _EyeReliefPositionSensitivity ("Eye Relief Position Sensitivity", Range(0, 4)) = 1
+
+        _Magnification ("Magnification", Range(1, 24)) = 4
+        _ObjectiveDiameter ("Objective Diameter (mm)", Range(20, 60)) = 32
+        _OcularDiameter ("Ocular Diameter (mm)", Range(20, 60)) = 35
+        _TubeDiameter ("Internal Tube Diameter (mm)", Range(10, 40)) = 30
+        _TubeLength ("Tube Length (meters)", Range(0.1, 0.5)) = 0.25
+        _EyeRelief ("Eye Relief (meters)", Range(0.01, 0.2)) = 0.08
+        _EyeReliefTolerance ("Eye Relief Tolerance (meters)", Range(0.01, 0.1)) = 0.03
+        _ExitPupilDiameter ("Exit Pupil Diameter (mm)", Range(1, 20)) = 8
+        _VignetteSoftness ("Vignette Softness", Range(0.001, 0.5)) = 0.05
+        [HideInInspector] _EyeReliefLensRightOS ("Eye Relief Lens Right OS", Vector) = (0, 0, 0, 0)
+        [HideInInspector] _EyeReliefLensUpOS ("Eye Relief Lens Up OS", Vector) = (0, 0, 0, 0)
     }
 
     HLSLINCLUDE
@@ -50,23 +53,21 @@ Shader "FPS/ScopeDemo HLSL"
         float _FOVFadeDistance;
         float _ReticleMaskDepth;
         float _d;
-        float _Curvature;
-        float _EyeReliefStrength;
-        float _EyeReliefMinDistance;
-        float _EyeReliefMaxDistance;
-        float _EyeReliefDistanceFade;
-        float _EyeReliefRadius;
-        float _EyeReliefFadeDistance;
-        float _EyeReliefOffsetStrength;
-        float _EyeReliefPositionSensitivity;
+        float _Magnification;
+        float _ObjectiveDiameter;
+        float _OcularDiameter;
+        float _TubeDiameter;
+        float _TubeLength;
+        float _EyeRelief;
+        float _EyeReliefTolerance;
+        float _ExitPupilDiameter;
+        float _VignetteSoftness;
+        float4 _EyeReliefLensRightOS;
+        float4 _EyeReliefLensUpOS;
     }
 
-    // Declare the Unity-built transform/camera uniforms explicitly because this
-    // shader avoids pipeline-specific includes.
     float4x4 unity_ObjectToWorld;
     float4x4 unity_WorldToObject;
-    float4x4 unity_CameraToWorld;
-    float4x4 glstate_matrix_projection;
     float4x4 unity_MatrixVP;
     float4 unity_WorldTransformParams;
     float3 _WorldSpaceCameraPos;
@@ -95,61 +96,6 @@ Shader "FPS/ScopeDemo HLSL"
         return value * rsqrt(lengthSq);
     }
 
-    float3 TransformWorldToTangentExact(float3 vectorWS, float3x3 tangentToWorld, bool doNormalize)
-    {
-        float3 row0 = tangentToWorld[0];
-        float3 row1 = tangentToWorld[1];
-        float3 row2 = tangentToWorld[2];
-
-        float3 col0 = cross(row1, row2);
-        float3 col1 = cross(row2, row0);
-        float3 col2 = cross(row0, row1);
-
-        float determinant = dot(row0, col0);
-        float3x3 inverseTransposeTbn = float3x3(col0, col1, col2);
-        float3 result = mul(inverseTransposeTbn, vectorWS);
-
-        if (doNormalize)
-        {
-            float signDeterminant = determinant < 0.0 ? -1.0 : 1.0;
-            return NormalizeSafe(signDeterminant * result);
-        }
-
-        return result / max(abs(determinant), 1e-8);
-    }
-
-    float3 TransformWorldToTangentDirExact(float3 directionWS, float3x3 tangentToWorld, bool doNormalize)
-    {
-        float3 result = mul(tangentToWorld, directionWS);
-        return doNormalize ? NormalizeSafe(result) : result;
-    }
-
-    float GetLensCurvatureStrength()
-    {
-        return saturate(_Curvature * 0.5);
-    }
-
-    float3 GetCurvedLensPoint(float2 uv)
-    {
-        float2 centeredUv = uv - float2(0.5, 0.5);
-        float curvature = GetLensCurvatureStrength();
-
-        if (curvature < 1e-5)
-        {
-            return float3(centeredUv, 0.0);
-        }
-
-        float lensRadius = 0.5 / curvature;
-        float lensRadiusSq = lensRadius * lensRadius;
-        float sag = lensRadius - sqrt(max(lensRadiusSq - dot(centeredUv, centeredUv), 1e-6));
-        return float3(centeredUv, sag);
-    }
-
-    float GetCurvedLensDistance(float2 uv, float2 center)
-    {
-        return length(GetCurvedLensPoint(uv) - GetCurvedLensPoint(center));
-    }
-
     float GetLensAlpha(float2 uv)
     {
         return step(0.5, 1.0 - distance(uv, float2(0.5, 0.5)));
@@ -160,19 +106,15 @@ Shader "FPS/ScopeDemo HLSL"
         clip(GetLensAlpha(uv) - 0.5);
     }
 
-    float2 GetBaseScopeUv(float3 viewDirTS)
+    float2 GetBaseScopeUv(float3 viewDirLS)
     {
-        return (viewDirTS.xy * float2(-1.0, -1.0)) + float2(0.5, 0.5);
+        return (viewDirLS.xy * float2(-1.0, -1.0)) + float2(0.5, 0.5);
     }
 
-    float2 GetDistortedScopeUv(float3 viewDirTS)
+    float2 GetDistortedScopeUv(float3 viewDirLS)
     {
-        float2 baseUv = GetBaseScopeUv(viewDirTS);
-
-        // Keep the distortion uniform here; the previous anisotropic variant
-        // regressed the reticle shape.
         float distortion = (_d * 10.0) + 1.0;
-        return baseUv + (-viewDirTS.xy * distortion);
+        return GetBaseScopeUv(viewDirLS) + (-viewDirLS.xy * distortion);
     }
 
     float2 ApplyShaderZoom(float2 uv)
@@ -199,71 +141,92 @@ Shader "FPS/ScopeDemo HLSL"
     #endif
     }
 
-    float2 GetReliefDistanceFactors(float axialDistance)
+    float3 GetConfiguredWorldAxis(float4 objectAxis, float3 fallbackAxis)
     {
-        float minDistance = min(_EyeReliefMinDistance, _EyeReliefMaxDistance);
-        float maxDistance = max(_EyeReliefMinDistance, _EyeReliefMaxDistance);
-        float distanceRange = max(maxDistance - minDistance, 1e-5);
-        float halfBand = max(distanceRange * 0.5, 1e-5);
-        float fadeDistance = min(max(_EyeReliefDistanceFade, 1e-5), halfBand);
-        float nearFade = smoothstep(minDistance, minDistance + fadeDistance, axialDistance);
-
-        // Shrink the exit pupil throughout the configured eye-relief range,
-        // instead of only inside the final fade band near max distance.
-        float farProgress = saturate((axialDistance - minDistance) / distanceRange);
-        float farApertureScale = sqrt(saturate(1.0 - (farProgress * farProgress)));
-
-        return float2(nearFade, farApertureScale);
-    }
-
-    float GetFovAdjustedAxialDistance(float axialDistance)
-    {
-        // Vertical FOV 90 has projection scale 1.0, so it preserves the authored distance.
-        float cameraFovScale = max(abs(glstate_matrix_projection._m11), 1e-5);
-        return max(axialDistance * cameraFovScale, 1e-5);
-    }
-
-    float2 GetEyeReliefDelta(float3 cameraToObjectTS, float axialDistance, float3 cameraForwardTS)
-    {
-        float forwardAxial = max(abs(cameraForwardTS.z), 1e-5);
-        float positionSensitivity = max(_EyeReliefPositionSensitivity, 0.0);
-        float2 translationDelta = (cameraToObjectTS.xy / axialDistance) * positionSensitivity;
-        float2 forwardDelta = cameraForwardTS.xy / forwardAxial;
-        return translationDelta + forwardDelta;
-    }
-
-    float2 GetEyeReliefCenter(float2 reliefDelta)
-    {
-        float offsetStrength = abs(_EyeReliefOffsetStrength) < 1e-5 ? 1.0 : _EyeReliefOffsetStrength;
-        return float2(0.5, 0.5) + (reliefDelta * offsetStrength);
-    }
-
-    float GetEyeReliefMask(float2 projectedUv, float3 cameraToObjectTS, float3 cameraForwardTS)
-    {
-        float strength = saturate(_EyeReliefStrength);
-        float axialDistance = GetFovAdjustedAxialDistance(abs(cameraToObjectTS.z));
-        float2 distanceFactors = GetReliefDistanceFactors(axialDistance);
-        float2 reliefDelta = GetEyeReliefDelta(cameraToObjectTS, axialDistance, cameraForwardTS);
-        float apertureRadius = _EyeReliefRadius * distanceFactors.y;
-        float apertureFade = min(max(_EyeReliefFadeDistance, 1e-5), max(apertureRadius, 1e-5));
-        float innerApertureRadius = max(apertureRadius - apertureFade, 0.0);
-        float2 reliefCenter = GetEyeReliefCenter(reliefDelta);
-        float apertureDistance = GetCurvedLensDistance(projectedUv, reliefCenter);
-        float apertureMask = 0.0;
-
-        if (apertureRadius > 1e-5)
+        float objectAxisLengthSq = dot(objectAxis.xyz, objectAxis.xyz);
+        if (objectAxisLengthSq > 1e-6)
         {
-            apertureMask = 1.0 - smoothstep(innerApertureRadius, apertureRadius, apertureDistance);
+            return NormalizeSafe(mul((float3x3) unity_ObjectToWorld, objectAxis.xyz));
         }
 
-        float reliefMask = apertureMask * distanceFactors.x;
-
-        return lerp(1.0, saturate(reliefMask), strength);
+        return NormalizeSafe(fallbackAxis);
     }
 
-    float2 GetCrosshairUv(float2 distortedUv, float3 cameraToObjectDirTS)
+    float3 ProjectAxisOnLensPlane(float3 axisWS, float3 lensForwardWS, float3 fallbackAxisWS)
     {
-        float2 scale = rcp(max(cameraToObjectDirTS.z * _CrosshairSize.xy, 1e-4));
+        float3 projectedAxis = axisWS - (lensForwardWS * dot(axisWS, lensForwardWS));
+        float projectedLengthSq = dot(projectedAxis, projectedAxis);
+
+        if (projectedLengthSq > 1e-6)
+        {
+            return projectedAxis * rsqrt(projectedLengthSq);
+        }
+
+        projectedAxis = fallbackAxisWS - (lensForwardWS * dot(fallbackAxisWS, lensForwardWS));
+        projectedLengthSq = dot(projectedAxis, projectedAxis);
+
+        if (projectedLengthSq > 1e-6)
+        {
+            return projectedAxis * rsqrt(projectedLengthSq);
+        }
+
+        return NormalizeSafe(cross(lensForwardWS, abs(lensForwardWS.y) < 0.999 ? float3(0.0, 1.0, 0.0) : float3(1.0, 0.0, 0.0)));
+    }
+
+    void GetLensBasis(
+        float3 fallbackRightWS,
+        float3 fallbackUpWS,
+        float3 surfaceNormalWS,
+        out float3 lensRightWS,
+        out float3 lensUpWS,
+        out float3 lensForwardWS
+    )
+    {
+        lensForwardWS = NormalizeSafe(-surfaceNormalWS);
+
+        float3 configuredRightWS = GetConfiguredWorldAxis(_EyeReliefLensRightOS, fallbackRightWS);
+        float3 configuredUpWS = GetConfiguredWorldAxis(_EyeReliefLensUpOS, fallbackUpWS);
+        lensRightWS = ProjectAxisOnLensPlane(configuredRightWS, lensForwardWS, fallbackRightWS);
+        lensUpWS = NormalizeSafe(cross(lensForwardWS, lensRightWS));
+
+        if (dot(lensUpWS, ProjectAxisOnLensPlane(configuredUpWS, lensForwardWS, fallbackUpWS)) < 0.0)
+        {
+            lensRightWS = -lensRightWS;
+            lensUpWS = -lensUpWS;
+        }
+    }
+
+    float3 GetLensSpaceVector(float3 vectorWS, float3 lensRightWS, float3 lensUpWS, float3 lensForwardWS)
+    {
+        return float3(
+            dot(vectorWS, lensRightWS),
+            dot(vectorWS, lensUpWS),
+            dot(vectorWS, lensForwardWS)
+        );
+    }
+
+    float GetEyeReliefMask(float2 projectedUv, float2 projectedPointMeters, float3 lensSpaceCamPos)
+    {
+        float ocularRadius = (_OcularDiameter * 0.001) * 0.5;
+        float exitPupilRadius = max(_ExitPupilDiameter * 0.001 * 0.5, 1e-5);
+
+        float2 uvCentered = projectedUv - float2(0.5, 0.5);
+        float uvDist = length(uvCentered);
+        float baseOcularMask = 1.0 - smoothstep(0.5 - _VignetteSoftness, 0.5, uvDist);
+
+        float axialDistance = max(abs(lensSpaceCamPos.z), 1e-4);
+        float2 exitPupilPoint = lensSpaceCamPos.xy + ((1.0 - (_EyeRelief / axialDistance)) * (projectedPointMeters - lensSpaceCamPos.xy));
+        float pupilDistance = length(exitPupilPoint);
+        float fadeMeters = max(_VignetteSoftness * max(ocularRadius, 1e-4), 1e-5);
+        float eyeBoxMask = 1.0 - smoothstep(exitPupilRadius, exitPupilRadius + fadeMeters, pupilDistance);
+
+        return baseOcularMask * eyeBoxMask;
+    }
+
+    float2 GetCrosshairUv(float2 distortedUv, float3 cameraToObjectDirLS)
+    {
+        float axial = max(abs(cameraToObjectDirLS.z), 1e-4);
+        float2 scale = rcp(max(axial * _CrosshairSize.xy, 1e-4));
         float2 offset = ((1.0 - scale) * 0.5) + _CrosshairOffset.xy;
         return (distortedUv * scale) + offset;
     }
@@ -295,28 +258,45 @@ Shader "FPS/ScopeDemo HLSL"
         float3 worldNormal = renormFactor * input.worldNormal;
         float3 worldTangent = renormFactor * input.worldTangent;
         float3 worldBitangent = renormFactor * bitangentWS;
-        float3x3 tangentToWorld = float3x3(worldTangent, worldBitangent, worldNormal);
+        float3 lensRightWS;
+        float3 lensUpWS;
+        float3 lensForwardWS;
+        GetLensBasis(worldTangent, worldBitangent, worldNormal, lensRightWS, lensUpWS, lensForwardWS);
 
         float3 viewDirWS = NormalizeSafe(_WorldSpaceCameraPos - input.worldPos);
-        float3 viewDirTS = TransformWorldToTangentExact(viewDirWS, tangentToWorld, true);
+        float3 viewDirLS = NormalizeSafe(GetLensSpaceVector(viewDirWS, lensRightWS, lensUpWS, lensForwardWS));
 
-        float2 distortedUv = GetDistortedScopeUv(viewDirTS);
+        float2 distortedUv = GetDistortedScopeUv(viewDirLS);
         float2 reticleMaskUv = GetReticleMaskUv(distortedUv);
         float2 pipUv = ApplyShaderZoom(distortedUv);
         float scopeFovMask = GetScopeFovMask(reticleMaskUv);
 
-        float3 objectOriginWS = mul(unity_ObjectToWorld, float4(0.0, 0.0, 0.0, 1.0)).xyz;
-        float3 cameraToObjectWS = _WorldSpaceCameraPos - objectOriginWS;
-        float3 cameraForwardWS = NormalizeSafe(float3(
-            unity_CameraToWorld._m02,
-            unity_CameraToWorld._m12,
-            unity_CameraToWorld._m22
-        ));
-        float3 cameraToObjectTS = TransformWorldToTangentDirExact(cameraToObjectWS, tangentToWorld, false);
-        float3 cameraForwardTS = TransformWorldToTangentDirExact(cameraForwardWS, tangentToWorld, true);
-        float3 cameraToObjectDirTS = TransformWorldToTangentDirExact(cameraToObjectWS, tangentToWorld, true);
-        float2 crosshairUv = GetCrosshairUv(distortedUv, cameraToObjectDirTS);
-        float eyeReliefMask = GetEyeReliefMask(reticleMaskUv, cameraToObjectTS, cameraForwardTS);
+        float2 projectedUvCentered = reticleMaskUv - float2(0.5, 0.5);
+        float ocularDiameterMeters = _OcularDiameter * 0.001;
+        float2 projectedPointMeters = projectedUvCentered * ocularDiameterMeters;
+        float3 lensOriginWS = mul(unity_ObjectToWorld, float4(0.0, 0.0, 0.0, 1.0)).xyz;
+        float3 cameraToLensWS = _WorldSpaceCameraPos - lensOriginWS;
+
+        float3 dPosDx = ddx(input.worldPos);
+        float3 dPosDy = ddy(input.worldPos);
+        float2 dUvDx = ddx(input.uv0);
+        float2 dUvDy = ddy(input.uv0);
+        float uvDet = (dUvDx.x * dUvDy.y) - (dUvDx.y * dUvDy.x);
+        float safeUvDet = abs(uvDet) > 1e-8 ? uvDet : (uvDet < 0.0 ? -1e-8 : 1e-8);
+        float3 worldPerUvX = ((dPosDx * dUvDy.y) - (dPosDy * dUvDx.y)) / safeUvDet;
+        float3 worldPerUvY = ((dPosDy * dUvDx.x) - (dPosDx * dUvDy.x)) / safeUvDet;
+        float2 physicalPerWorld = ocularDiameterMeters / max(float2(length(worldPerUvX), length(worldPerUvY)), 1e-5);
+        float axialPhysicalPerWorld = (physicalPerWorld.x + physicalPerWorld.y) * 0.5;
+
+        float3 lensSpaceCamPosWS = GetLensSpaceVector(cameraToLensWS, lensRightWS, lensUpWS, lensForwardWS);
+        float3 lensSpaceCamPos = float3(
+            lensSpaceCamPosWS.xy * physicalPerWorld,
+            lensSpaceCamPosWS.z * axialPhysicalPerWorld
+        );
+        float3 cameraToObjectDirLS = NormalizeSafe(lensSpaceCamPos);
+
+        float2 crosshairUv = GetCrosshairUv(distortedUv, cameraToObjectDirLS);
+        float eyeReliefMask = GetEyeReliefMask(reticleMaskUv, projectedPointMeters, lensSpaceCamPos);
 
         float4 pipSample = Texture2D_331d4af5170a491393c16295823bf2d6.Sample(
             sampler_Texture2D_331d4af5170a491393c16295823bf2d6,

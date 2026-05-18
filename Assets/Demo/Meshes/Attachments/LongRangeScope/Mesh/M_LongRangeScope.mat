@@ -108,6 +108,7 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
+    - _ChromaticAberration: 0.0175
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _CrosshairAlpha: 1
@@ -120,24 +121,36 @@ Material:
     - _DistortStrength: 15
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _ExitPupilDiameter: 4.2
+    - _EyeBoxForgiveness: 1.68
+    - _EyeRelief: 0.073
     - _EyeReliefDepthOffset: 0.016
     - _EyeReliefDistanceFade: 0.04
     - _EyeReliefEyeBoxFade: 0.1
     - _EyeReliefEyeBoxRadius: 0.102
-    - _EyeReliefFadeDistance: 0.181
-    - _EyeReliefMaxDistance: 0.5
+    - _EyeReliefFadeDistance: 0.168
+    - _EyeReliefMaxDistance: 0.2
     - _EyeReliefMinDistance: 0
-    - _EyeReliefOffsetStrength: 0
+    - _EyeReliefOffsetStrength: 2.94
     - _EyeReliefPositionSensitivity: 1
-    - _EyeReliefRadius: 0.344
+    - _EyeReliefRadius: 0.827
     - _EyeReliefStrength: 1
-    - _FOVFadeDistance: 0.0266
+    - _EyeReliefTolerance: 0.0198
+    - _FOVFadeDistance: 0
     - _FOV_Size: 1
+    - _GlassCurvature: 0.239
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Magnification: 4
     - _Metallic: 0
+    - _ObjectiveDiameter: 56
+    - _ObjectiveRadius: 0.489
     - _OcclusionStrength: 1
+    - _OcularBlur: 0.2
+    - _OcularDiameter: 46
+    - _OcularRadius: 0.4
+    - _OptimalEyeRelief: 0.856
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -149,11 +162,15 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _TubeDiameter: 32
+    - _TubeLength: 0.15
+    - _TubeShadowDepth: 0.242
     - _USESCOPEFOV: 1
     - _USE_TEXTURE_COLOR: 1
+    - _VignetteSoftness: 0.1
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _d: 0.1
+    - _d: 0.03
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
