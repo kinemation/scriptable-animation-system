@@ -123,7 +123,7 @@ Material:
     - _EnvironmentReflections: 1
     - _ExitPupilDiameter: 4.2
     - _EyeBoxForgiveness: 1.68
-    - _EyeRelief: 0.073
+    - _EyeRelief: 73
     - _EyeReliefDepthOffset: 0.016
     - _EyeReliefDistanceFade: 0.04
     - _EyeReliefEyeBoxFade: 0.1
@@ -135,16 +135,14 @@ Material:
     - _EyeReliefPositionSensitivity: 1
     - _EyeReliefRadius: 0.827
     - _EyeReliefStrength: 1
-    - _EyeReliefTolerance: 0.0198
+    - _EyeReliefTolerance: 19.8
     - _FOVFadeDistance: 0
     - _FOV_Size: 1
     - _GlassCurvature: 0.239
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Magnification: 4
     - _Metallic: 0
-    - _ObjectiveDiameter: 56
     - _ObjectiveRadius: 0.489
     - _OcclusionStrength: 1
     - _OcularBlur: 0.2
@@ -162,8 +160,6 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _TubeDiameter: 32
-    - _TubeLength: 0.15
     - _TubeShadowDepth: 0.242
     - _USESCOPEFOV: 1
     - _USE_TEXTURE_COLOR: 1
