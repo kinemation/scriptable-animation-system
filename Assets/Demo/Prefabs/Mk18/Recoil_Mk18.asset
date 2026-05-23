@@ -18,8 +18,8 @@ MonoBehaviour:
   kickback: {x: -0.012, y: -0.015}
   kickUp: {x: 0.003, y: 0.005}
   kickRight: {x: 0, y: 0}
-  aimRot: {x: 0.3, y: 0.1, z: 1}
-  aimLoc: {x: 0.1, y: 0.1, z: 1}
+  aimRot: {x: 0.3, y: 0.1, z: 0.5}
+  aimLoc: {x: 0.1, y: 0.1, z: 0.3}
   smoothRot: {x: 0, y: 9, z: 6}
   smoothLoc: {x: 1.1, y: 25, z: 55}
   extraRot: {x: 1.2, y: 3, z: 5}

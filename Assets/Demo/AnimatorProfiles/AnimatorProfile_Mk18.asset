@@ -594,13 +594,13 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   positionBlend:
-    x: 0.322
-    y: 0.317
-    z: 0.371
+    x: 0.025
+    y: 0.025
+    z: 0.08
   rotationBlend:
-    x: 0.1
-    y: 0.1
-    z: 0.1
+    x: 0.025
+    y: 0.033
+    z: 0.083
   aimingSpeed: 1.8
   aimPointEaseMode:
     easeFunc: 1
