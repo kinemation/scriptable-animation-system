@@ -1,4 +1,4 @@
-Shader "FPS/ScopeDemo HLSL"
+Shader "FPS/ScopeDemoHLSL_Base"
 {
     Properties
     {
@@ -15,8 +15,7 @@ Shader "FPS/ScopeDemo HLSL"
         _ReticleMaskDepth ("Reticle Mask Depth", Range(-1, 1)) = 0
         [Toggle(_USE_TEXTURE_COLOR)] _USE_TEXTURE_COLOR ("Use Texture Color", Float) = 1
         _d ("d", Range(0, 0.3)) = 0.1
-        _LensNormalOS ("Lens Normal OS", Vector) = (0, 0, 1, 0)
-        [Toggle] _UseLensMask ("UseLensMask", Float) = 1
+        _LensNormalOS ("Lens Normal Multiplier", Vector) = (1, -1, 1, 0)
 
         _OcularDiameter ("Ocular Diameter (mm)", Range(20, 60)) = 35
         _EyeRelief ("Eye Relief (mm)", Range(10, 200)) = 80
@@ -53,7 +52,6 @@ Shader "FPS/ScopeDemo HLSL"
         float _ReticleMaskDepth;
         float _d;
         float4 _LensNormalOS;
-        float _UseLensMask;
         float _OcularDiameter;
         float _EyeRelief;
         float _EyeReliefMinFadeDistance;
@@ -101,8 +99,7 @@ Shader "FPS/ScopeDemo HLSL"
 
     void ClipLens(float2 uv)
     {
-        float useLensMask = step(0.5, _UseLensMask);
-        clip(lerp(1.0, GetLensAlpha(uv) - 0.5, useLensMask));
+        clip(GetLensAlpha(uv) - 0.5);
     }
 
     float2 GetBaseScopeUv(float3 viewDirLS)
@@ -151,11 +148,6 @@ Shader "FPS/ScopeDemo HLSL"
         return NormalizeSafe(fallbackAxis);
     }
 
-    float3 GetObjectWorldAxis(float3 axisOS)
-    {
-        return NormalizeSafe(mul((float3x3) unity_ObjectToWorld, axisOS));
-    }
-
     float3 ProjectAxisOnLensPlane(float3 axisWS, float3 lensForwardWS, float3 fallbackAxisWS)
     {
         float3 projectedAxis = axisWS - (lensForwardWS * dot(axisWS, lensForwardWS));
@@ -177,16 +169,6 @@ Shader "FPS/ScopeDemo HLSL"
         return NormalizeSafe(cross(lensForwardWS, abs(lensForwardWS.y) < 0.999 ? float3(0.0, 1.0, 0.0) : float3(1.0, 0.0, 0.0)));
     }
 
-    float3 GetLensForward(float3 surfaceNormalWS)
-    {
-        if (dot(_LensNormalOS.xyz, _LensNormalOS.xyz) > 1e-6)
-        {
-            return NormalizeSafe(mul((float3x3) unity_ObjectToWorld, _LensNormalOS.xyz));
-        }
-
-        return NormalizeSafe(-surfaceNormalWS);
-    }
-
     void GetLensBasis(
         float3 fallbackRightWS,
         float3 fallbackUpWS,
@@ -196,36 +178,21 @@ Shader "FPS/ScopeDemo HLSL"
         out float3 lensForwardWS
     )
     {
-        lensForwardWS = GetLensForward(surfaceNormalWS);
+        float3 normalMultiplier = dot(_LensNormalOS.xyz, _LensNormalOS.xyz) > 1e-6 ? _LensNormalOS.xyz : float3(1.0, 1.0, 1.0);
+        float3 basisForwardWS = NormalizeSafe(-surfaceNormalWS * normalMultiplier);
 
         float3 configuredRightWS = GetConfiguredWorldAxis(_EyeReliefLensRightOS, fallbackRightWS);
         float3 configuredUpWS = GetConfiguredWorldAxis(_EyeReliefLensUpOS, fallbackUpWS);
-        lensRightWS = ProjectAxisOnLensPlane(configuredRightWS, lensForwardWS, fallbackRightWS);
-        lensUpWS = NormalizeSafe(cross(lensForwardWS, lensRightWS));
+        lensRightWS = ProjectAxisOnLensPlane(configuredRightWS, basisForwardWS, fallbackRightWS);
+        lensUpWS = NormalizeSafe(cross(basisForwardWS, lensRightWS));
 
-        if (dot(lensUpWS, ProjectAxisOnLensPlane(configuredUpWS, lensForwardWS, fallbackUpWS)) < 0.0)
+        if (dot(lensUpWS, ProjectAxisOnLensPlane(configuredUpWS, basisForwardWS, fallbackUpWS)) < 0.0)
         {
             lensRightWS = -lensRightWS;
             lensUpWS = -lensUpWS;
         }
-    }
 
-    float3 ProjectOnLensPlane(float3 surfacePosWS, float3 planeOriginWS, float3 planeNormalWS)
-    {
-        return surfacePosWS - (planeNormalWS * dot(surfacePosWS - planeOriginWS, planeNormalWS));
-    }
-
-    float3 ProjectViewRayOnLensPlane(float3 surfacePosWS, float3 planeOriginWS, float3 planeNormalWS)
-    {
-        float3 rayDirWS = NormalizeSafe(surfacePosWS - _WorldSpaceCameraPos);
-        float denom = dot(rayDirWS, planeNormalWS);
-        float safeDenom = abs(denom) > 1e-5 ? denom : (denom < 0.0 ? -1e-5 : 1e-5);
-        float planeT = dot(planeOriginWS - _WorldSpaceCameraPos, planeNormalWS) / safeDenom;
-        float3 rayPlanePosWS = _WorldSpaceCameraPos + (rayDirWS * planeT);
-        float3 normalPlanePosWS = ProjectOnLensPlane(surfacePosWS, planeOriginWS, planeNormalWS);
-        float validRayProjection = step(1e-5, abs(denom)) * step(0.0, planeT);
-
-        return lerp(normalPlanePosWS, rayPlanePosWS, validRayProjection);
+        lensForwardWS = basisForwardWS;
     }
 
     float3 GetLensSpaceVector(float3 vectorWS, float3 lensRightWS, float3 lensUpWS, float3 lensForwardWS)
@@ -258,6 +225,7 @@ Shader "FPS/ScopeDemo HLSL"
         float nearMask = smoothstep(nearVisibleDistance, targetEyeRelief, axialDistance);
         float farT = saturate((axialDistance - targetEyeRelief) / farFadeDistance);
 
+        // Trace the eye ray to the nominal exit-pupil plane. Distance changes the aperture size, not the brightness.
         float exitPupilPlaneT = saturate(1.0 - (targetEyeRelief / axialDistance));
         float2 exitPupilPoint = lensSpaceCamPos.xy + ((projectedPointMm - lensSpaceCamPos.xy) * exitPupilPlaneT);
         float pupilDistance = length(exitPupilPoint);
@@ -303,23 +271,13 @@ Shader "FPS/ScopeDemo HLSL"
         float3 worldNormal = renormFactor * input.worldNormal;
         float3 worldTangent = renormFactor * input.worldTangent;
         float3 worldBitangent = renormFactor * bitangentWS;
-        float3 fallbackRightWS = GetObjectWorldAxis(float3(1.0, 0.0, 0.0));
-        float3 fallbackUpWS = GetObjectWorldAxis(float3(0.0, 1.0, 0.0));
         float3 lensRightWS;
         float3 lensUpWS;
         float3 lensForwardWS;
-        GetLensBasis(fallbackRightWS, fallbackUpWS, worldNormal, lensRightWS, lensUpWS, lensForwardWS);
+        GetLensBasis(worldTangent, worldBitangent, worldNormal, lensRightWS, lensUpWS, lensForwardWS);
 
         float3 lensOriginWS = mul(unity_ObjectToWorld, float4(0.0, 0.0, 0.0, 1.0)).xyz;
-        float3 cameraToLensWS = _WorldSpaceCameraPos - lensOriginWS;
-        if (dot(cameraToLensWS, lensForwardWS) < 0.0)
-        {
-            lensForwardWS = -lensForwardWS;
-            lensRightWS = -lensRightWS;
-        }
-
-        float3 lensPlaneSamplePosWS = ProjectViewRayOnLensPlane(input.worldPos, lensOriginWS, lensForwardWS);
-        float3 viewDirWS = NormalizeSafe(_WorldSpaceCameraPos - lensPlaneSamplePosWS);
+        float3 viewDirWS = NormalizeSafe(_WorldSpaceCameraPos - input.worldPos);
         float3 viewDirLS = NormalizeSafe(GetLensSpaceVector(viewDirWS, lensRightWS, lensUpWS, lensForwardWS));
 
         float2 distortedUv = GetDistortedScopeUv(viewDirLS);
@@ -328,10 +286,10 @@ Shader "FPS/ScopeDemo HLSL"
         float scopeFovMask = GetScopeFovMask(reticleMaskUv);
 
         float ocularDiameterMm = _OcularDiameter;
+        float3 cameraToLensWS = _WorldSpaceCameraPos - lensOriginWS;
 
-        float3 lensScalePosWS = ProjectOnLensPlane(input.worldPos, lensOriginWS, lensForwardWS);
-        float3 dPosDx = ddx(lensScalePosWS);
-        float3 dPosDy = ddy(lensScalePosWS);
+        float3 dPosDx = ddx(input.worldPos);
+        float3 dPosDy = ddy(input.worldPos);
         float2 dUvDx = ddx(input.uv0);
         float2 dUvDy = ddy(input.uv0);
         float uvDet = (dUvDx.x * dUvDy.y) - (dUvDx.y * dUvDy.x);

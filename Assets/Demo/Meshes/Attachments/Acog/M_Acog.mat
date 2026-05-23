@@ -161,7 +161,7 @@ Material:
     - _Surface: 0
     - _USESCOPEFOV: 1
     - _USE_TEXTURE_COLOR: 0
-    - _UseLensMask: 0
+    - _UseLensMask: 1
     - _UseLensProjectionMask: 0
     - _UseLensRendering: 1
     - _VignetteSoftness: 0.1
@@ -177,7 +177,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EyeReliefLensRightOS: {r: 0, g: 0, b: 0, a: 0}
     - _EyeReliefLensUpOS: {r: 0, g: 0, b: 0, a: 0}
-    - _LensNormalOS: {r: -1, g: -1, b: -1, a: 0}
+    - _LensNormalOS: {r: 1, g: 0, b: 0, a: 0}
     - _ManualLensNormalOS: {r: 1, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
