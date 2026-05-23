@@ -24,9 +24,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 4d001f66091d1e64fbb3282f8459942b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _USESCOPEFOV
-  - _USE_TEXTURE_COLOR
+  m_ValidKeywords: []
   m_InvalidKeywords:
   - _USELENSMASK_ON
   - _USE_PLANAR_UV
@@ -41,7 +39,7 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_331d4af5170a491393c16295823bf2d6:
+    - _RenderTexture:
         m_Texture: {fileID: 8600000, guid: 66154ddb753fde4489b3df5908635048, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -53,7 +51,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Crosshair:
+    - _Reticle:
         m_Texture: {fileID: 2800000, guid: d941868904cde154784c11fad493ee17, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -113,8 +111,8 @@ Material:
     - _ChromaticAberration: 0.0175
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _CrosshairAlpha: 1
-    - _CrosshairEmission: 5
+    - _ReticleAlpha: 1
+    - _ReticleEmission: 5
     - _Cull: 2
     - _Curvature: 0
     - _Cutoff: 0.5
@@ -140,8 +138,6 @@ Material:
     - _EyeReliefRadius: 0.827
     - _EyeReliefStrength: 1
     - _EyeReliefTolerance: 15
-    - _FOVFadeDistance: 0
-    - _FOV_Size: 1
     - _GlassCurvature: 0.239
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -158,28 +154,26 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ReticleMaskDepth: 0
-    - _ShaderZoom: 1
+    - _Magnification: 1
+    - _UseReticleZoom: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
     - _TubeShadowDepth: 0.242
-    - _USESCOPEFOV: 1
-    - _USE_TEXTURE_COLOR: 1
     - _UseLensMask: 1
     - _UsePlanarUV: 1
     - _VignetteSoftness: 0.083
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _d: 0
+    - _Distortion: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _CrosshairColor: {r: 0, g: 0, b: 0, a: 1}
-    - _CrosshairOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _CrosshairSize: {r: 1.1, g: 1.1, b: 0, a: 0}
+    - _ReticleColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ReticleOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ReticleSize: {r: 1.1, g: 1.1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EyeReliefLensForwardOS: {r: 0, g: -1, b: 0, a: 0}
     - _EyeReliefLensForwardWS: {r: 0, g: -1, b: 0, a: 0}

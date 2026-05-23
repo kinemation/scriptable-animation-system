@@ -2,19 +2,15 @@ Shader "FPS/ScopeDemo HLSL"
 {
     Properties
     {
-        [NoScaleOffset] Texture2D_331d4af5170a491393c16295823bf2d6 ("PIPInput", 2D) = "white" {}
-        [NoScaleOffset] _Crosshair ("Crosshair", 2D) = "white" {}
-        _CrosshairColor ("CrosshairColor", Color) = (0, 0.4528302, 0.05357282, 1)
-        _CrosshairSize ("CrosshairSize", Vector) = (25, 25, 0, 0)
-        _CrosshairOffset ("CrosshairOffset", Vector) = (0.5, 0.5, 0, 0)
-        _CrosshairEmission ("CrosshairEmission", Float) = 10
-        _ShaderZoom ("ShaderZoom", Range(1, 10)) = 1
-        [Toggle(_USESCOPEFOV)] _USESCOPEFOV ("UseScopeFOV", Float) = 1
-        _FOV_Size ("FOV Size", Range(0, 1)) = 0.75
-        _FOVFadeDistance ("FOVFadeDistance", Range(0, 0.05)) = 0.01
-        _ReticleMaskDepth ("Reticle Mask Depth", Range(-1, 1)) = 0
-        [Toggle(_USE_TEXTURE_COLOR)] _USE_TEXTURE_COLOR ("Use Texture Color", Float) = 1
-        _d ("d", Range(0, 0.3)) = 0.1
+        [NoScaleOffset] _RenderTexture ("RenderTexture", 2D) = "white" {}
+        [NoScaleOffset] _Reticle ("Reticle", 2D) = "white" {}
+        _ReticleColor ("ReticleColor", Color) = (0, 0.4528302, 0.05357282, 1)
+        _ReticleSize ("ReticleSize", Vector) = (25, 25, 0, 0)
+        _ReticleOffset ("ReticleOffset", Vector) = (0.5, 0.5, 0, 0)
+        _ReticleEmission ("ReticleEmission", Float) = 10
+        [Min(1)] _Magnification ("Magnification", Float) = 1
+        [Toggle] _UseReticleZoom ("UseReticleZoom", Float) = 0
+        _Distortion ("Distortion", Range(0, 0.3)) = 0.1
         _LensNormalOS ("Lens Normal OS", Vector) = (0, 0, 1, 0)
         [Toggle] _UseLensMask ("UseLensMask", Float) = 1
 
@@ -30,28 +26,21 @@ Shader "FPS/ScopeDemo HLSL"
 
     HLSLINCLUDE
     #pragma target 3.0
-    #pragma shader_feature_local_fragment _USESCOPEFOV
-    #pragma shader_feature_local_fragment _USE_TEXTURE_COLOR
+    Texture2D _RenderTexture;
+    SamplerState sampler_RenderTexture;
 
-    static const float SCOPE_PI = 3.14159265359;
-
-    Texture2D Texture2D_331d4af5170a491393c16295823bf2d6;
-    SamplerState sampler_Texture2D_331d4af5170a491393c16295823bf2d6;
-
-    Texture2D _Crosshair;
-    SamplerState sampler_Crosshair;
+    Texture2D _Reticle;
+    SamplerState sampler_Reticle;
 
     cbuffer UnityPerMaterial
     {
-        float4 _CrosshairColor;
-        float4 _CrosshairSize;
-        float4 _CrosshairOffset;
-        float _CrosshairEmission;
-        float _ShaderZoom;
-        float _FOV_Size;
-        float _FOVFadeDistance;
-        float _ReticleMaskDepth;
-        float _d;
+        float4 _ReticleColor;
+        float4 _ReticleSize;
+        float4 _ReticleOffset;
+        float _ReticleEmission;
+        float _Magnification;
+        float _UseReticleZoom;
+        float _Distortion;
         float4 _LensNormalOS;
         float _UseLensMask;
         float _OcularDiameter;
@@ -112,32 +101,14 @@ Shader "FPS/ScopeDemo HLSL"
 
     float2 GetDistortedScopeUv(float3 viewDirLS)
     {
-        float distortion = (_d * 10.0) + 1.0;
+        float distortion = (_Distortion * 10.0) + 1.0;
         return GetBaseScopeUv(viewDirLS) + (-viewDirLS.xy * distortion);
     }
 
-    float2 ApplyShaderZoom(float2 uv)
+    float2 ApplyMagnification(float2 uv)
     {
-        float inverseZoom = rcp(max(_ShaderZoom, 1e-4));
-        return (uv * inverseZoom) + ((1.0 - inverseZoom) * 0.5);
-    }
-
-    float2 GetReticleMaskUv(float2 distortedUv)
-    {
-        float depthScale = max(1.0 + _ReticleMaskDepth, 1e-4);
-        return ((distortedUv - float2(0.5, 0.5)) * depthScale) + float2(0.5, 0.5);
-    }
-
-    float GetScopeFovMask(float2 reticleMaskUv)
-    {
-    #if defined(_USESCOPEFOV)
-        float objectiveDistance = distance(reticleMaskUv, float2(0.5, 0.5)) * 2.0;
-        float fadeDistance = max(_FOVFadeDistance, 1e-5);
-        float fade = saturate(saturate(_FOVFadeDistance - (objectiveDistance - _FOV_Size)) / fadeDistance);
-        return 0.5 - (0.5 * cos(fade * SCOPE_PI));
-    #else
-        return 1.0;
-    #endif
+        float inverseMagnification = rcp(max(_Magnification, 1.0));
+        return (uv * inverseMagnification) + ((1.0 - inverseMagnification) * 0.5);
     }
 
     float3 GetConfiguredWorldAxis(float4 objectAxis, float3 fallbackAxis)
@@ -268,11 +239,12 @@ Shader "FPS/ScopeDemo HLSL"
         return baseOcularMask * nearMask * eyeBoxMask;
     }
 
-    float2 GetCrosshairUv(float2 distortedUv, float3 cameraToObjectDirLS)
+    float2 GetReticleUv(float2 distortedUv, float3 cameraToObjectDirLS)
     {
         float axial = max(abs(cameraToObjectDirLS.z), 1e-4);
-        float2 scale = rcp(max(axial * _CrosshairSize.xy, 1e-4));
-        float2 offset = ((1.0 - scale) * 0.5) + _CrosshairOffset.xy;
+        float reticleZoom = lerp(1.0, max(_Magnification, 1.0), step(0.5, _UseReticleZoom));
+        float2 scale = rcp(max(axial * _ReticleSize.xy * reticleZoom, 1e-4));
+        float2 offset = ((1.0 - scale) * 0.5) + _ReticleOffset.xy;
         return (distortedUv * scale) + offset;
     }
 
@@ -323,9 +295,7 @@ Shader "FPS/ScopeDemo HLSL"
         float3 viewDirLS = NormalizeSafe(GetLensSpaceVector(viewDirWS, lensRightWS, lensUpWS, lensForwardWS));
 
         float2 distortedUv = GetDistortedScopeUv(viewDirLS);
-        float2 reticleMaskUv = GetReticleMaskUv(distortedUv);
-        float2 pipUv = ApplyShaderZoom(distortedUv);
-        float scopeFovMask = GetScopeFovMask(reticleMaskUv);
+        float2 renderTextureUv = ApplyMagnification(distortedUv);
 
         float ocularDiameterMm = _OcularDiameter;
 
@@ -348,24 +318,19 @@ Shader "FPS/ScopeDemo HLSL"
         );
         float3 cameraToObjectDirLS = NormalizeSafe(lensSpaceCamPos);
 
-        float2 crosshairUv = GetCrosshairUv(distortedUv, cameraToObjectDirLS);
-        float eyeReliefMask = GetEyeReliefMask(reticleMaskUv, lensSpaceCamPos);
+        float2 reticleUv = GetReticleUv(distortedUv, cameraToObjectDirLS);
+        float eyeReliefMask = GetEyeReliefMask(distortedUv, lensSpaceCamPos);
 
-        float4 pipSample = Texture2D_331d4af5170a491393c16295823bf2d6.Sample(
-            sampler_Texture2D_331d4af5170a491393c16295823bf2d6,
-            pipUv
+        float4 renderTextureSample = _RenderTexture.Sample(
+            sampler_RenderTexture,
+            renderTextureUv
         );
-        float4 crosshairSample = _Crosshair.Sample(sampler_Crosshair, crosshairUv);
+        float4 reticleSample = _Reticle.Sample(sampler_Reticle, reticleUv);
 
-        float4 crosshairColor;
-    #if defined(_USE_TEXTURE_COLOR)
-        crosshairColor = crosshairSample * _CrosshairColor;
-    #else
-        crosshairColor = crosshairSample.a * _CrosshairColor;
-    #endif
+        float4 reticleColor = reticleSample * _ReticleColor;
 
-        float4 baseColor = lerp(pipSample * scopeFovMask, crosshairColor, crosshairSample.a);
-        float4 emissionColor = lerp(pipSample * scopeFovMask, crosshairColor * _CrosshairEmission, crosshairSample.a);
+        float4 baseColor = lerp(renderTextureSample, reticleColor, reticleSample.a);
+        float4 emissionColor = lerp(renderTextureSample, reticleColor * _ReticleEmission, reticleSample.a);
         float3 finalColor = max(baseColor.rgb, emissionColor.rgb) * eyeReliefMask;
 
         return float4(finalColor, 1.0);
