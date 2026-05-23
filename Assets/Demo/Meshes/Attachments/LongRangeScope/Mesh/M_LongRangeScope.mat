@@ -29,6 +29,7 @@ Material:
   - _USE_TEXTURE_COLOR
   m_InvalidKeywords:
   - _USELENSMASK_ON
+  - _USE_PLANAR_UV
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -153,6 +154,7 @@ Material:
     - _OcularRadius: 0.4
     - _OptimalEyeRelief: 0.856
     - _Parallax: 0.005
+    - _PlanarUVScale: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -167,6 +169,7 @@ Material:
     - _USESCOPEFOV: 1
     - _USE_TEXTURE_COLOR: 1
     - _UseLensMask: 1
+    - _UsePlanarUV: 1
     - _VignetteSoftness: 0.083
     - _WorkflowMode: 1
     - _ZWrite: 1
@@ -180,7 +183,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EyeReliefLensForwardOS: {r: 0, g: -1, b: 0, a: 0}
     - _EyeReliefLensForwardWS: {r: 0, g: -1, b: 0, a: 0}
-    - _EyeReliefLensRightOS: {r: -1, g: 0, b: 0, a: 0}
+    - _EyeReliefLensRightOS: {r: 1, g: 0, b: 0, a: 0}
     - _EyeReliefLensRightWS: {r: -1, g: 0, b: 0, a: 0}
     - _EyeReliefLensUpOS: {r: 0, g: 0, b: 1, a: 0}
     - _EyeReliefLensUpWS: {r: 0, g: 0, b: -1, a: 0}
